@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Globo : MonoBehaviour
 {
-    private float m_Speed = 2;
+
+    private float m_Speed = 3;
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -19,22 +19,30 @@ public class Globo : MonoBehaviour
 
         if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
         {
-            Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            RaycastHit raycastHit;
-            if (Physics.Raycast(raycast, out raycastHit))
+            Ray l_Ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            RaycastHit l_Hit;
+            if (Physics.Raycast(l_Ray, out l_Hit))
             {
-                //Debug.Log("Something Hit");
-                //if (raycastHit.collider.name == "Globo")
-                //{
-                //    Debug.Log("Soccer Ball clicked");
-                //}
-
-                //OR with Tag
-
-                if (raycastHit.collider.CompareTag("Globo"))
+                if (l_Hit.collider.tag == "Globo")
                 {
-                    Debug.Log("Globo clicked");
-                    Destroy(gameObject);
+                    Debug.Log("TAPPED");
+                    Destroy(l_Hit.collider.gameObject);
+                }
+            }
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            Ray l_Ray;
+            RaycastHit l_Hit;
+            l_Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(l_Ray, out l_Hit))
+            {
+                if(l_Hit.collider.tag == "Globo")
+                {
+                    Debug.Log("PUM");
+                    Destroy(l_Hit.collider.gameObject);
                 }
             }
         }
@@ -43,6 +51,8 @@ public class Globo : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "DestroyGlobo")
+        {
             Destroy(gameObject);
+        }
     }
 }
