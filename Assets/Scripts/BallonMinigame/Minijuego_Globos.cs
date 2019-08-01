@@ -9,10 +9,10 @@ public class Minijuego_Globos : MonoBehaviour
     private GameObject m_Destroy;
 
     public GameObject m_Globo;
+    public GameObject m_EndGame;
 
     private float m_TimePassed;
     private float m_TimeToSpawn;
-    private Transform m_WhereToSpawn;
 
     // Start is called before the first frame update
     void Start()
@@ -33,11 +33,17 @@ public class Minijuego_Globos : MonoBehaviour
 
             if (m_TimeToSpawn > 1)
             {
-                Instantiate(m_Globo, m_Spawn.transform.position + new Vector3(Random.Range(-7, 7), Random.Range(-1, 1), 0), Quaternion.identity);
+                Instantiate(m_Globo, m_Spawn.transform.position + new Vector3(Random.Range(-7, 7), Random.Range(-0.5f, 0.5f), 0), Quaternion.identity);
                 m_TimeToSpawn = 0;
             }
             else
                 m_TimeToSpawn += Time.deltaTime;
+        }
+        else 
+        {
+            Debug.Log("End Minigame");
+            m_EndGame.SetActive(true);
+            //endgame
         }
     }
 }
