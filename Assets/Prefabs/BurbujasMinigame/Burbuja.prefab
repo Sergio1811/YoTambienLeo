@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3259998002599857967}
   - component: {fileID: 4160795761624023499}
   - component: {fileID: 703719247554736397}
+  - component: {fileID: -332018517234373787}
   m_Layer: 0
   m_Name: Burbuja
   m_TagString: Burbuja
@@ -92,5 +93,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f21c70f2652af24db36b8062361a953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 2
-  m_GrowSpeed: 0.3
+--- !u!58 &-332018517234373787
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6504409644341717892}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.85499996
