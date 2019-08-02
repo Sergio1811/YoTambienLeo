@@ -8,6 +8,10 @@ TagManager:
   - DestroyGlobo
   - Globo
   - DontClick
+  - Borde
+  - Burbuja
+  - DestroyBurbuja
+  - SpawnBurbuja
   layers:
   - Default
   - TransparentFX

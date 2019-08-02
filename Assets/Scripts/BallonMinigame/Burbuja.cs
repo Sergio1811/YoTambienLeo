@@ -2,20 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Globo : MonoBehaviour
+public class Burbuja : MonoBehaviour
 {
 
-    private float m_Speed = 1.5f;
+    private float m_Speed = 2;
+    private float m_GrowSpeed = 0.3f;
 
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += Vector3.up * Time.deltaTime * m_Speed;
+
+        transform.position += new Vector3(-0.2f,1,0) * Time.deltaTime * m_Speed;
+
+
+        if(transform.localScale.magnitude < Vector3.one.magnitude + Random.Range(-2,2))
+        transform.localScale += Vector3.one * Time.deltaTime * m_GrowSpeed;
 
         if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
         {
@@ -23,7 +30,7 @@ public class Globo : MonoBehaviour
             RaycastHit l_Hit;
             if (Physics.Raycast(l_Ray, out l_Hit))
             {
-                if (l_Hit.collider.tag == "Globo")
+                if (l_Hit.collider.tag == "Burbuja")
                 {
                     Debug.Log("TAPPED");
                     Destroy(l_Hit.collider.gameObject);
@@ -39,7 +46,7 @@ public class Globo : MonoBehaviour
 
             if (Physics.Raycast(l_Ray, out l_Hit))
             {
-                if(l_Hit.collider.tag == "Globo")
+                if (l_Hit.collider.tag == "Burbuja")
                 {
                     Debug.Log("PUM");
                     Destroy(l_Hit.collider.gameObject);
@@ -48,11 +55,12 @@ public class Globo : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.tag == "DestroyGlobo")
+        if(collision.tag == "DestroyBurbuja")
         {
             Destroy(gameObject);
         }
     }
 }
+
