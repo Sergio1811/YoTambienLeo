@@ -33,29 +33,4 @@ public class InstantiateTrial : MonoBehaviour
 
     }
 
-    /* if (((Input.touchCount > 0 /*&& Input.GetTouch(0).phase == TouchPhase.Moved) || Input.GetMouseButton(0)) && m_CurrentTrial == null)
-        {
-            print("Eentro");
-            Ray l_Ray;
-            RaycastHit l_Hit; 
-            l_Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(l_Ray, out l_Hit))
-            {
-                print("coll");
-                m_CurrentTrial = Instantiate(m_SwipeTrial, l_Hit.point, Quaternion.identity);
-            }
-            Touch l_Touch = Input.GetTouch(0);
-    Vector2 touchPos = Camera.main.ScreenToWorldPoint(l_Touch.position);
-
-            if(l_Touch.phase == TouchPhase.Began)
-                m_CurrentTrial = Instantiate(m_SwipeTrial, touchPos, Quaternion.identity);
-
-}
-
-        else if (m_CurrentTrial != null)
-        {
-           Destroy(m_CurrentTrial.GetComponent<SwipeTrial>());
-m_CurrentTrial = null;
-        }*/
 }

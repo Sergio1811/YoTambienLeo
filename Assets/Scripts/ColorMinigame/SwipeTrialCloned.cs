@@ -9,7 +9,7 @@ public class SwipeTrialCloned : MonoBehaviour
     private void Start()
     {
         m_Trail = GetComponent<TrailRenderer>();
-        ChangeMaterial();
+    
     }
 
     void Update()
@@ -29,8 +29,4 @@ public class SwipeTrialCloned : MonoBehaviour
         }
     }
 
-    void ChangeMaterial()
-    {
-        m_Trail.material = GameManager.Instance.m_CurrentMaterial;
-    }
 }

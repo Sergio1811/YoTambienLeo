@@ -5,7 +5,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
-    public Material m_CurrentMaterial;
+
+    public int PreparadosIndex;
+    public int ListosIndex;
+    public int YaIndex;
+    public int GusanosIndex;
+    public int BurbujasIndex;
+    public int ColorIndex;
 
     void Awake()
     {
