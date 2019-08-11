@@ -390,7 +390,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1464121589}
+      - m_Target: {fileID: 0}
         m_MethodName: ChangeColorGreen
         m_Mode: 1
         m_Arguments:
@@ -651,7 +651,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61991734efef6d145895b739e5527c69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CurrentMaterial: {fileID: 2100000, guid: d20a3ef38a4c5224791a7738d27672bb, type: 2}
+  Idioma: "Espa\xF1ol"
+  TipoLetra: {fileID: 0}
+  Mayus: 1
+  Ayuda: 1
+  Dumi: 1
+  Articulo: 0
+  Repeticiones: 2
+  Packs: 0
+  PreparadosIndex: 0
+  ListosIndex: 0
+  YaIndex: 0
+  GusanosIndex: 0
+  BurbujasIndex: 0
+  ColorIndex: 0
+  InicioIndex: 0
+  m_BlackColor: {r: 0, g: 0, b: 0, a: 0}
+  m_PurpleColor: {r: 0, g: 0, b: 0, a: 0}
+  m_GrisColor: {r: 0, g: 0, b: 0, a: 0}
+  m_WhiteColor: {r: 0, g: 0, b: 0, a: 0}
+  ActiveButton: {fileID: 0}
+  DesactivateButton: {fileID: 0}
+  WordDifficulty: 
+  Word: 
 --- !u!4 &1192533121
 Transform:
   m_ObjectHideFlags: 0
@@ -747,7 +769,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1464121589}
+      - m_Target: {fileID: 0}
         m_MethodName: ChangeColorRed
         m_Mode: 1
         m_Arguments:
@@ -806,7 +828,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1464121590}
-  - component: {fileID: 1464121589}
   - component: {fileID: 1464121591}
   m_Layer: 0
   m_Name: ScriptHolder
@@ -815,22 +836,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1464121589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1464121588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7d597eaf2f4b634992b56d521f1f4ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RedColor: {fileID: 2100000, guid: d20a3ef38a4c5224791a7738d27672bb, type: 2}
-  m_BlueColor: {fileID: 2100000, guid: c74ba1825e54d714181255c9633a8b91, type: 2}
-  m_GreenColor: {fileID: 2100000, guid: 6f0aee3d4d191004ca83a1291e6a67dc, type: 2}
-  m_YellowColor: {fileID: 2100000, guid: 604aa39397635d54eb5451884f5ef794, type: 2}
 --- !u!4 &1464121590
 Transform:
   m_ObjectHideFlags: 0
@@ -955,7 +960,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1464121589}
+      - m_Target: {fileID: 0}
         m_MethodName: ChangeColorYellow
         m_Mode: 1
         m_Arguments:
@@ -1086,7 +1091,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1464121589}
+      - m_Target: {fileID: 0}
         m_MethodName: ChangeColorBlue
         m_Mode: 1
         m_Arguments:
