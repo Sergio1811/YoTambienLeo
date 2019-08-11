@@ -18,7 +18,7 @@ public class MicroHoldButton : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        print("FIN");
+        print("END_RECORDING");
         Microphone.End("");
 
         AudioClip recordingNew = AudioClip.Create(recording.name, (int)((Time.time - startRecordingTime) * recording.frequency), recording.channels, recording.frequency, false);
@@ -33,7 +33,7 @@ public class MicroHoldButton : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        print("ENTRO");
+        print("START_RECORDING");
         int minFreq;
         int maxFreq;
         int freq = 44100;

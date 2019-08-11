@@ -8,10 +8,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MenuPrincipal.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Minijuego_Burbujas.unity
     guid: e058be4d659e29f46b67a39926946291
   - enabled: 0
     path: Assets/Scenes/Minijuego_Colores.unity
     guid: 9e10136e44d156e468e54c9b175a8359
+  - enabled: 1
+    path: Assets/Scenes/Permisos_Camera.unity
+    guid: 5aebb4b6c7c9b7d499ea8f2c5e48ca53
+  - enabled: 0
+    path: Assets/Scenes/Permisos_Microfono.unity
+    guid: fae29134acbdd3a42bd7226e50bcc5e1
   m_configObjects: {}
