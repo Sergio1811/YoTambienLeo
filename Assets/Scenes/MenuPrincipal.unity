@@ -15770,7 +15770,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1586881058
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17695,6 +17695,9 @@ MonoBehaviour:
   BurbujasIndex: 0
   ColorIndex: 0
   InicioIndex: 0
+  ParejasIndex: 0
+  PuzzleIndex: 0
+  BitIndex: 1
   m_BlackColor: {r: 0, g: 0, b: 0, a: 1}
   m_PurpleColor: {r: 0.5686275, g: 0.1137255, b: 0.57254905, a: 1}
   m_GrisColor: {r: 0.854902, g: 0.854902, b: 0.854902, a: 1}
@@ -19756,7 +19759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1929230396
 RectTransform:
   m_ObjectHideFlags: 0

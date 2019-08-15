@@ -18,57 +18,74 @@ public class SceneManagement : MonoBehaviour
     public GameObject[] AllCanvas;
 
     public void InicioScene()
-     {
+    {
         SceneManager.LoadScene(GameManager.Instance.InicioIndex);
-     }
-     public void PreparadosScene()
-     {
+    }
+    public void PreparadosScene()
+    {
         SceneManager.LoadScene(GameManager.Instance.PreparadosIndex);
-     }
-     public void ListosScene()
-     {
+    }
+    public void ListosScene()
+    {
         SceneManager.LoadScene(GameManager.Instance.ListosIndex);
-     }
-     public void YaScene()
-     {
+    }
+    public void YaScene()
+    {
         SceneManager.LoadScene(GameManager.Instance.YaIndex);
-     }
-     public void ConfScene()
-     {
+    }
+    public void ConfScene()
+    {
         DisableAllCanvas();
         ConfCanvas.SetActive(true);
-     }
-     public void ConfiguarcionScene()
-     {
+    }
+    public void ConfiguarcionScene()
+    {
         DisableAllCanvas();
         ConfiguracionPestaña.SetActive(true);
-     }
-     public void MainMenuScene()
-     {
+    }
+    public void MainMenuScene()
+    {
         DisableAllCanvas();
         ConfCanvas.SetActive(true);
-     }
-     public void AddWordScene()
-     {
+    }
+    public void AddWordScene()
+    {
         DisableAllCanvas();
         ConfCanvas.SetActive(true);
-     }
-     public void MinijuegoGusanosScene()
-     {
+    }
+    public void MinijuegoGusanosScene()
+    {
         SceneManager.LoadScene(GameManager.Instance.GusanosIndex);
-     }
-     public void MinijuegoBurbujasScene()
-     {
+    }
+    public void MinijuegoBurbujasScene()
+    {
         SceneManager.LoadScene(GameManager.Instance.BurbujasIndex);
-     }
-     public void MinijuegoColorScene()
-     {
+    }
+    public void MinijuegoColorScene()
+    {
         SceneManager.LoadScene(GameManager.Instance.ColorIndex);
-     }
-     public void WebButton()
-     {
+    }
+
+    public void LoadParejas()
+    {
+        SceneManager.LoadScene(GameManager.Instance.ParejasIndex);
+    }
+
+    public void LoadPuzzle()
+    {
+        SceneManager.LoadScene(GameManager.Instance.PuzzleIndex);
+    }
+
+    public void LoadBit()
+    {
+        SceneManager.LoadScene(GameManager.Instance.BitIndex);
+    }
+
+    public void WebButton()
+    {
         Application.OpenURL("www.yotambienleo.com/recomendaciones");
-     }
+    }
+
     public void Quit()
     {
         Application.Quit();

@@ -13,6 +13,7 @@ TagManager:
   - DestroyBurbuja
   - SpawnBurbuja
   - Path
+  - Bit
   layers:
   - Default
   - TransparentFX

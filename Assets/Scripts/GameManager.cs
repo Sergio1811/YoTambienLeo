@@ -7,31 +7,25 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
 
     #region Configuracion
+    [HideInInspector]
     public string Idioma = "Español";
+    [HideInInspector]
     public Font TipoLetra;
-    public bool Mayus = true;
-    public bool Ayuda = true;
-    public bool Dumi = true;
-    public bool Articulo = false;
-    public int Repeticiones = 2;
-    public int Packs = 0;
+    [HideInInspector]
+    public bool Mayus = true, Ayuda = true, Dumi = true, Articulo = false;
+    [HideInInspector]
+    public int Repeticiones =3, Packs = 0;
     #endregion
 
     #region ScenesIndex
-    public int PreparadosIndex;
-    public int ListosIndex;
-    public int YaIndex;
-    public int GusanosIndex;
-    public int BurbujasIndex;
-    public int ColorIndex;
-    public int InicioIndex;
-    #endregion
+    [HideInInspector]
+    public int PreparadosIndex, ListosIndex, YaIndex, GusanosIndex, BurbujasIndex, ColorIndex;
+    [HideInInspector]
+    public int InicioIndex = 0, ParejasIndex, PuzzleIndex, BitIndex =1;
+    #endregion  
 
     #region ButtonUI
-    public Color m_BlackColor;
-    public Color m_PurpleColor;
-    public Color m_GrisColor;
-    public Color m_WhiteColor;
+    public Color m_BlackColor, m_PurpleColor, m_GrisColor, m_WhiteColor;
 
     public Sprite ActiveButton;
     public Sprite DesactivateButton;
