@@ -14,6 +14,7 @@ TagManager:
   - SpawnBurbuja
   - Path
   - Bit
+  - GameManagerPuzzle
   layers:
   - Default
   - TransparentFX

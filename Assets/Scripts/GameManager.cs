@@ -67,4 +67,12 @@ public class GameManager : MonoBehaviour
         Word = input.text;
     }
 
+    public bool InputRecieved()
+    {
+        if (Input.GetMouseButton(0) || (Input.touchCount>0 && Input.GetTouch(0).phase == TouchPhase.Began))
+            return true;
+
+        return false;
+    }
+
 }
