@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Data;
+using System.IO;
+using Mono.Data.Sqlite;
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
@@ -21,7 +25,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public int PreparadosIndex, ListosIndex, YaIndex, GusanosIndex, BurbujasIndex, ColorIndex;
     [HideInInspector]
-    public int InicioIndex = 0, ParejasIndex, PuzzleIndex, BitIndex =1;
+    public int InicioIndex = 0, ParejasIndex = 2, PuzzleIndex = 3, BitIndex =1;
     #endregion  
 
     #region ButtonUI
