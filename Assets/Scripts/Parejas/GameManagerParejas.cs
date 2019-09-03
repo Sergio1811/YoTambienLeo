@@ -103,7 +103,7 @@ public class GameManagerParejas : MonoBehaviour
                         int m_RandomPair = Random.Range(0, m_Pairs.Count);
                         GameObject m_NewPair = Instantiate(m_Pairs[m_RandomPair], m_Canvas.transform);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = m_NewPosition;
-
+                    
                         m_SecondPair.Add(m_NewPair);
                         m_Pairs.RemoveAt(m_RandomPair);
 
@@ -119,7 +119,7 @@ public class GameManagerParejas : MonoBehaviour
                         int m_RandomPair = Random.Range(0, m_SecondPair.Count);
                         GameObject m_NewPair = Instantiate(m_SecondPair[m_RandomPair], m_Canvas.transform);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = m_NewPosition;
-
+                     
                         m_SecondPair.RemoveAt(m_RandomPair);
 
                         k++;

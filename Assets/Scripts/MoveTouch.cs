@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MoveTouch : MonoBehaviour
 {
@@ -77,6 +78,7 @@ public class MoveTouch : MonoBehaviour
         {
             this.transform.position = collision.gameObject.transform.position;
             m_PieceLocked = true;
+            if(SceneManager.GetActiveScene().name=="Puzzle")
             GameObject.FindGameObjectWithTag("GameManagerPuzzle").GetComponent<GameManagerPuzzle>().m_Puntuacion++;
         }
     }
