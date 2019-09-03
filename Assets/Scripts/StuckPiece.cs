@@ -13,7 +13,7 @@ public class StuckPiece : MonoBehaviour
             this.transform.position = collision.gameObject.transform.position;
             m_PieceLocked = true;
             GetComponentInParent<MoveTouch>().m_PieceLocked = true;
-            GameObject.FindGameObjectWithTag("GameManagerPuzzle").GetComponent<GameManagerPuzzle>().m_Points++;
+            GameObject.FindGameObjectWithTag("GameManagerPuzzle").GetComponent<GameManagerPuzzle>().m_Puntuacion++;
         }
     }
 }

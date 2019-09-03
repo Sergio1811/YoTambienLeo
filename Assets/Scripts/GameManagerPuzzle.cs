@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class GameManagerPuzzle : MonoBehaviour
 {
+
+    int m_CurrentNumRep = 0;
     public GameObject m_ImageTemplate;
     public GameObject m_ColliderTemplate;
     public GameObject m_CollidersSpawns;
@@ -18,16 +20,43 @@ public class GameManagerPuzzle : MonoBehaviour
     public GameObject m_Renderer;
 
     [HideInInspector]
-    public int m_Points=0;
+    public int m_Puntuacion=0;
     public
     int m_NumPieces= 4;
     int m_NumPiecesX;
     int m_NumPiecesY;
     bool m_Completed;
 
+    public Sprite m_CompletedPoint;
+    public Transform m_SpawnImpar;
+    public Transform m_SpawnPar;
+    Transform m_CurrentSpawn;
+    public GameObject m_Point;
+    static int l_NumReps = GameManager.Instance.Repeticiones;
+    GameObject[] m_Points = new GameObject[l_NumReps];
+
+    List<GameObject> m_Images = new List<GameObject>();
+    List<GameObject> m_Colliders = new List<GameObject>();
+
     private void Start()
     {
-       
+        if (l_NumReps % 2 == 0)
+        {
+            m_CurrentSpawn = m_SpawnPar;
+            m_CurrentSpawn.GetComponent<RectTransform>().anchoredPosition -= new Vector2((75 * (l_NumReps / 2 - 1)), 0);
+        }
+        else
+        {
+            m_CurrentSpawn = m_SpawnImpar;
+            m_CurrentSpawn.GetComponent<RectTransform>().anchoredPosition -= new Vector2((75 * (l_NumReps / 2)), 0);
+        }
+
+        for (int i = 0; i < l_NumReps; i++)
+        {
+            m_Points[i] = Instantiate(m_Point, m_CurrentSpawn.transform);
+            m_Points[i].GetComponent<RectTransform>().anchoredPosition += new Vector2(m_Points[i].transform.position.x + (i * 75), 0);
+        }
+
         if (Mathf.Sqrt(m_NumPieces) / (int)Mathf.Sqrt(m_NumPieces) == 1)
         {
             m_NumPiecesX = (int)Mathf.Sqrt(m_NumPieces);
@@ -48,13 +77,14 @@ public class GameManagerPuzzle : MonoBehaviour
         PuzzleComplete();
 
         if (m_Canvas.activeSelf && (Input.touchCount > 0 || Input.GetMouseButtonDown(0)))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            PassPuzzle();
 
     }
 
     public void PuzzleComplete()
     {
-        if(m_Points == m_NumPieces)
+        
+        if (m_Puntuacion == m_NumPieces)
         {
             AudioSource l_AS = GetComponent<AudioSource>();
             m_Canvas.SetActive(true);
@@ -93,6 +123,7 @@ public class GameManagerPuzzle : MonoBehaviour
                 l_Sprite = Sprite.Create(m_ImagePuzzle, rect, new Vector2(0, 0));
 
                 GameObject local = Instantiate(m_ImageTemplate, m_ImagesSpawn.transform);
+                m_Images.Add(local);
                 local.name = (l_CurrentPiece).ToString();        
 
                 local.GetComponent<Image>().sprite = l_Sprite;
@@ -102,6 +133,7 @@ public class GameManagerPuzzle : MonoBehaviour
                     new Vector2(Random.Range(-((l_Images.sizeDelta.x - l_Width))/2, (l_Images.sizeDelta.x - l_Width)/2), Random.Range(-((l_Images.sizeDelta.y - l_Height)) / 2, (l_Images.sizeDelta.y - l_Height) / 2));
 
                 GameObject local2 = Instantiate(m_ColliderTemplate, m_CollidersSpawns.transform);
+                m_Colliders.Add(local2);
                 local2.name = l_CurrentPiece.ToString();
                 local2.GetComponent<RectTransform>().sizeDelta = new Vector2(l_Colliders.sizeDelta.x/m_NumPiecesX, l_Colliders.sizeDelta.y/m_NumPiecesY);
                 local2.GetComponent<RectTransform>().anchoredPosition = new Vector2(sizeX, sizeY);
@@ -128,5 +160,24 @@ public class GameManagerPuzzle : MonoBehaviour
             }
         }
 
+    }
+
+    public void PassPuzzle()
+    {
+        if (m_CurrentNumRep < l_NumReps)
+        {
+            m_Images.Clear();
+            m_Colliders.Clear();
+            ImagesCollsInstantiation();
+            m_Points[m_CurrentNumRep].GetComponent<Image>().sprite = m_CompletedPoint;
+            m_CurrentNumRep++;
+            print("nextImage");
+        }
+
+        else
+        {
+            // Destroy(m_CurrentBit);
+            print("FinishRep");
+        }
     }
 }

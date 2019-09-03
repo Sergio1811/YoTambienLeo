@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Drawing;
 using System.Windows.Input;
-using UnityEditorInternal;
 using System.IO;
 using UnityEditor;
 using UnityEngine.UI;
