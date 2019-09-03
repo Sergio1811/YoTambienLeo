@@ -67,14 +67,16 @@ public class GameManagerPuzzle : MonoBehaviour
             m_NumPiecesX = (int)Mathf.Sqrt(m_NumPieces);
             m_NumPiecesY = (int)Mathf.Sqrt(m_NumPieces) + 1;
         }
-
-        ImagesCollsInstantiation();
+        PassPuzzle();
     }
 
     private void Update()
     {
-        if(!m_Completed)
-        PuzzleComplete();
+        if (!m_Completed)
+        {
+            PuzzleComplete();
+            m_Completed = false;
+        }
 
         if (m_Canvas.activeSelf && (Input.touchCount > 0 || Input.GetMouseButtonDown(0)))
             PassPuzzle();
@@ -166,8 +168,20 @@ public class GameManagerPuzzle : MonoBehaviour
     {
         if (m_CurrentNumRep < l_NumReps)
         {
+            foreach (GameObject item in m_Images)
+            {
+                Destroy(item);
+            }
+
+            foreach (GameObject item in m_Colliders)
+            {
+                Destroy(item);
+            }
+
             m_Images.Clear();
             m_Colliders.Clear();
+            m_Puntuacion = 0;
+            m_Canvas.SetActive(false);
             ImagesCollsInstantiation();
             m_Points[m_CurrentNumRep].GetComponent<Image>().sprite = m_CompletedPoint;
             m_CurrentNumRep++;
