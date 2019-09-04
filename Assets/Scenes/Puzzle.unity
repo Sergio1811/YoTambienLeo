@@ -1364,6 +1364,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c7bc804876b6a41929233e638f688a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ImagesPool:
+  - {fileID: 2800000, guid: 127928b075d954a44b1cb637f4bc83fa, type: 3}
+  - {fileID: 2800000, guid: 56f50ab1c7955f74288c7787b09a9190, type: 3}
+  - {fileID: 2800000, guid: 3695ceaaa0baab547a9735ba1e9a01d7, type: 3}
+  - {fileID: 2800000, guid: 821c852ee93c97d4db12ed4abfbace97, type: 3}
+  - {fileID: 2800000, guid: 3fb00f16af88f164882fca138009e37f, type: 3}
+  - {fileID: 2800000, guid: b561bc80496146c459dd3925f115eecc, type: 3}
   m_ImageTemplate: {fileID: 7736469374024194581, guid: 1a6d43be7dae84c429ddc5ccc4adf93b,
     type: 3}
   m_ColliderTemplate: {fileID: 3404769602030076289, guid: 64d2d74350a29084a9a89c87b837d31e,
@@ -1371,10 +1378,10 @@ MonoBehaviour:
   m_CollidersSpawns: {fileID: 1206595238}
   m_ImagesSpawn: {fileID: 1123862333}
   m_Canvas: {fileID: 1517291095}
-  m_ImagePuzzle: {fileID: 2800000, guid: 127928b075d954a44b1cb637f4bc83fa, type: 3}
-  m_Renderer: {fileID: 0}
+  m_WordText: {fileID: 1955190798}
+  m_UnseenWordText: {fileID: 38305261}
   m_Puntuacion: 0
-  m_NumPieces: 12
+  m_NumPieces: 4
   m_CompletedPoint: {fileID: 21300000, guid: 73e4cfb17b6a6434684c856e88729cc3, type: 3}
   m_SpawnImpar: {fileID: 732852012}
   m_SpawnPar: {fileID: 732852010}

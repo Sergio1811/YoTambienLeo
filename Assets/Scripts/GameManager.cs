@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     #region ScenesIndex
     [HideInInspector]
-    public int PreparadosIndex, ListosIndex, YaIndex, GusanosIndex, BurbujasIndex, ColorIndex;
+    public int PreparadosIndex, ListosIndex, YaIndex, GusanosIndex = 4, BurbujasIndex = 5, ColorIndex = 6;
     [HideInInspector]
     public int InicioIndex = 0, ParejasIndex = 2, PuzzleIndex = 3, BitIndex =1;
     #endregion  
