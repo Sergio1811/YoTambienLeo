@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManagerParejas : MonoBehaviour
 {
     public GameObject m_Canvas;
-    public GameObject m_LastSelected;
-    public GameObject m_ActualSelected;
 
     public GameObject m_Naranja;
     public GameObject m_Rojo;
@@ -20,7 +19,6 @@ public class GameManagerParejas : MonoBehaviour
     private float m_YPos;
     private bool m_FirstPair;
 
-    // Start is called before the first frame update
     void Start()
     {
 
@@ -103,7 +101,7 @@ public class GameManagerParejas : MonoBehaviour
                         int m_RandomPair = Random.Range(0, m_Pairs.Count);
                         GameObject m_NewPair = Instantiate(m_Pairs[m_RandomPair], m_Canvas.transform);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = m_NewPosition;
-                    
+
                         m_SecondPair.Add(m_NewPair);
                         m_Pairs.RemoveAt(m_RandomPair);
 
@@ -119,53 +117,22 @@ public class GameManagerParejas : MonoBehaviour
                         int m_RandomPair = Random.Range(0, m_SecondPair.Count);
                         GameObject m_NewPair = Instantiate(m_SecondPair[m_RandomPair], m_Canvas.transform);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = m_NewPosition;
-                     
+
                         m_SecondPair.RemoveAt(m_RandomPair);
 
                         k++;
                         k++;
                     }
                 }
-
                 m_FirstPair = false;
                 m_XPos *= 3f;
             }
-
         }
-
-        
-
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
-        {
-            m_LastSelected = m_ActualSelected;
 
-            Vector3 l_Ray = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-            RaycastHit2D l_Hit = Physics2D.Raycast(l_Ray, Vector2.zero);
-
-            if (l_Hit.collider != null)
-            {
-                m_ActualSelected = l_Hit.collider.gameObject;
-            }
-
-        }
-
-        if (m_LastSelected != null)
-        {
-            if (m_LastSelected.name == m_ActualSelected.name)
-            {
-
-                //imagen
-                //texto
-                //audio
-
-                Destroy(m_ActualSelected);
-                Destroy(m_LastSelected);
-            }
-        }
     }
+
 }
