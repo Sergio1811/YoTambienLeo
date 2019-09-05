@@ -34,3 +34,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/Firebase/Plugins/link.xml_DISABLED
+Assets/Firebase/Plugins/link.xml_DISABLED.meta
