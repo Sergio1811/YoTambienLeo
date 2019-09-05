@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public int PreparadosIndex, ListosIndex, YaIndex, GusanosIndex = 4, BurbujasIndex = 5, ColorIndex = 6;
     [HideInInspector]
-    public int InicioIndex = 0, ParejasIndex = 2, PuzzleIndex = 3, BitIndex =1;
+    public int InicioIndex = 0, ParejasIndex = 2, BitIndex =1, PuzzleIndex = 3;
     #endregion  
 
     #region ButtonUI

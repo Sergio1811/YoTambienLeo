@@ -78,7 +78,7 @@ public class Pairs : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if ((collision.gameObject.GetComponent<Image>().sprite == this.gameObject.GetComponent<Image>().sprite) && (Input.touchCount == 0 && Input.GetMouseButtonUp(0)))
+        if ((collision.gameObject.GetComponent<Image>().sprite == this.gameObject.GetComponent<Image>().sprite) && (Input.touchCount == 0 || Input.GetMouseButtonUp(0)))
         {
             this.transform.position = collision.gameObject.transform.position;
 

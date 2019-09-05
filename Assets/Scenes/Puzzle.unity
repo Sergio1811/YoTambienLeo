@@ -781,7 +781,7 @@ PrefabInstance:
     - target: {fileID: 7617506766499220765, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 418
+      value: -114.5
       objectReference: {fileID: 0}
     - target: {fileID: 7617506766499220765, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
@@ -801,7 +801,7 @@ PrefabInstance:
     - target: {fileID: 7617506766499220765, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7617506766499220765, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
@@ -811,7 +811,7 @@ PrefabInstance:
     - target: {fileID: 7617506766499220765, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7617506766499220765, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
@@ -821,7 +821,37 @@ PrefabInstance:
     - target: {fileID: 7617506766499220765, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7617506765023279342, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1618241205}
+    - target: {fileID: 7617506765023279342, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InicioScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7617506764771967308, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1618241205}
+    - target: {fileID: 7617506764771967308, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadPuzzle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7617506766310046993, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1618241201}
+    - target: {fileID: 7617506766310046993, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PassPuzzle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c97aaca75cec1de418a27440bfd0ea07, type: 3}
@@ -1345,6 +1375,7 @@ GameObject:
   - component: {fileID: 1618241201}
   - component: {fileID: 1618241203}
   - component: {fileID: 1618241204}
+  - component: {fileID: 1618241205}
   m_Layer: 0
   m_Name: ScriptHolder
   m_TagString: GameManagerPuzzle
@@ -1524,8 +1555,8 @@ MonoBehaviour:
   ColorIndex: 0
   InicioIndex: 0
   ParejasIndex: 2
-  PuzzleIndex: 3
   BitIndex: 1
+  PuzzleIndex: 3
   m_BlackColor: {r: 0, g: 0, b: 0, a: 0}
   m_PurpleColor: {r: 0, g: 0, b: 0, a: 0}
   m_GrisColor: {r: 0, g: 0, b: 0, a: 0}
@@ -1534,6 +1565,24 @@ MonoBehaviour:
   DesactivateButton: {fileID: 0}
   WordDifficulty: 
   Word: 
+--- !u!114 &1618241205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618241200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf28b517fd7bd44dbf2cb5df8b5ac22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConfCanvas: {fileID: 0}
+  "A\xF1adirPalabraCanvas": {fileID: 0}
+  EditarCanvas: {fileID: 0}
+  MainMenuCanvas: {fileID: 0}
+  "ConfiguracionPesta\xF1a": {fileID: 0}
+  AllCanvas: []
 --- !u!1 &1804170934
 GameObject:
   m_ObjectHideFlags: 0

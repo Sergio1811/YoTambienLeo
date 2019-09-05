@@ -55,30 +55,35 @@ public class SceneManagement : MonoBehaviour
     }
     public void MinijuegoGusanosScene()
     {
-        SceneManager.LoadScene(GameManager.Instance.GusanosIndex);
+        SceneManager.LoadScene(4);
     }
     public void MinijuegoBurbujasScene()
     {
-        SceneManager.LoadScene(GameManager.Instance.BurbujasIndex);
+        SceneManager.LoadScene(5);
     }
     public void MinijuegoColorScene()
     {
-        SceneManager.LoadScene(GameManager.Instance.ColorIndex);
+        SceneManager.LoadScene(6);
+    }
+
+    public void CameraScene()
+    {
+        SceneManager.LoadScene(7);
     }
 
     public void LoadParejas()
     {
-        SceneManager.LoadScene(GameManager.Instance.ParejasIndex);
+        SceneManager.LoadScene(2);
     }
 
     public void LoadPuzzle()
     {
-        SceneManager.LoadScene(GameManager.Instance.PuzzleIndex);
+        SceneManager.LoadScene(3);
     }
 
     public void LoadBit()
     {
-        SceneManager.LoadScene(GameManager.Instance.BitIndex);
+        SceneManager.LoadScene(1);
     }
 
     public void WebButton()

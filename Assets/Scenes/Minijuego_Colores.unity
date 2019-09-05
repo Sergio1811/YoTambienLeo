@@ -666,6 +666,9 @@ MonoBehaviour:
   BurbujasIndex: 0
   ColorIndex: 0
   InicioIndex: 0
+  ParejasIndex: 2
+  BitIndex: 1
+  PuzzleIndex: 3
   m_BlackColor: {r: 0, g: 0, b: 0, a: 0}
   m_PurpleColor: {r: 0, g: 0, b: 0, a: 0}
   m_GrisColor: {r: 0, g: 0, b: 0, a: 0}
@@ -867,9 +870,9 @@ MonoBehaviour:
   - {fileID: 203227699}
   - {fileID: 781570919}
   MaxMaskScale:
-  - 15
-  - 15
-  - 15
+  - 12
+  - 12.1
+  - 8.5
   m_Colors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 1, g: 0.9795611, b: 0, a: 1}
