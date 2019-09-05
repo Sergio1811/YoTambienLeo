@@ -11,14 +11,19 @@ public class Gusano : MonoBehaviour
 
     public Sprite m_Gusano_01;
     public Sprite m_Gusano_02;
+    public Sprite m_Gusano_03;
 
     private bool m_SpriteGusano01;
+    private bool m_SpriteGusano02;
+    private bool m_SpriteGusano03;
     private float m_TimePassed;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_SpriteGusano01 = false;
+        m_SpriteGusano01 = true;
+        m_SpriteGusano02 = false;
+        m_SpriteGusano03 = false;
         m_TimePassed = 0;
     }
 
@@ -26,22 +31,46 @@ public class Gusano : MonoBehaviour
     void Update()
     {
         transform.position += Vector3.right * Time.deltaTime * m_Speed;
-
-        if(m_SpriteGusano01 && m_TimePassed>0.5f)
-        {
-            GetComponent<SpriteRenderer>().sprite = m_Gusano_02;
-            m_TimePassed = 0;
-            m_SpriteGusano01 = false;
-            transform.position += new Vector3(0, 0.4f, 0);
-            m_Speed = 0;
-        }
-
-        if(!m_SpriteGusano01 && m_TimePassed>0.5f)
+    
+        if(m_SpriteGusano01 && m_TimePassed>0.25f)
         {
             GetComponent<SpriteRenderer>().sprite = m_Gusano_01;
+            this.gameObject.transform.localScale = new Vector3(1, 1, 1);
+            m_TimePassed = 0;
+            m_SpriteGusano01 = false;
+            m_SpriteGusano02 = true;
+            transform.position += new Vector3(0, 0.2f, 0);
+            m_Speed = 0f;
+        }
+
+        else if(m_SpriteGusano02 && m_TimePassed>0.2f)
+        {
+            GetComponent<SpriteRenderer>().sprite = m_Gusano_02;
+            this.gameObject.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
+            m_TimePassed = 0;
+            m_SpriteGusano02 = false;
+            m_SpriteGusano03 = true;
+            transform.position -= new Vector3(0, 0.2f, 0);
+            m_Speed = 2f;
+        }
+
+        else if (m_SpriteGusano03 && m_TimePassed > 0.15f)
+        {
+            GetComponent<SpriteRenderer>().sprite = m_Gusano_03;
+            this.gameObject.transform.localScale = new Vector3(1, 1, 1);
+            m_TimePassed = 0;
+            m_SpriteGusano03 = false;
+            transform.position -= new Vector3(0, 0.2f, 0);
+            m_Speed = 3f;
+        }
+
+        else if(m_TimePassed>0.25f)
+        {
+            GetComponent<SpriteRenderer>().sprite = m_Gusano_02;
+            this.gameObject.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
             m_TimePassed = 0;
             m_SpriteGusano01 = true;
-            transform.position -= new Vector3(0, 0.4f, 0);
+            transform.position += new Vector3(0, 0.2f, 0);
             m_Speed = 2f;
         }
 
