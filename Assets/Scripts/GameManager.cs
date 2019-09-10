@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour
     public string Word;
     #endregion
 
+    public static int m_CurrentToMinigame;
+    public int m_NeededToMinigame = 5;
+
     void Awake()
     {
         if (instance == null)

@@ -5,22 +5,29 @@ using UnityEngine.UI;
 
 public class GameManagerBit : MonoBehaviour
 {
+    public SceneManagement m_Scener;
     int m_CurrentNumRep = 0;
     public GameObject m_NewBit;
     public Transform m_NewBitPosition;
     public Sprite m_CompletedPoint;
     public Sprite m_IncompletedPoint;
-    GameObject m_CurrentBit;
+    [HideInInspector]
+    public GameObject m_CurrentBit;
 
     public Transform m_SpawnImpar;
     public Transform m_SpawnPar;
     Transform m_CurrentSpawn;
     public GameObject m_Point;
-    static int l_NumReps = GameManager.Instance.Repeticiones;
+    static int l_NumReps = GameManager.Instance.m_NeededToMinigame;
     GameObject[] m_Points = new GameObject[l_NumReps];
+
+    public GameObject m_Siguiente;
+    public GameObject m_Repetir;
 
     private void Start()
     {
+        //GameManager.Instance.m_CurrentToMinigame;
+
         print(m_Points.Length);
         if (l_NumReps % 2 == 0)
         {
@@ -39,23 +46,43 @@ public class GameManagerBit : MonoBehaviour
                 m_Points[i].GetComponent<RectTransform>().anchoredPosition += new Vector2(m_Points[i].transform.position.x + (i * 75), 0);
         }
 
-        NextImage();
-    }
-    public void NextImage()
-    {
-        if (m_CurrentNumRep < l_NumReps)
+        for (int i = 0; i <= GameManager.m_CurrentToMinigame; i++)
         {
+            m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
+        }
+       
+        RepeatImage();
+    }
+
+    public void RepeatImage()
+    {
             Destroy(m_CurrentBit);
             m_CurrentBit = Instantiate(m_NewBit, m_NewBitPosition);
-            m_Points[m_CurrentNumRep].GetComponent<Image>().sprite = m_CompletedPoint;
             m_CurrentNumRep++;
-            print("nextImage");
-        }
+            print("nextImage");     
+    }
+
+    public void NextBit()
+    {
+        GameManager.m_CurrentToMinigame++;
+
+        if (GameManager.m_CurrentToMinigame >= GameManager.Instance.m_NeededToMinigame)
+            m_Scener.RandomMinigame();
 
         else
         {
             Destroy(m_CurrentBit);
             print("FinishRep");
+            m_Points[GameManager.m_CurrentToMinigame].GetComponent<Image>().sprite = m_CompletedPoint;
+            m_CurrentNumRep = 0;
+            RepeatImage();
         }
+    }
+
+    public void ActivateButtons()
+    {
+        m_Siguiente.SetActive(true);
+        if(m_CurrentNumRep<=GameManager.Instance.Repeticiones)
+        m_Repetir.SetActive(true);
     }
 }

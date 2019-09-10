@@ -157,14 +157,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6402d97af731ae419a7dedfb65bb341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Scener: {fileID: 74808669}
   m_NewBit: {fileID: 1780016133251178021, guid: caa459d4538548a479c2a3334000c1b6,
     type: 3}
   m_NewBitPosition: {fileID: 292266495}
   m_CompletedPoint: {fileID: 21300000, guid: 73e4cfb17b6a6434684c856e88729cc3, type: 3}
   m_IncompletedPoint: {fileID: 21300000, guid: 5bc1241bbe8b29d4d9870ea56e793a26, type: 3}
+  m_CurrentBit: {fileID: 0}
   m_SpawnImpar: {fileID: 1768530617}
   m_SpawnPar: {fileID: 1022993406}
   m_Point: {fileID: 5527405633754878209, guid: e70aa73ef57d71743839ec36e1090dfc, type: 3}
+  m_Siguiente: {fileID: 1279460430}
+  m_Repetir: {fileID: 1053836458}
 --- !u!4 &74808667
 Transform:
   m_ObjectHideFlags: 0
@@ -207,8 +211,8 @@ MonoBehaviour:
   ColorIndex: 0
   InicioIndex: 0
   ParejasIndex: 0
-  PuzzleIndex: 0
   BitIndex: 1
+  PuzzleIndex: 0
   m_BlackColor: {r: 0, g: 0, b: 0, a: 0}
   m_PurpleColor: {r: 0, g: 0, b: 0, a: 0}
   m_GrisColor: {r: 0, g: 0, b: 0, a: 0}
@@ -217,6 +221,7 @@ MonoBehaviour:
   DesactivateButton: {fileID: 0}
   WordDifficulty: 
   Word: 
+  m_NeededToMinigame: 5
 --- !u!114 &74808669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,6 +465,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7617506766476382489}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1053836458 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7617506764771967304, guid: c97aaca75cec1de418a27440bfd0ea07,
+    type: 3}
+  m_PrefabInstance: {fileID: 7617506766476382489}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1138580827
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,6 +537,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1279460430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7617506766310047005, guid: c97aaca75cec1de418a27440bfd0ea07,
+    type: 3}
+  m_PrefabInstance: {fileID: 7617506766476382489}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1768530617 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7617506764708918176, guid: c97aaca75cec1de418a27440bfd0ea07,
@@ -732,7 +749,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 74808669}
+      objectReference: {fileID: 74808666}
     - target: {fileID: 7617506766310046993, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

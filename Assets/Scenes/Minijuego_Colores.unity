@@ -632,6 +632,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1192533121}
   - component: {fileID: 1192533120}
+  - component: {fileID: 1192533123}
+  - component: {fileID: 1192533122}
   m_Layer: 0
   m_Name: GameManagerColorGame
   m_TagString: Untagged
@@ -677,6 +679,7 @@ MonoBehaviour:
   DesactivateButton: {fileID: 0}
   WordDifficulty: 
   Word: 
+  m_NeededToMinigame: 5
 --- !u!4 &1192533121
 Transform:
   m_ObjectHideFlags: 0
@@ -691,6 +694,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1192533122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192533119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf28b517fd7bd44dbf2cb5df8b5ac22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConfCanvas: {fileID: 0}
+  "A\xF1adirPalabraCanvas": {fileID: 0}
+  EditarCanvas: {fileID: 0}
+  MainMenuCanvas: {fileID: 0}
+  "ConfiguracionPesta\xF1a": {fileID: 0}
+  AllCanvas: []
+--- !u!114 &1192533123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192533119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c783fab8cb5a9f441bd7e2b2bac07fc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxTime: 30
+  m_Scener: {fileID: 1192533122}
 --- !u!1 &1401888278
 GameObject:
   m_ObjectHideFlags: 0

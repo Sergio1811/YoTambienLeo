@@ -103,4 +103,23 @@ public class SceneManagement : MonoBehaviour
             AllCanvas[i].SetActive(false);
         }
     }
+
+    public void RandomMinigame ()
+    {
+        int Rng = Random.Range(0, 2);
+
+        switch (Rng)
+        {
+            case 0:
+                MinijuegoBurbujasScene();
+                break; 
+            case 1:
+                MinijuegoGusanosScene();
+                break;
+            case 2:
+                MinijuegoColorScene();
+                break;
+
+        }
+    }
 }

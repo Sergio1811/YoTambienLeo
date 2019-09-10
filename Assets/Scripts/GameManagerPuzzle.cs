@@ -10,6 +10,7 @@ public class GameManagerPuzzle : MonoBehaviour
 {
     public List<Texture2D> m_ImagesPool = new List<Texture2D>();
 
+    public SceneManagement m_Scener;
     int m_CurrentNumRep = 0;
     public GameObject m_ImageTemplate;
     public GameObject m_ColliderTemplate;
@@ -34,11 +35,14 @@ public class GameManagerPuzzle : MonoBehaviour
     public Transform m_SpawnPar;
     Transform m_CurrentSpawn;
     public GameObject m_Point;
-    static int l_NumReps = GameManager.Instance.Repeticiones;
+    static int l_NumReps = GameManager.Instance.m_NeededToMinigame;
     GameObject[] m_Points = new GameObject[l_NumReps];
 
     List<GameObject> m_Images = new List<GameObject>();
     List<GameObject> m_Colliders = new List<GameObject>();
+
+    public GameObject m_Siguiente;
+    public GameObject m_Repetir;
 
     private void Start()
     {
@@ -70,6 +74,11 @@ public class GameManagerPuzzle : MonoBehaviour
             m_NumPiecesY = (int)Mathf.Sqrt(m_NumPieces) + 1;
         }
 
+        for (int i = 0; i <= GameManager.m_CurrentToMinigame; i++)
+        {
+            m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
+        }
+
         PassPuzzle();
     }
 
@@ -91,9 +100,9 @@ public class GameManagerPuzzle : MonoBehaviour
         if (m_Puntuacion == m_NumPieces+1)
         {
             AudioSource l_AS = GetComponent<AudioSource>();
-            m_Canvas.SetActive(true);
-            //l_AS.clip = ;
+            //l_AS.clip =;
             l_AS.Play();
+            ActivateButtons();
             m_Completed = true;
         }
     }
@@ -111,6 +120,62 @@ public class GameManagerPuzzle : MonoBehaviour
         m_ImagePuzzle = m_ImagesPool[Random.Range(0, m_ImagesPool.Count)];
         m_WordText.text = m_ImagePuzzle.name;
         m_UnseenWordText.text = m_ImagePuzzle.name;
+
+        Sprite l_SpriteImage;
+        Rect rectImage = new Rect(new Vector2(0, 0), l_Colliders.sizeDelta);
+        l_SpriteImage = Sprite.Create(m_ImagePuzzle, rectImage, l_Colliders.sizeDelta/2);
+        m_CollidersSpawns.GetComponent<Image>().sprite = l_SpriteImage;
+
+        for (int i = m_NumPiecesY-1; i >=0; i--)
+        {
+            sizeX = -l_Colliders.sizeDelta.x / (m_NumPiecesX);
+            sizeY -= l_Colliders.sizeDelta.y / m_NumPiecesY;
+
+            for (int j = 0; j < m_NumPiecesX; j++)
+            {
+                sizeX += l_Colliders.sizeDelta.x / m_NumPiecesX;
+
+                Sprite l_Sprite;
+                Rect rect = new Rect(new Vector2(j * l_Width, i * l_Height), new Vector2(l_Width, l_Height));
+                l_Sprite = Sprite.Create(m_ImagePuzzle, rect, new Vector2(0, 0));
+
+                #region ImageInstantiation
+                GameObject local = Instantiate(m_ImageTemplate, m_ImagesSpawn.transform);
+                m_Images.Add(local);
+                local.name = (l_CurrentPiece).ToString();        
+                local.GetComponent<Image>().sprite = l_Sprite;
+                local.GetComponent<Image>().SetNativeSize();
+                local.GetComponent<RectTransform>().pivot = new Vector2(0, 1);
+                local.GetComponent<RectTransform>().anchoredPosition =
+                    new Vector2(Random.Range(-((l_Images.sizeDelta.x - l_Width))/2, (l_Images.sizeDelta.x - l_Width)/2), Random.Range(-((l_Images.sizeDelta.y - l_Height)) / 2, (l_Images.sizeDelta.y - l_Height) / 2));
+                local.GetComponent<BoxCollider2D>().offset = new Vector2(l_Width / 2, -l_Height / 2);
+                local.GetComponent<BoxCollider2D>().size = new Vector2(l_Width, l_Height);
+                #endregion
+
+                #region ColliderInstantiation
+                GameObject local2 = Instantiate(m_ColliderTemplate, m_CollidersSpawns.transform);
+                m_Colliders.Add(local2);
+                local2.name = l_CurrentPiece.ToString();
+                local2.GetComponent<RectTransform>().sizeDelta = new Vector2(l_Colliders.sizeDelta.x/m_NumPiecesX, l_Colliders.sizeDelta.y/m_NumPiecesY);
+                local2.GetComponent<RectTransform>().anchoredPosition = new Vector2(sizeX, sizeY);
+                local2.GetComponent<BoxCollider2D>().offset = new Vector2(l_Width / 2, -l_Height / 2);
+                local2.GetComponent<BoxCollider2D>().size = new Vector2(l_Width/8, l_Height/8);
+                #endregion
+
+                l_CurrentPiece++;
+            }
+        }
+    }
+
+    public void ImagesCollsInstantiationRepeat()
+    {
+        RectTransform l_Colliders = m_CollidersSpawns.GetComponent<RectTransform>();
+        RectTransform l_Images = m_ImagesSpawn.GetComponent<RectTransform>();
+        float sizeX = -l_Colliders.sizeDelta.x /(m_NumPiecesX);
+        float sizeY = l_Colliders.sizeDelta.y /m_NumPiecesY;
+        float l_Width = l_Colliders.sizeDelta.x / (m_NumPiecesX);
+        float l_Height = l_Colliders.sizeDelta.y / m_NumPiecesY; 
+        int l_CurrentPiece = 0;
 
         Sprite l_SpriteImage;
         Rect rectImage = new Rect(new Vector2(0, 0), l_Colliders.sizeDelta);
@@ -179,7 +244,14 @@ public class GameManagerPuzzle : MonoBehaviour
 
     public void PassPuzzle()
     {
-        if (m_CurrentNumRep < l_NumReps)
+        GameManager.m_CurrentToMinigame++;
+
+        GameManager.m_CurrentToMinigame++;
+
+        if (GameManager.m_CurrentToMinigame >= GameManager.Instance.m_NeededToMinigame)
+            m_Scener.RandomMinigame();
+
+        else 
         {
             foreach (GameObject item in m_Images)
             {
@@ -197,15 +269,36 @@ public class GameManagerPuzzle : MonoBehaviour
             m_Canvas.SetActive(false);
             ImagesCollsInstantiation();
             m_Points[m_CurrentNumRep].GetComponent<Image>().sprite = m_CompletedPoint;
-            m_CurrentNumRep++;
-            print("nextImage");
+            m_CurrentNumRep = 0;
+          
         }
 
-        else
+    }
+
+    public void RepeatPuzzle()
+    {
+        foreach (GameObject item in m_Images)
         {
-            // Destroy(m_CurrentBit);
-            print("FinishRep");
+            Destroy(item);
         }
+
+        foreach (GameObject item in m_Colliders)
+        {
+            Destroy(item);
+        }
+        m_Images.Clear();
+        m_Colliders.Clear();
+        m_Puntuacion = 0;
+        m_Canvas.SetActive(false);
+        m_CurrentNumRep++;
+        ImagesCollsInstantiationRepeat();
+    }
+
+    public void ActivateButtons()
+    {
+        m_Siguiente.SetActive(true);
+        if (m_CurrentNumRep <= GameManager.Instance.Repeticiones)
+            m_Repetir.SetActive(true);
     }
 
 }

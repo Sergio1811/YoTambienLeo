@@ -15,6 +15,8 @@ public class MinijuegoBurbujas : MonoBehaviour
     private float m_TimeToSpawn;
     private float m_TimeToNext;
 
+    public SceneManagement m_Scener; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +48,7 @@ public class MinijuegoBurbujas : MonoBehaviour
         else 
         {
             Debug.Log("End Minigame");
-            m_EndGame.SetActive(true);
+           m_Scener.InicioScene();
             //endgame
         }
     }
