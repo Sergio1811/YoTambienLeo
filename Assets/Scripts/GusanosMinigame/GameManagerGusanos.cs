@@ -12,4 +12,5 @@ public class GameManagerGusanos : MonoBehaviour
         if (Time.time >= m_MaxTime)
             m_Scener.InicioScene();
     }
+
 }

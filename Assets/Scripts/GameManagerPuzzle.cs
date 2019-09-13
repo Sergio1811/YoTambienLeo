@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class GameManagerPuzzle : MonoBehaviour
 {
     public List<Texture2D> m_ImagesPool = new List<Texture2D>();
-
+    List<GameObject> m_Words = new List<GameObject>();
     public SceneManagement m_Scener;
     int m_CurrentNumRep = 0;
     public GameObject m_ImageTemplate;
@@ -19,13 +19,14 @@ public class GameManagerPuzzle : MonoBehaviour
     public GameObject m_Canvas;
 
     Texture2D m_ImagePuzzle;
-    public Text m_WordText;
-    public Text m_UnseenWordText;
+    public GameObject m_Word;
+    public Transform m_WordTransform;
+    public GameObject m_UnseenWord;
+    public Transform m_UnseenWordTransform;
 
     [HideInInspector]
     public int m_Puntuacion=0;
-    public
-    int m_NumPieces= 4;
+    public int m_NumPieces= 4;
     int m_NumPiecesX;
     int m_NumPiecesY;
     bool m_Completed;
@@ -93,6 +94,12 @@ public class GameManagerPuzzle : MonoBehaviour
         if (m_Canvas.activeSelf && (Input.touchCount > 0 || Input.GetMouseButtonDown(0)))
             PassPuzzle();
 
+        if (Input.GetKey(KeyCode.P))
+            PassPuzzle();
+
+        if (Input.GetKey(KeyCode.R))
+            RepeatPuzzle();
+
     }
 
     public void PuzzleComplete()
@@ -116,22 +123,21 @@ public class GameManagerPuzzle : MonoBehaviour
         float l_Width = l_Colliders.sizeDelta.x / (m_NumPiecesX);
         float l_Height = l_Colliders.sizeDelta.y / m_NumPiecesY; 
         int l_CurrentPiece = 0;
+        int k = 0;
 
         m_ImagePuzzle = m_ImagesPool[Random.Range(0, m_ImagesPool.Count)];
-        m_WordText.text = m_ImagePuzzle.name;
-        m_UnseenWordText.text = m_ImagePuzzle.name;
+        WordInstantiation(m_ImagePuzzle);
 
         Sprite l_SpriteImage;
         Rect rectImage = new Rect(new Vector2(0, 0), l_Colliders.sizeDelta);
         l_SpriteImage = Sprite.Create(m_ImagePuzzle, rectImage, l_Colliders.sizeDelta/2);
         m_CollidersSpawns.GetComponent<Image>().sprite = l_SpriteImage;
-
+     
         Sprite[] m_PiezasPuzzle = new Sprite[m_NumPieces];
         for (int i = m_NumPiecesY - 1; i >= 0; i--)
         {
             for (int j = 0; j < m_NumPiecesX; j++)
-            {
-                int k = 0;
+            {                
                 Sprite l_Sprite;
                 Rect rect = new Rect(new Vector2(j * l_Width, i * l_Height), new Vector2(l_Width, l_Height));
                 l_Sprite = Sprite.Create(m_ImagePuzzle, rect, new Vector2(0, 0));
@@ -142,6 +148,7 @@ public class GameManagerPuzzle : MonoBehaviour
 
         List<int> l_Numbers = new List<int>();
         int l_Number;
+
         for (int i = m_NumPiecesY-1; i >=0; i--)
         {
             sizeX = -l_Colliders.sizeDelta.x / (m_NumPiecesX);
@@ -151,20 +158,20 @@ public class GameManagerPuzzle : MonoBehaviour
             {
                 sizeX += l_Colliders.sizeDelta.x / m_NumPiecesX;
 
-               
-
                 #region ImageInstantiation
                 GameObject local = Instantiate(m_ImageTemplate, m_ImagesSpawn.transform);
                 m_Images.Add(local);
-                local.name = (l_CurrentPiece).ToString();
                 l_Number = Random.Range(0, m_NumPieces);
+
                 while(l_Numbers.Contains(l_Number))
                 {
                     print(l_Number);
                     l_Number = Random.Range(0, m_NumPieces);
                 }
+
                 local.GetComponent<Image>().sprite = m_PiezasPuzzle[l_Number];
                 l_Numbers.Add(l_Number);
+                local.name = (l_Number).ToString();
 
                 local.GetComponent<Image>().SetNativeSize();
                 local.GetComponent<RectTransform>().pivot = new Vector2(0, 1);
@@ -197,11 +204,30 @@ public class GameManagerPuzzle : MonoBehaviour
         float l_Width = l_Colliders.sizeDelta.x / (m_NumPiecesX);
         float l_Height = l_Colliders.sizeDelta.y / m_NumPiecesY; 
         int l_CurrentPiece = 0;
+        int k = 0;
+
+        WordInstantiation(m_ImagePuzzle);
 
         Sprite l_SpriteImage;
         Rect rectImage = new Rect(new Vector2(0, 0), l_Colliders.sizeDelta);
         l_SpriteImage = Sprite.Create(m_ImagePuzzle, rectImage, l_Colliders.sizeDelta/2);
         m_CollidersSpawns.GetComponent<Image>().sprite = l_SpriteImage;
+
+        Sprite[] m_PiezasPuzzle = new Sprite[m_NumPieces];
+        for (int i = m_NumPiecesY - 1; i >= 0; i--)
+        {
+            for (int j = 0; j < m_NumPiecesX; j++)
+            {
+                Sprite l_Sprite;
+                Rect rect = new Rect(new Vector2(j * l_Width, i * l_Height), new Vector2(l_Width, l_Height));
+                l_Sprite = Sprite.Create(m_ImagePuzzle, rect, new Vector2(0, 0));
+                m_PiezasPuzzle[k] = l_Sprite;
+                k++;
+            }
+        }
+
+        List<int> l_Numbers = new List<int>();
+        int l_Number;
 
         for (int i = m_NumPiecesY-1; i >=0; i--)
         {
@@ -212,19 +238,24 @@ public class GameManagerPuzzle : MonoBehaviour
             {
                 sizeX += l_Colliders.sizeDelta.x / m_NumPiecesX;
 
-                Sprite l_Sprite;
-                Rect rect = new Rect(new Vector2(j * l_Width, i * l_Height), new Vector2(l_Width, l_Height));
-                l_Sprite = Sprite.Create(m_ImagePuzzle, rect, new Vector2(0, 0));
-
                 #region ImageInstantiation
                 GameObject local = Instantiate(m_ImageTemplate, m_ImagesSpawn.transform);
                 m_Images.Add(local);
-                local.name = (l_CurrentPiece).ToString();        
-                local.GetComponent<Image>().sprite = l_Sprite;
+                l_Number = Random.Range(0, m_NumPieces);
+
+                while (l_Numbers.Contains(l_Number))
+                {
+                    print(l_Number);
+                    l_Number = Random.Range(0, m_NumPieces);
+                }
+
+                local.GetComponent<Image>().sprite = m_PiezasPuzzle[l_Number];
+                l_Numbers.Add(l_Number);
+                local.name = (l_Number).ToString();
+
                 local.GetComponent<Image>().SetNativeSize();
                 local.GetComponent<RectTransform>().pivot = new Vector2(0, 1);
-                local.GetComponent<RectTransform>().anchoredPosition =
-                    new Vector2(Random.Range(-((l_Images.sizeDelta.x - l_Width))/2, (l_Images.sizeDelta.x - l_Width)/2), Random.Range(-((l_Images.sizeDelta.y - l_Height)) / 2, (l_Images.sizeDelta.y - l_Height) / 2));
+                local.GetComponent<RectTransform>().anchoredPosition = new Vector2(sizeX + 10 * j, sizeY + 10 * i);
                 local.GetComponent<BoxCollider2D>().offset = new Vector2(l_Width / 2, -l_Height / 2);
                 local.GetComponent<BoxCollider2D>().size = new Vector2(l_Width, l_Height);
                 #endregion
@@ -244,28 +275,12 @@ public class GameManagerPuzzle : MonoBehaviour
         }
     }
 
-    /*public void CutIntoPieces(int l_NumPieces, int l_WidthPiece, int l_HeightPiece)
-    {
-
-        for (int i = 0; i < l_NumPieces; i++)
-        {
-            for (int j = 0; j < l_NumPieces; j++)
-            {
-                Sprite l_Sprite;
-                Rect rect = new Rect(new Vector2(i * l_WidthPiece, j * l_HeightPiece), new Vector2(l_WidthPiece, l_HeightPiece));
-                l_Sprite = Sprite.Create(m_ImagePuzzle, rect, new Vector2(0, 0));
-
-                GameObject l_NewOne = Instantiate(m_Renderer, m_Canvas.transform);
-                l_NewOne.GetComponent<RectTransform>().anchoredPosition = new Vector2(i * l_WidthPiece * 1.5f, j * l_HeightPiece * 1.5f);
-                l_NewOne.GetComponent<Image>().sprite = l_Sprite;
-            }
-        }
-
-    }*/
-
     public void PassPuzzle()
     {
-        GameManager.m_CurrentToMinigame++;
+        for (int i = 0; i <= GameManager.m_CurrentToMinigame; i++)
+        {
+            m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
+        }
 
         GameManager.m_CurrentToMinigame++;
 
@@ -284,14 +299,20 @@ public class GameManagerPuzzle : MonoBehaviour
                 Destroy(item);
             }
 
+            foreach (GameObject item in m_Words)
+            {
+                Destroy(item);
+            }
+
             m_Images.Clear();
+            m_Words.Clear();
             m_Colliders.Clear();
             m_Puntuacion = 0;
             m_Canvas.SetActive(false);
             ImagesCollsInstantiation();
             m_Points[m_CurrentNumRep].GetComponent<Image>().sprite = m_CompletedPoint;
             m_CurrentNumRep = 0;
-          
+
         }
 
     }
@@ -307,7 +328,14 @@ public class GameManagerPuzzle : MonoBehaviour
         {
             Destroy(item);
         }
+
+        foreach (GameObject item in m_Words)
+        {
+            Destroy(item);
+        }
+
         m_Images.Clear();
+        m_Words.Clear();
         m_Colliders.Clear();
         m_Puntuacion = 0;
         m_Canvas.SetActive(false);
@@ -320,6 +348,18 @@ public class GameManagerPuzzle : MonoBehaviour
         m_Siguiente.SetActive(true);
         if (m_CurrentNumRep <= GameManager.Instance.Repeticiones)
             m_Repetir.SetActive(true);
+    }
+
+     public void WordInstantiation(Texture2D l_ImagePuzzle)
+    {
+        GameObject l_Word = Instantiate(m_Word, m_WordTransform.transform);
+        GameObject l_UnseenWord = Instantiate(m_UnseenWord, m_UnseenWordTransform.transform);
+        l_Word.GetComponentInChildren<Text>().text = l_ImagePuzzle.name;
+        l_Word.name = "Word";
+        l_UnseenWord.GetComponentInChildren<Text>().text = l_ImagePuzzle.name;
+        l_UnseenWord.name = "Word";
+        m_Words.Add(l_Word);
+        m_Words.Add(l_UnseenWord);
     }
 
 }
