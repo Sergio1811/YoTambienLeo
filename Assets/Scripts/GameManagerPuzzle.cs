@@ -126,6 +126,22 @@ public class GameManagerPuzzle : MonoBehaviour
         l_SpriteImage = Sprite.Create(m_ImagePuzzle, rectImage, l_Colliders.sizeDelta/2);
         m_CollidersSpawns.GetComponent<Image>().sprite = l_SpriteImage;
 
+        Sprite[] m_PiezasPuzzle = new Sprite[m_NumPieces];
+        for (int i = m_NumPiecesY - 1; i >= 0; i--)
+        {
+            for (int j = 0; j < m_NumPiecesX; j++)
+            {
+                int k = 0;
+                Sprite l_Sprite;
+                Rect rect = new Rect(new Vector2(j * l_Width, i * l_Height), new Vector2(l_Width, l_Height));
+                l_Sprite = Sprite.Create(m_ImagePuzzle, rect, new Vector2(0, 0));
+                m_PiezasPuzzle[k] = l_Sprite;
+                k++;
+            }
+        }
+
+        List<int> l_Numbers = new List<int>();
+        int l_Number;
         for (int i = m_NumPiecesY-1; i >=0; i--)
         {
             sizeX = -l_Colliders.sizeDelta.x / (m_NumPiecesX);
@@ -135,19 +151,24 @@ public class GameManagerPuzzle : MonoBehaviour
             {
                 sizeX += l_Colliders.sizeDelta.x / m_NumPiecesX;
 
-                Sprite l_Sprite;
-                Rect rect = new Rect(new Vector2(j * l_Width, i * l_Height), new Vector2(l_Width, l_Height));
-                l_Sprite = Sprite.Create(m_ImagePuzzle, rect, new Vector2(0, 0));
+               
 
                 #region ImageInstantiation
                 GameObject local = Instantiate(m_ImageTemplate, m_ImagesSpawn.transform);
                 m_Images.Add(local);
-                local.name = (l_CurrentPiece).ToString();        
-                local.GetComponent<Image>().sprite = l_Sprite;
+                local.name = (l_CurrentPiece).ToString();
+                l_Number = Random.Range(0, m_NumPieces);
+                while(l_Numbers.Contains(l_Number))
+                {
+                    print(l_Number);
+                    l_Number = Random.Range(0, m_NumPieces);
+                }
+                local.GetComponent<Image>().sprite = m_PiezasPuzzle[l_Number];
+                l_Numbers.Add(l_Number);
+
                 local.GetComponent<Image>().SetNativeSize();
                 local.GetComponent<RectTransform>().pivot = new Vector2(0, 1);
-                local.GetComponent<RectTransform>().anchoredPosition =
-                    new Vector2(Random.Range(-((l_Images.sizeDelta.x - l_Width))/2, (l_Images.sizeDelta.x - l_Width)/2), Random.Range(-((l_Images.sizeDelta.y - l_Height)) / 2, (l_Images.sizeDelta.y - l_Height) / 2));
+                local.GetComponent<RectTransform>().anchoredPosition = new Vector2(sizeX + 10*j,sizeY + 10*i);
                 local.GetComponent<BoxCollider2D>().offset = new Vector2(l_Width / 2, -l_Height / 2);
                 local.GetComponent<BoxCollider2D>().size = new Vector2(l_Width, l_Height);
                 #endregion
