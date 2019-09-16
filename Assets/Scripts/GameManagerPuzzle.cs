@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 public class GameManagerPuzzle : MonoBehaviour
 {
+    public Animation m_AnimationCenter;
+    public Image m_ImageAnim;
+    public Text m_TextAnim;
     public List<Texture2D> m_ImagesPool = new List<Texture2D>();
     List<GameObject> m_Words = new List<GameObject>();
     public SceneManagement m_Scener;
@@ -88,7 +91,7 @@ public class GameManagerPuzzle : MonoBehaviour
         if (!m_Completed)
         {
             PuzzleComplete();
-            m_Completed = false;
+            WaitSeconds(3);
         }
 
         if (m_Canvas.activeSelf && (Input.touchCount > 0 || Input.GetMouseButtonDown(0)))
@@ -111,6 +114,11 @@ public class GameManagerPuzzle : MonoBehaviour
             l_AS.Play();
             ActivateButtons();
             m_Completed = true;
+            m_ImageAnim.gameObject.SetActive(true);
+            m_AnimationCenter.Play();
+            m_ImagesSpawn.SetActive(false);
+            m_CollidersSpawns.SetActive(false);
+            Debug.Log("AnimPlayed");
         }
     }
 
@@ -127,10 +135,12 @@ public class GameManagerPuzzle : MonoBehaviour
 
         m_ImagePuzzle = m_ImagesPool[Random.Range(0, m_ImagesPool.Count)];
         WordInstantiation(m_ImagePuzzle);
+        m_TextAnim.text = m_ImagePuzzle.name;
 
         Sprite l_SpriteImage;
         Rect rectImage = new Rect(new Vector2(0, 0), l_Colliders.sizeDelta);
         l_SpriteImage = Sprite.Create(m_ImagePuzzle, rectImage, l_Colliders.sizeDelta/2);
+        m_ImageAnim.sprite = Sprite.Create(m_ImagePuzzle, rectImage, l_Colliders.sizeDelta/2);
         m_CollidersSpawns.GetComponent<Image>().sprite = l_SpriteImage;
      
         Sprite[] m_PiezasPuzzle = new Sprite[m_NumPieces];
@@ -197,6 +207,10 @@ public class GameManagerPuzzle : MonoBehaviour
 
     public void ImagesCollsInstantiationRepeat()
     {
+        m_Completed = false;
+        m_ImagesSpawn.SetActive(true);
+        m_CollidersSpawns.SetActive(true);
+        m_ImageAnim.gameObject.SetActive(false);
         RectTransform l_Colliders = m_CollidersSpawns.GetComponent<RectTransform>();
         RectTransform l_Images = m_ImagesSpawn.GetComponent<RectTransform>();
         float sizeX = -l_Colliders.sizeDelta.x /(m_NumPiecesX);
@@ -211,6 +225,7 @@ public class GameManagerPuzzle : MonoBehaviour
         Sprite l_SpriteImage;
         Rect rectImage = new Rect(new Vector2(0, 0), l_Colliders.sizeDelta);
         l_SpriteImage = Sprite.Create(m_ImagePuzzle, rectImage, l_Colliders.sizeDelta/2);
+        m_ImageAnim.sprite = Sprite.Create(m_ImagePuzzle, rectImage, l_Colliders.sizeDelta / 2);
         m_CollidersSpawns.GetComponent<Image>().sprite = l_SpriteImage;
 
         Sprite[] m_PiezasPuzzle = new Sprite[m_NumPieces];
@@ -277,6 +292,10 @@ public class GameManagerPuzzle : MonoBehaviour
 
     public void PassPuzzle()
     {
+        m_ImagesSpawn.SetActive(true);
+        m_CollidersSpawns.SetActive(true);
+        m_ImageAnim.gameObject.SetActive(false);
+        m_Completed = false;
         for (int i = 0; i <= GameManager.m_CurrentToMinigame; i++)
         {
             m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
@@ -360,6 +379,14 @@ public class GameManagerPuzzle : MonoBehaviour
         l_UnseenWord.name = "Word";
         m_Words.Add(l_Word);
         m_Words.Add(l_UnseenWord);
+    }
+
+    IEnumerator WaitSeconds(float seconds)
+    {
+        print(Time.time);
+        yield return new WaitForSeconds(seconds);
+        print(Time.time);
+        ActivateButtons();
     }
 
 }
