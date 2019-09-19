@@ -8,9 +8,11 @@ using Mono.Data.Sqlite;
 
 public class ScriptPruebaBD : MonoBehaviour
 {
-    private int idNumber = 2;
-    private string nombre = "Pera";
+    private int idNumber = 0;
+    private string nombre = "Manzana";
     public enum NumOfSearch { NONE, ID, NAME };
+    private Texture2D texture;
+    public Image imagen;
     private NumOfSearch currentSearch = NumOfSearch.NAME;
     // Start is called before the first frame update
     void Start()
@@ -36,9 +38,14 @@ public class ScriptPruebaBD : MonoBehaviour
             string nombre1 = reader.GetString(1);
             string imagen1 = reader.GetString(2);
             string imagen2 = reader.GetString(3);
+            StartCoroutine(ConvertURLToTexture(imagen1));
 
             Debug.Log("Id = " + id + "  Nombre 1 =" + nombre1 + "  imagen 1 =" + imagen1 + " imagen 2 =" + imagen2);
+
+
         }
+
+
 
         reader.Close();
         reader = null;
@@ -54,10 +61,10 @@ public class ScriptPruebaBD : MonoBehaviour
     private string SearchInBDContenido(string _table)
     {
         string m_SQL = "";
-        switch(currentSearch)
+        switch (currentSearch)
         {
             case NumOfSearch.NONE:
-                m_SQL =  ("SELECT id, nombre, imagen, imagen2 FROM " + _table);
+                m_SQL = ("SELECT id, nombre, imagen, imagen2 FROM " + _table);
                 break;
             case NumOfSearch.ID:
                 m_SQL = ("SELECT id, nombre, imagen, imagen2 FROM " + _table + " WHERE id = " + idNumber);
@@ -90,4 +97,18 @@ public class ScriptPruebaBD : MonoBehaviour
     }
 
 
+    IEnumerator ConvertURLToTexture(string _url)
+    {
+        WWW www = new WWW(_url); //Cargando la imagen
+        yield return www;
+
+        texture = www.texture; //una vez cargada 
+        ColocarLaImagen();
+    }
+
+    private void ColocarLaImagen()
+    {
+        Rect rect = new Rect(new Vector2(0,0), new Vector2(texture.width,texture.height));
+        imagen.sprite = Sprite.Create(texture, rect, Vector2.down);
+    }
 }
