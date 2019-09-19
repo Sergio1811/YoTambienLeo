@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
 
     public static int m_CurrentToMinigame;
     public int m_NeededToMinigame = 5;
+    [HideInInspector]
+    public int m_BitLevel = 1;
 
     void Awake()
     {
