@@ -9,11 +9,13 @@ using Mono.Data.Sqlite;
 public class ScriptPruebaBD : MonoBehaviour
 {
     private int idNumber = 0;
-    private string nombre = "Manzana";
+    private string nombre = "Pera";
     public enum NumOfSearch { NONE, ID, NAME };
     private Texture2D texture;
     public Image imagen;
     private NumOfSearch currentSearch = NumOfSearch.NAME;
+    public ObjectBD currentObjectBD;
+    private string ruteFolderImage;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,7 @@ public class ScriptPruebaBD : MonoBehaviour
     // Update is called once per frame
     void ReadSQlite()
     {
+        ruteFolderImage = "URI=file:" + Application.dataPath + "/Resources/Images/BurbujasMinigame/";
         string conection = "URI=file:" + Application.dataPath + "/Plugins/SQLite/BaseDeDatosYoTambienLeo.db";
         IDbConnection dbConection = (IDbConnection)new SqliteConnection(conection);
         dbConection.Open();
@@ -32,17 +35,35 @@ public class ScriptPruebaBD : MonoBehaviour
         dbcommand.CommandText = sqlQuery;
         IDataReader reader = dbcommand.ExecuteReader();
 
+
+        currentObjectBD = new ObjectBD();
+
         while (reader.Read())
         {
-            int id = reader.GetInt32(0);
-            string nombre1 = reader.GetString(1);
-            string imagen1 = reader.GetString(2);
-            string imagen2 = reader.GetString(3);
-            StartCoroutine(ConvertURLToTexture(imagen1));
+            currentObjectBD.id = reader.GetInt32(0);
+            currentObjectBD.color = reader.GetString(1);
+            currentObjectBD.image1 = reader.GetString(2);
+            currentObjectBD.image2 = reader.GetString(3);
+            currentObjectBD.image3 = reader.GetString(4);
+            currentObjectBD.audio = reader.GetString(5);
+            currentObjectBD.piecesPuzzle = reader.GetInt32(6);
+            currentObjectBD.imagePuzzle = reader.GetInt32(7);
+            currentObjectBD.dificultSpanish = reader.GetInt32(8);
+            currentObjectBD.nameSpanish = reader.GetString(9);
+            currentObjectBD.silabasSpanish = reader.GetString(10);
+            currentObjectBD.dificultCatalan = reader.GetInt32(11);
+            currentObjectBD.nameCatalan = reader.GetString(12);
+            currentObjectBD.silabasCatalan = reader.GetString(13);
+            currentObjectBD.paquet = reader.GetInt32(14);
+            // Debug.Log("Id = " + id + "  Nombre 1 =" + nombre1 + "  imagen 1 =" + imagen1 + " imagen 2 =" + imagen2);
 
-            Debug.Log("Id = " + id + "  Nombre 1 =" + nombre1 + "  imagen 1 =" + imagen1 + " imagen 2 =" + imagen2);
 
+        }
+        currentObjectBD.SeparateSilabas();
 
+        if (currentObjectBD.image1 != null)
+        {
+            SearchSpriteInRuteFolders(currentObjectBD.image1);
         }
 
 
@@ -64,13 +85,13 @@ public class ScriptPruebaBD : MonoBehaviour
         switch (currentSearch)
         {
             case NumOfSearch.NONE:
-                m_SQL = ("SELECT id, nombre, imagen, imagen2 FROM " + _table);
+                m_SQL = ("SELECT * FROM " + _table);
                 break;
             case NumOfSearch.ID:
-                m_SQL = ("SELECT id, nombre, imagen, imagen2 FROM " + _table + " WHERE id = " + idNumber);
+                m_SQL = ("SELECT * FROM " + _table + " WHERE id = " + idNumber);
                 break;
             case NumOfSearch.NAME:
-                m_SQL = ("SELECT id, nombre, imagen, imagen2 FROM " + _table + " WHERE nombre = " + "'" + nombre + "'");
+                m_SQL = ("SELECT * FROM " + _table + " WHERE nombreCastellano = " + "'" + nombre + "'");
                 break;
         }
         ResetValues();
@@ -96,19 +117,28 @@ public class ScriptPruebaBD : MonoBehaviour
         currentSearch = NumOfSearch.NAME;
     }
 
+    public void SearchSpriteInRuteFolders(string _image)
+    {
+        string completeRute = ruteFolderImage + _image;
 
+    }
+
+
+    //PARA PASAR DE UNA IMAGEN WEB A UN SPRITE, LLAMANDO CON UNA CORUTINE A ESTO
+    /*
     IEnumerator ConvertURLToTexture(string _url)
     {
         WWW www = new WWW(_url); //Cargando la imagen
         yield return www;
 
         texture = www.texture; //una vez cargada 
-        ColocarLaImagen();
+        PassTexture2DToSprite();
     }
-
-    private void ColocarLaImagen()
+    */
+    private void PassTexture2DToSprite()
     {
         Rect rect = new Rect(new Vector2(0,0), new Vector2(texture.width,texture.height));
         imagen.sprite = Sprite.Create(texture, rect, Vector2.down);
     }
+    
 }

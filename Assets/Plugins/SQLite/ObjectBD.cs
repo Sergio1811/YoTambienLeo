@@ -1,0 +1,64 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ObjectBD 
+{
+    public int id;
+    public string color;
+    public string image1;
+    public string image2;
+    public string image3;
+    public string audio;
+    public int piecesPuzzle;
+    public int imagePuzzle;
+    public int dificultSpanish;
+    public string nameSpanish;
+    public string silabasSpanish;
+    public int dificultCatalan;
+    public string nameCatalan;
+    public string silabasCatalan;
+    public int paquet;
+    public List<string> silabasActuales = new List<string>();
+
+    //eliminar en un futuro y cambiarlo por el original
+    enum Idioma {CASTELLANO, CATALAN}
+    private Idioma currentLenguage = Idioma.CASTELLANO;
+    //
+
+    public void SeparateSilabas()//separa la linea de string de silabas segun el idioma a un lista en orden de las silabas.
+    {
+        string actualWord = "";
+        switch(currentLenguage)
+        {
+            case Idioma.CASTELLANO:
+                actualWord = silabasSpanish;
+                break;
+            case Idioma.CATALAN:
+                actualWord = silabasCatalan;
+                break;
+        }
+
+        string currentSilaba = "";
+        for(int i = 0; i < actualWord.Length; i++)
+        {
+            if(actualWord[i] != '-')
+            {
+                currentSilaba += actualWord[i];
+            }
+            else
+            {
+                silabasActuales.Add(currentSilaba);
+                Debug.Log(silabasActuales[silabasActuales.Count - 1]);
+                currentSilaba = "";
+            }
+        }
+        if (currentSilaba != "")
+        {
+            silabasActuales.Add(currentSilaba);
+            Debug.Log(silabasActuales[silabasActuales.Count - 1]);
+            currentSilaba = "";
+        }
+    }
+
+}

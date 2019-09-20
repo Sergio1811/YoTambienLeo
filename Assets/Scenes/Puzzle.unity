@@ -1319,6 +1319,7 @@ MonoBehaviour:
   WordDifficulty: 
   Word: 
   m_NeededToMinigame: 5
+  m_BitLevel: 1
 --- !u!114 &1618241205
 MonoBehaviour:
   m_ObjectHideFlags: 0
