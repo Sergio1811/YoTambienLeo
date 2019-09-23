@@ -51,7 +51,7 @@ public class GameManagerBit : MonoBehaviour
             m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
         }
        
-        RepeatImage();
+        InicioBit();
     }
 
     public void RepeatImage()
@@ -77,6 +77,15 @@ public class GameManagerBit : MonoBehaviour
             m_CurrentNumRep = 0;
             RepeatImage();
         }
+    }
+
+    public void InicioBit()
+    {
+            Destroy(m_CurrentBit);
+            print("FinishRep");
+            m_Points[GameManager.m_CurrentToMinigame].GetComponent<Image>().sprite = m_CompletedPoint;
+            m_CurrentNumRep = 0;
+            RepeatImage();
     }
 
     public void ActivateButtons()

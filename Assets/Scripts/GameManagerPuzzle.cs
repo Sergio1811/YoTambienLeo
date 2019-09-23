@@ -83,7 +83,7 @@ public class GameManagerPuzzle : MonoBehaviour
             m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
         }
 
-        PassPuzzle();
+        InicioPuzzle();
     }
 
     private void Update()
@@ -91,7 +91,6 @@ public class GameManagerPuzzle : MonoBehaviour
         if (!m_Completed)
         {
             PuzzleComplete();
-            WaitSeconds(3);
         }
 
         if (m_Canvas.activeSelf && (Input.touchCount > 0 || Input.GetMouseButtonDown(0)))
@@ -112,13 +111,16 @@ public class GameManagerPuzzle : MonoBehaviour
             AudioSource l_AS = GetComponent<AudioSource>();
             //l_AS.clip =;
             l_AS.Play();
-            ActivateButtons();
+          
             m_Completed = true;
             m_ImageAnim.gameObject.SetActive(true);
             m_AnimationCenter.Play();
             m_ImagesSpawn.SetActive(false);
             m_CollidersSpawns.SetActive(false);
             Debug.Log("AnimPlayed");
+
+            StartCoroutine(WaitSeconds(3));
+           
         }
     }
 
@@ -387,6 +389,45 @@ public class GameManagerPuzzle : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         print(Time.time);
         ActivateButtons();
+    }
+
+    public void InicioPuzzle()
+    {
+        m_ImagesSpawn.SetActive(true);
+        m_CollidersSpawns.SetActive(true);
+        m_ImageAnim.gameObject.SetActive(false);
+        m_Completed = false;
+        for (int i = 0; i <= GameManager.m_CurrentToMinigame; i++)
+        {
+            m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
+        }
+        
+            foreach (GameObject item in m_Images)
+            {
+                Destroy(item);
+            }
+
+            foreach (GameObject item in m_Colliders)
+            {
+                Destroy(item);
+            }
+
+            foreach (GameObject item in m_Words)
+            {
+                Destroy(item);
+            }
+
+            m_Images.Clear();
+            m_Words.Clear();
+            m_Colliders.Clear();
+            m_Puntuacion = 0;
+            m_Canvas.SetActive(false);
+            ImagesCollsInstantiation();
+            m_Points[m_CurrentNumRep].GetComponent<Image>().sprite = m_CompletedPoint;
+            m_CurrentNumRep = 0;
+
+        
+
     }
 
 }

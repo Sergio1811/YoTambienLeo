@@ -48,6 +48,7 @@ public class MinijuegoBurbujas : MonoBehaviour
         else 
         {
             Debug.Log("End Minigame");
+            GameManager.m_CurrentToMinigame = 0;
            m_Scener.InicioScene();
             //endgame
         }
