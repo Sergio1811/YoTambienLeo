@@ -6,7 +6,7 @@ public class SingletonLenguage
 {
     private static SingletonLenguage instance;
     public enum Lenguage {CASTELLANO, CATALAN, INGLES, FRANCES}
-    private Lenguage currentLenguage = Lenguage.CASTELLANO;
+    private Lenguage currentLenguage;
 
     public static SingletonLenguage GetInstance()
     {

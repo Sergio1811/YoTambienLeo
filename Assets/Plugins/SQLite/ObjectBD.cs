@@ -52,14 +52,14 @@ public class ObjectBD
                 else
                 {
                     silabasActuales.Add(currentSilaba);
-                    Debug.Log(silabasActuales[silabasActuales.Count - 1]);
+                    //Debug.Log(silabasActuales[silabasActuales.Count - 1]);
                     currentSilaba = "";
                 }
             }
             if (currentSilaba != "")
             {
                 silabasActuales.Add(currentSilaba);
-                Debug.Log(silabasActuales[silabasActuales.Count - 1]);
+                //Debug.Log(silabasActuales[silabasActuales.Count - 1]);
                 currentSilaba = "";
             }
         }
