@@ -22,42 +22,46 @@ public class ObjectBD
     public List<string> silabasActuales = new List<string>();
 
     //eliminar en un futuro y cambiarlo por el original
-    enum Idioma {CASTELLANO, CATALAN}
-    private Idioma currentLenguage = Idioma.CASTELLANO;
     //
 
-    public void SeparateSilabas()//separa la linea de string de silabas segun el idioma a un lista en orden de las silabas.
+    public void SeparateSilabas(SingletonLenguage.Lenguage currentLenguage)//separa la linea de string de silabas segun el idioma a un lista en orden de las silabas.
     {
         string actualWord = "";
-        switch(currentLenguage)
+        switch (currentLenguage)
         {
-            case Idioma.CASTELLANO:
+            case SingletonLenguage.Lenguage.CASTELLANO:
                 actualWord = silabasSpanish;
                 break;
-            case Idioma.CATALAN:
+            case SingletonLenguage.Lenguage.CATALAN:
                 actualWord = silabasCatalan;
                 break;
+            case SingletonLenguage.Lenguage.INGLES:
+                break;
+            case SingletonLenguage.Lenguage.FRANCES:
+                break;
         }
-
-        string currentSilaba = "";
-        for(int i = 0; i < actualWord.Length; i++)
+        if (actualWord != "")
         {
-            if(actualWord[i] != '-')
+            string currentSilaba = "";
+            for (int i = 0; i < actualWord.Length; i++)
             {
-                currentSilaba += actualWord[i];
+                if (actualWord[i] != '-')
+                {
+                    currentSilaba += actualWord[i];
+                }
+                else
+                {
+                    silabasActuales.Add(currentSilaba);
+                    Debug.Log(silabasActuales[silabasActuales.Count - 1]);
+                    currentSilaba = "";
+                }
             }
-            else
+            if (currentSilaba != "")
             {
                 silabasActuales.Add(currentSilaba);
                 Debug.Log(silabasActuales[silabasActuales.Count - 1]);
                 currentSilaba = "";
             }
-        }
-        if (currentSilaba != "")
-        {
-            silabasActuales.Add(currentSilaba);
-            Debug.Log(silabasActuales[silabasActuales.Count - 1]);
-            currentSilaba = "";
         }
     }
 
