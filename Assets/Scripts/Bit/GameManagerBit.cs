@@ -24,6 +24,8 @@ public class GameManagerBit : MonoBehaviour
     public GameObject m_Siguiente;
     public GameObject m_Repetir;
 
+    public static int m_Alea;
+
     private void Start()
     {
         //GameManager.Instance.m_CurrentToMinigame;
@@ -64,6 +66,7 @@ public class GameManagerBit : MonoBehaviour
 
     public void NextBit()
     {
+        m_Alea = Random.Range(0, ImageControl.m_Length);
         GameManager.m_CurrentToMinigame++;
 
         if (GameManager.m_CurrentToMinigame >= GameManager.Instance.m_NeededToMinigame)
@@ -81,6 +84,7 @@ public class GameManagerBit : MonoBehaviour
 
     public void InicioBit()
     {
+            m_Alea = Random.Range(0, ImageControl.m_Length);
             Destroy(m_CurrentBit);
             print("FinishRep");
             m_Points[GameManager.m_CurrentToMinigame].GetComponent<Image>().sprite = m_CompletedPoint;
