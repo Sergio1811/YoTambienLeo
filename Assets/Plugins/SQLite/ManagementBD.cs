@@ -6,26 +6,30 @@ using System;
 using System.Data;
 using Mono.Data.Sqlite;
 
-public class ScriptPruebaBD : MonoBehaviour
+public class ManagementBD : MonoBehaviour
 {
     private int idNumber = 0;
-    private string nombre = "Pera";
-    public enum NumOfSearch { NONE, ID, NAME };
+    private string nombre = "Manzana";
     private Texture2D texture;
-    public Image imagen;
+    public enum NumOfSearch { NONE, ID, NAME };
     private NumOfSearch currentSearch = NumOfSearch.NAME;
+    public Image imagen;
+    public AudioSource audioSource;
     public ObjectBD currentObjectBD;
     private string ruteFolderImage;
+    private string ruteFolderAudio;
     // Start is called before the first frame update
     void Start()
     {
+        ruteFolderImage = "file://" + Application.dataPath + "/Resources/Images/BurbujasMinigame/";//cambiar la dirección cuando se tenga la definitiva
+        ruteFolderAudio = "file://" + Application.dataPath + "/Resources/Audios/";
+        //ObtainFrase("Manzana Pera Melocoton");
         ReadSQlite();
     }
 
     // Update is called once per frame
-    void ReadSQlite()
+    public ObjectBD ReadSQlite()
     {
-        ruteFolderImage = "URI=file:" + Application.dataPath + "/Resources/Images/BurbujasMinigame/";
         string conection = "URI=file:" + Application.dataPath + "/Plugins/SQLite/BaseDeDatosYoTambienLeo.db";
         IDbConnection dbConection = (IDbConnection)new SqliteConnection(conection);
         dbConection.Open();
@@ -59,12 +63,18 @@ public class ScriptPruebaBD : MonoBehaviour
 
 
         }
-        currentObjectBD.SeparateSilabas();
+        if (currentObjectBD.nameSpanish != null)
+        {
+            currentObjectBD.SeparateSilabas(SingletonLenguage.GetInstance().GetLenguage());
+            SearchAudioClip(currentObjectBD.audio);
+        }
+        else Debug.Log("No existe");
 
         if (currentObjectBD.image1 != null)
         {
             SearchSpriteInRuteFolders(currentObjectBD.image1);
         }
+
 
 
 
@@ -77,6 +87,7 @@ public class ScriptPruebaBD : MonoBehaviour
         dbConection.Close();
         dbConection = null;
 
+        return currentObjectBD;
     }
 
     private string SearchInBDContenido(string _table)
@@ -91,7 +102,18 @@ public class ScriptPruebaBD : MonoBehaviour
                 m_SQL = ("SELECT * FROM " + _table + " WHERE id = " + idNumber);
                 break;
             case NumOfSearch.NAME:
-                m_SQL = ("SELECT * FROM " + _table + " WHERE nombreCastellano = " + "'" + nombre + "'");
+                switch (SingletonLenguage.GetInstance().GetLenguage())
+                {
+                    case SingletonLenguage.Lenguage.CASTELLANO:
+                        m_SQL = ("SELECT * FROM " + _table + " WHERE nombreCastellano = " + "'" + nombre + "'");
+                        break;
+                    case SingletonLenguage.Lenguage.CATALAN:
+                        m_SQL = ("SELECT * FROM " + _table + " WHERE nombreCatalan = " + "'" + nombre + "'");
+                        break;
+
+                    case SingletonLenguage.Lenguage.INGLES:break;
+                    case SingletonLenguage.Lenguage.FRANCES:break;
+                }
                 break;
         }
         ResetValues();
@@ -120,25 +142,92 @@ public class ScriptPruebaBD : MonoBehaviour
     public void SearchSpriteInRuteFolders(string _image)
     {
         string completeRute = ruteFolderImage + _image;
-
+        StartCoroutine(ConvertURLToTexture(completeRute));
     }
 
 
     //PARA PASAR DE UNA IMAGEN WEB A UN SPRITE, LLAMANDO CON UNA CORUTINE A ESTO
-    /*
-    IEnumerator ConvertURLToTexture(string _url)
+    
+    IEnumerator ConvertURLToTexture(string _rute)
     {
-        WWW www = new WWW(_url); //Cargando la imagen
+        WWW www = new WWW(_rute); //Cargando la imagen
         yield return www;
 
         texture = www.texture; //una vez cargada 
         PassTexture2DToSprite();
     }
-    */
+
+
     private void PassTexture2DToSprite()
     {
         Rect rect = new Rect(new Vector2(0,0), new Vector2(texture.width,texture.height));
         imagen.sprite = Sprite.Create(texture, rect, Vector2.down);
     }
     
+    public void SearchAudioClip(string _audio)
+    {
+        string completeRute = ruteFolderAudio;
+        switch(SingletonLenguage.GetInstance().GetLenguage())
+        {
+            case SingletonLenguage.Lenguage.CASTELLANO:
+                completeRute += "Castellano/" + _audio;
+                break;
+            case SingletonLenguage.Lenguage.CATALAN:
+                completeRute += "Catalan/" + _audio;
+                break;
+            case SingletonLenguage.Lenguage.INGLES:
+                break;
+            case SingletonLenguage.Lenguage.FRANCES:
+                break;
+        }
+
+        WWW www = new WWW(completeRute);
+        StartCoroutine(LoadAudio(www));
+    }
+    
+    private IEnumerator LoadAudio(WWW _www)
+    {
+        WWW request = _www;
+        yield return request;
+
+        AudioClip audio = request.GetAudioClip();
+        audioSource.clip = audio;
+        audioSource.Play();
+    }
+
+    public void ChangeAudioAnImage(Image _image, AudioSource _audio)
+    {
+        imagen = _image;
+        audioSource = _audio;
+    }
+
+    public List<ObjectBD> ObtainFrase(string _frase)
+    {
+        List<ObjectBD> words = new List<ObjectBD>();
+
+        string currentPalabra = "";
+        for (int i = 0; i < _frase.Length; i++)
+        {
+            if (_frase[i] != ' ')
+            {
+                currentPalabra += _frase[i];
+            }
+            else
+            {
+                ChangeNameSearch(currentPalabra);
+                words.Add(ReadSQlite());
+                //print(words[words.Count - 1].nameSpanish);
+                currentPalabra = "";
+            }
+        }
+        if (currentPalabra != "")
+        {
+            ChangeNameSearch(currentPalabra);
+            words.Add(ReadSQlite());
+            //print(words[words.Count - 1].nameSpanish);
+            currentPalabra = "";
+        }
+
+        return words;
+    }
 }
