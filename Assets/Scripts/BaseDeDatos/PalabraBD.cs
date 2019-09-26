@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectBD 
+public class PalabraBD 
 {
     public int id;
     public string color;
