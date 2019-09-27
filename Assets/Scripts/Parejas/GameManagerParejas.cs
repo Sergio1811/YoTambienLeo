@@ -6,12 +6,11 @@ using UnityEngine.UI;
 public class GameManagerParejas : MonoBehaviour
 {
     public GameObject m_Canvas;
-
-    public GameObject m_Naranja;
-    public GameObject m_Rojo;
-    public GameObject m_Azul;
-    public GameObject m_Verde;
-    public GameObject m_Amarillo;
+    public Texture2D[] m_ImagePairs;
+    # region Separador
+#endregion
+    public GameObject m_Plantilla;
+   
 
     public int m_NumPairs;
     private bool m_IsHorizontal;
@@ -22,14 +21,19 @@ public class GameManagerParejas : MonoBehaviour
     void Start()
     {
 
-        List<GameObject> m_Pairs = new List<GameObject>();
+        List<Texture2D> m_Pairs = new List<Texture2D>();
+        foreach (Texture2D item in m_ImagePairs)
+        {
+            m_Pairs.Add(item);
+        }/*
         m_Pairs.Add(m_Naranja);
         m_Pairs.Add(m_Rojo);
         m_Pairs.Add(m_Verde);
         m_Pairs.Add(m_Azul);
-        m_Pairs.Add(m_Amarillo);
+        m_Pairs.Add(m_Amarillo);*/
 
-        List<GameObject> m_SecondPair = new List<GameObject>();
+        List<Texture2D> m_SecondPair = new List<Texture2D>();
+        List<Texture2D> m_ThirdPair = new List<Texture2D>();
 
         if (Random.Range(0, 2) == 1)
             m_IsHorizontal = true;
@@ -51,13 +55,16 @@ public class GameManagerParejas : MonoBehaviour
                 {
                     for (int j = 0; j < m_NumPairs; j++)
                     {
-                        Vector3 m_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
-                        int m_RandomPair = Random.Range(0, m_Pairs.Count);
-                        GameObject m_NewPair = Instantiate(m_Pairs[m_RandomPair], m_Canvas.transform);
-                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = m_NewPosition;
+                        Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
+                        int l_RandomPair = Random.Range(0, m_Pairs.Count);
+                        GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
+                        m_NewPair.GetComponent<Image>().sprite= Sprite.Create(m_Pairs[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
+                        m_NewPair.name = j.ToString();
 
-                        m_SecondPair.Add(m_NewPair);
-                        m_Pairs.RemoveAt(m_RandomPair);
+                        m_SecondPair.Add(m_Pairs[l_RandomPair]);
+                        m_ThirdPair.Add(m_Pairs[l_RandomPair]);
+                        m_Pairs.RemoveAt(l_RandomPair);
 
                         k++;
                         k++;
@@ -67,12 +74,13 @@ public class GameManagerParejas : MonoBehaviour
                 {
                     for (int j = 0; j < m_NumPairs; j++)
                     {
-                        Vector3 m_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
-                        int m_RandomPair = Random.Range(0, m_SecondPair.Count);
-                        GameObject m_NewPair = Instantiate(m_SecondPair[m_RandomPair], m_Canvas.transform);
-                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = m_NewPosition;
-
-                        m_SecondPair.RemoveAt(m_RandomPair);
+                        Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
+                        int l_RandomPair = Random.Range(0, m_SecondPair.Count);
+                        GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
+                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(m_SecondPair[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
+                        m_NewPair.name = m_ThirdPair.IndexOf(m_SecondPair[l_RandomPair]).ToString();
+                        m_SecondPair.RemoveAt(l_RandomPair);
 
                         k++;
                         k++;
@@ -97,28 +105,34 @@ public class GameManagerParejas : MonoBehaviour
                 {
                     for (int j = 0; j < m_NumPairs; j++)
                     {
-                        Vector3 m_NewPosition = new Vector3(m_XPos, m_YPos * k, 0f);
-                        int m_RandomPair = Random.Range(0, m_Pairs.Count);
-                        GameObject m_NewPair = Instantiate(m_Pairs[m_RandomPair], m_Canvas.transform);
-                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = m_NewPosition;
+                        Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * k, 0f);
+                        int l_RandomPair = Random.Range(0, m_Pairs.Count);
+                        GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
+                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(m_Pairs[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
+                        m_NewPair.name = j.ToString();
 
-                        m_SecondPair.Add(m_NewPair);
-                        m_Pairs.RemoveAt(m_RandomPair);
+                        m_SecondPair.Add(m_Pairs[l_RandomPair]);
+                        m_ThirdPair.Add(m_Pairs[l_RandomPair]);
+                        m_Pairs.RemoveAt(l_RandomPair);
 
                         k++;
                         k++;
+
                     }
                 }
                 else
                 {
                     for (int j = 0; j < m_NumPairs; j++)
                     {
-                        Vector3 m_NewPosition = new Vector3(m_XPos, m_YPos * k, 0f);
-                        int m_RandomPair = Random.Range(0, m_SecondPair.Count);
-                        GameObject m_NewPair = Instantiate(m_SecondPair[m_RandomPair], m_Canvas.transform);
-                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = m_NewPosition;
-
-                        m_SecondPair.RemoveAt(m_RandomPair);
+                        Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * k, 0f);
+                        int l_RandomPair = Random.Range(0, m_SecondPair.Count);
+                        GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
+                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(m_SecondPair[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
+                       
+                       m_NewPair.name = m_ThirdPair.IndexOf(m_SecondPair[l_RandomPair]).ToString();
+                        m_SecondPair.RemoveAt(l_RandomPair);
 
                         k++;
                         k++;
