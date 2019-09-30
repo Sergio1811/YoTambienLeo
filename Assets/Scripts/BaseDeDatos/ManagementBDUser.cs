@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using System.Data;
 using Mono.Data.Sqlite;
+using System.IO;
 
 public class ManagementBDUser : MonoBehaviour
 {
@@ -142,6 +143,7 @@ public class ManagementBDUser : MonoBehaviour
     {
         imagen = _image;
         string completeRute = ruteFolderImage + _rute;
+        imagen.color = Color.white;
         StartCoroutine(ConvertURLToTexture(completeRute));
     }
 

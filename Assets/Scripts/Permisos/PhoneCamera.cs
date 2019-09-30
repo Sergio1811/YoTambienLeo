@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Data;
-using UnityEngine.Windows;
+using System.IO;
 
 public class PhoneCamera : MonoBehaviour
 {
@@ -17,13 +17,9 @@ public class PhoneCamera : MonoBehaviour
 
     public ManagementBDUser managementBDUser;
     public Image imagen;
-    public Text text;
-    private Texture2D texture;
-    private string data;
 
     void Start()
     {
-        print(Application.persistentDataPath);
         m_DefaultBackground = m_Background.texture;
         WebCamDevice[] m_Devices = WebCamTexture.devices;
 
@@ -78,16 +74,14 @@ public class PhoneCamera : MonoBehaviour
 
     public void TakeAShot()
     {
-        data = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
         StartCoroutine("TakePicture");
-        text.text = File.Exists(managementBDUser.ruteFolderImage + "UserPhoto" + data + ".png").ToString(); ;
-        managementBDUser.SearchSpriteInRuteFolders("UserPhoto" + data + ".png", imagen);
+        managementBDUser.SearchSpriteInRuteFolders("Photo.png", imagen);
 
     }
 
     IEnumerator TakePicture()
     {
-        ScreenCapture.CaptureScreenshot("UserPhoto" + data + ".png");
+        ScreenCapture.CaptureScreenshot("Photo.png");
         yield return new WaitForEndOfFrame();
     }
 

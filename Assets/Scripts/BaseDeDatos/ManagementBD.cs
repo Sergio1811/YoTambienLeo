@@ -14,7 +14,7 @@ public class ManagementBD : MonoBehaviour
     private int m_dificult = 0;//Estos de frase
     private Texture2D texture;
     public enum NumOfSearch { NONE, ID, NAME, DIFICULT };
-    private NumOfSearch currentSearch = NumOfSearch.NONE;
+    private NumOfSearch currentSearch = NumOfSearch.NAME;
     public enum NumofSearchFrase { NONE, NAME, DIFICULT };
     private NumofSearchFrase currentSearchFrase = NumofSearchFrase.NONE;
     public Image imagen;
@@ -28,13 +28,13 @@ public class ManagementBD : MonoBehaviour
         ruteFolderImage = "file://" + Application.dataPath + "/Resources/Images/BurbujasMinigame/";//cambiar la dirección cuando se tenga la definitiva
         ruteFolderAudio = "file://" + Application.dataPath + "/Resources/Audios/";
         //ObtainFrase("Manzana Pera Melocoton");
-        //ReadSQlitePalabra();
+        ReadSQlitePalabra();
     }
 
     // Update is called once per frame
     public List<PalabraBD> ReadSQlitePalabra()
     {
-        string conection = "URI=file:" + Application.dataPath + "/Plugins/SQLite/BaseDeDatosYoTambienLeo.db";
+        string conection = "URI=file:" + Application.persistentDataPath + "/Plugins/SQLite/BaseDeDatosYoTambienLeo.db";
         IDbConnection dbConection = (IDbConnection)new SqliteConnection(conection);
         dbConection.Open();
         IDbCommand dbcommand = dbConection.CreateCommand();
@@ -75,6 +75,7 @@ public class ManagementBD : MonoBehaviour
             {
                 p.SeparateSilabas(SingletonLenguage.GetInstance().GetLenguage());
             }
+            SearchSpriteInRuteFolders(currentObjectBD[0].image1, imagen);
         }
         else Debug.Log("No existe");
 
