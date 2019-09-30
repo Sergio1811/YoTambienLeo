@@ -21,8 +21,9 @@ public class ManagementBD : MonoBehaviour
     public AudioSource audioSource;
     private string ruteFolderImage;
     private string ruteFolderAudio;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         ruteFolderImage = "file://" + Application.dataPath + "/Resources/Images/BurbujasMinigame/";//cambiar la dirección cuando se tenga la definitiva
         ruteFolderAudio = "file://" + Application.dataPath + "/Resources/Audios/";
@@ -68,7 +69,7 @@ public class ManagementBD : MonoBehaviour
         }
 
 
-        if (currentObjectBD[currentObjectBD.Count - 1].nameSpanish != null)
+        if (currentObjectBD.Count > 0)
         {
             foreach (PalabraBD p in currentObjectBD)
             {
@@ -118,7 +119,7 @@ public class ManagementBD : MonoBehaviour
             // Debug.Log("Id = " + id + "  Nombre 1 =" + nombre1 + "  imagen 1 =" + imagen1 + " imagen 2 =" + imagen2);
 
         }
-        if (m_frase[m_frase.Count - 1].frase != null)
+        if (m_frase.Count > 0)
         {
             foreach (FraseBD f in m_frase)
             {
@@ -270,9 +271,10 @@ public class ManagementBD : MonoBehaviour
         currentSearchFrase = NumofSearchFrase.DIFICULT;
     }
 
-    public void SearchSpriteInRuteFolders(string _image)
+    public void SearchSpriteInRuteFolders(string _rute, Image _image)
     {
-        string completeRute = ruteFolderImage + _image;
+        imagen = _image;
+        string completeRute = ruteFolderImage + _rute;
         StartCoroutine(ConvertURLToTexture(completeRute));
     }
 
@@ -295,8 +297,9 @@ public class ManagementBD : MonoBehaviour
         imagen.sprite = Sprite.Create(texture, rect, Vector2.down);
     }
 
-    public void SearchAudioClip(string _audio)
+    public void SearchAudioClip(string _audio, AudioSource _audioSource)
     {
+        audioSource = _audioSource;
         string completeRute = ruteFolderAudio;
         switch (SingletonLenguage.GetInstance().GetLenguage())
         {
