@@ -10,6 +10,12 @@ public class Pairs : MonoBehaviour
 
     private Vector3 m_ClickedPiecePosition;
 
+    public GameManagerParejas m_GameManagerParejas;
+
+    private void Start()
+    {
+        m_GameManagerParejas = GameObject.FindGameObjectWithTag("GMParejas").GetComponent<GameManagerParejas>();
+    }
     private void Update()
     {
         if (!m_PieceClicked)
@@ -78,10 +84,12 @@ public class Pairs : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if ((collision.gameObject.name == this.gameObject.name) && (Input.touchCount == 0 || Input.GetMouseButtonUp(0)))
+        if ((collision.gameObject.name == this.gameObject.name) && ((Input.touchCount>0 && Input.GetTouch(0).phase==TouchPhase.Ended )|| Input.GetMouseButtonUp(0)))
         {
             this.transform.position = collision.gameObject.transform.position;
-
+            m_GameManagerParejas.m_ImageZoomed.sprite= this.gameObject.GetComponent<Image>().sprite;
+            m_GameManagerParejas.m_TextZoomed.text = this.name;
+            m_GameManagerParejas.PairDone();
             Destroy(collision.gameObject);
             Destroy(this.gameObject);
 

@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 4493751486504811238}
   - component: {fileID: -8450404337765997175}
   - component: {fileID: -4524481500147969868}
-  - component: {fileID: 896384822433329996}
   m_Layer: 5
-  m_Name: Naranja
+  m_Name: PlantillaPareja
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +89,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 50, y: 50}
+  m_Offset: {x: 100.16837, y: 100.11627}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -101,7 +100,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 100, y: 100}
+  m_Size: {x: 200.33675, y: 200.23254}
   m_EdgeRadius: 0
 --- !u!50 &-4524481500147969868
 Rigidbody2D:
@@ -124,15 +123,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &896384822433329996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3216352808238781115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27b7a201cc2ea094699f77c289d6a70e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
