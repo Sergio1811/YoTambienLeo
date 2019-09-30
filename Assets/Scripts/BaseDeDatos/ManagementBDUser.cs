@@ -14,13 +14,16 @@ public class ManagementBDUser : MonoBehaviour
     public Image imagen;
     public AudioSource audioSource;
     public string ruteFolderImage;
+    private string ruteFolderImageInsert;
     private string ruteFolderAudio;
 
 
     // Start is called before the first frame update
     void Awake()
     {
-        ruteFolderImage = "file://" + Application.dataPath + "/com.ViOD.YoTambienLeo/files/";//cambiar la dirección cuando se tenga la definitiva
+        ruteFolderImage = "file://" + Application.persistentDataPath + "/";
+        ruteFolderImageInsert = Application.dataPath + "/com.ViOD.YoTambienLeo/files/";//cambiar la dirección cuando se tenga la definitiva
+
         ruteFolderAudio = "file://" + Application.dataPath + "/files/";//SI NO FUNCIONA PONER DESPUES DE DATA PATH com.ViOD.YoTambienLeo
         //InsertPalabra("fs","sdv ","avs","asv", 0);
        //ReadSQlitePalabra();
@@ -109,13 +112,16 @@ public class ManagementBDUser : MonoBehaviour
 
     #region Inserts
 
-    public void InsertPalabra(string _palabra, string _silabas, string _image, string _audio, int _frase)
+    public void InsertPalabra(string _palabra, string _silabas, string _image, string _audio, int _frase, ref Text _text)//quitar el texto
     {
+        _text.text = "entra0";
         string conection = "URI=file:" + Application.dataPath + "/Plugins/SQLite/BaseDeDatosYoTambienLeo.db";
         IDbConnection dbConection = (IDbConnection)new SqliteConnection(conection);
         dbConection.Open();
         IDbCommand dbcommand = dbConection.CreateCommand();
+        _text.text = "entra1";
         string sqlQuery = "INSERT INTO Usuario (nombre, silabas, imagen, audio, frase) VALUES ('" + _palabra + "', '" + _silabas + "', '" + _image + "', '" + _audio + "', '" + _frase + "')";
+        _text.text = "entra2";
         //string sqlQuery = "SELECT id, nombre, imagen, imagen2 FROM Contenido";  //en el from tiene que poner el nombre de la tabla y antes lo que se tiene que seleccionar en sql. Al buscar algun string hay que ponerle las comillas estas '  ' osino no lo reconoce
         dbcommand.CommandText = sqlQuery;
         dbcommand.ExecuteNonQuery();
@@ -125,6 +131,8 @@ public class ManagementBDUser : MonoBehaviour
 
         dbConection.Close();
         dbConection = null;
+        _text.text = "entra3";
+
     }
 
     #endregion

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Data;
+using UnityEngine.Windows;
 
 public class PhoneCamera : MonoBehaviour
 {
@@ -17,9 +19,11 @@ public class PhoneCamera : MonoBehaviour
     public Image imagen;
     public Text text;
     private Texture2D texture;
+    private string data;
 
     void Start()
     {
+        print(Application.persistentDataPath);
         m_DefaultBackground = m_Background.texture;
         WebCamDevice[] m_Devices = WebCamTexture.devices;
 
@@ -74,43 +78,17 @@ public class PhoneCamera : MonoBehaviour
 
     public void TakeAShot()
     {
+        data = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
         StartCoroutine("TakePicture");
-        imagen.color = Color.white;
-        managementBDUser.InsertPalabra("pene", "pe-ne", "UserPhoto" + System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".png", "audio", 0);
-        managementBDUser.SearchSpriteInRuteFolders("UserPhoto" + System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".png", imagen);
-        //List<PalabraFraseUsuarioBD> prueba = managementBDUser.ReadSQlitePalabra();
-        text.text = prueba.Count.ToString();
-        text.enabled = true;
+        text.text = File.Exists(managementBDUser.ruteFolderImage + "UserPhoto" + data + ".png").ToString(); ;
+        managementBDUser.SearchSpriteInRuteFolders("UserPhoto" + data + ".png", imagen);
+
     }
 
     IEnumerator TakePicture()
     {
-        ScreenCapture.CaptureScreenshot("UserPhoto" + System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".png");
+        ScreenCapture.CaptureScreenshot("UserPhoto" + data + ".png");
         yield return new WaitForEndOfFrame();
     }
 
-    public void SearchSpriteInRuteFolders(string _rute, Image _image)
-    {
-        imagen = _image;
-        string completeRute = managementBDUser.ruteFolderImage + _rute;
-        StartCoroutine(ConvertURLToTexture(completeRute));
-    }
-
-
-    //PARA PASAR DE UNA IMAGEN WEB A UN SPRITE, LLAMANDO CON UNA CORUTINE A ESTO
-
-    IEnumerator ConvertURLToTexture(string _rute)
-    {
-        WWW www = new WWW(_rute); //Cargando la imagen
-        yield return www;
-
-        texture = www.texture; //una vez cargada 
-        PassTexture2DToSprite();
-    }
-
-    private void PassTexture2DToSprite()
-    {
-        Rect rect = new Rect(new Vector2(0, 0), new Vector2(texture.width, texture.height));
-        imagen.sprite = Sprite.Create(texture, rect, Vector2.down);
-    }
 }
