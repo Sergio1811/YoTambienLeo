@@ -395,6 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagen: {fileID: 1993039347}
   audioSource: {fileID: 356845186}
+  prueba: {fileID: 0}
 --- !u!82 &356845186
 AudioSource:
   m_ObjectHideFlags: 0
@@ -519,6 +520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagen: {fileID: 1993039347}
   audioSource: {fileID: 356845186}
+  ruteFolderImage: 
 --- !u!1 &466239159 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7617506766310047005, guid: c97aaca75cec1de418a27440bfd0ea07,
@@ -1291,6 +1293,20 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 821c852ee93c97d4db12ed4abfbace97, type: 3}
   - {fileID: 2800000, guid: 3fb00f16af88f164882fca138009e37f, type: 3}
   - {fileID: 2800000, guid: b561bc80496146c459dd3925f115eecc, type: 3}
+  palabrasCastellano:
+  - Asustada
+  - Boca
+  - Culo
+  - Escuela
+  - Fresas
+  - Silla
+  palabrasCatalan:
+  - Espantada
+  - Boca
+  - Cul
+  - Escola
+  - Maduixes
+  - Cadira
   m_Scener: {fileID: 1618241205}
   m_ImageTemplate: {fileID: 7736469374024194581, guid: 1a6d43be7dae84c429ddc5ccc4adf93b,
     type: 3}

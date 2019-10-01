@@ -12,6 +12,9 @@ public class GameManagerPuzzle : MonoBehaviour
     public Image m_ImageAnim;
     public Text m_TextAnim;
     public List<Texture2D> m_ImagesPool = new List<Texture2D>();
+    public List<string> palabrasCastellano = new List<string>();
+    public List<string> palabrasCatalan = new List<string>();
+
     List<GameObject> m_Words = new List<GameObject>();
     public SceneManagement m_Scener;
     int m_CurrentNumRep = 0;
@@ -33,6 +36,7 @@ public class GameManagerPuzzle : MonoBehaviour
     int m_NumPiecesX;
     int m_NumPiecesY;
     bool m_Completed;
+    int numRandom = 0;
 
     public Sprite m_CompletedPoint;
     public Transform m_SpawnImpar;
@@ -135,9 +139,10 @@ public class GameManagerPuzzle : MonoBehaviour
         int l_CurrentPiece = 0;
         int k = 0;
 
-        m_ImagePuzzle = m_ImagesPool[Random.Range(0, m_ImagesPool.Count)];
+        numRandom = Random.Range(0, m_ImagesPool.Count);
+        m_ImagePuzzle = m_ImagesPool[numRandom];
         WordInstantiation(m_ImagePuzzle);
-        m_TextAnim.text = m_ImagePuzzle.name;
+        m_TextAnim.text = PutName();
 
         Sprite l_SpriteImage;
         Rect rectImage = new Rect(new Vector2(0, 0), l_Colliders.sizeDelta);
@@ -375,12 +380,29 @@ public class GameManagerPuzzle : MonoBehaviour
     {
         GameObject l_Word = Instantiate(m_Word, m_WordTransform.transform);
         GameObject l_UnseenWord = Instantiate(m_UnseenWord, m_UnseenWordTransform.transform);
-        l_Word.GetComponentInChildren<Text>().text = l_ImagePuzzle.name;
+        l_Word.GetComponentInChildren<Text>().text = PutName();
         l_Word.name = "Word";
-        l_UnseenWord.GetComponentInChildren<Text>().text = l_ImagePuzzle.name;
+        l_UnseenWord.GetComponentInChildren<Text>().text = PutName();
         l_UnseenWord.name = "Word";
         m_Words.Add(l_Word);
         m_Words.Add(l_UnseenWord);
+    }
+
+    private string PutName()
+    {
+        string name = "";
+
+        switch(SingletonLenguage.GetInstance().GetLenguage())
+        {
+            case SingletonLenguage.Lenguage.CASTELLANO:
+                name = palabrasCastellano[numRandom];
+                break;
+            case SingletonLenguage.Lenguage.CATALAN:
+                name = palabrasCatalan[numRandom];
+                break;
+        }
+
+        return name;
     }
 
     IEnumerator WaitSeconds(float seconds)
