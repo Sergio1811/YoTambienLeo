@@ -13,7 +13,11 @@ public class ImageControl : MonoBehaviour
     public AnimationClip m_Slide;
     public List<Texture2D> m_ImagesPool = new List<Texture2D>();
     public List<Texture2D> m_ImagesPool2 = new List<Texture2D>();
-    public List<AudioClip> m_AudioPool = new List<AudioClip>();
+    public List<string> m_PalabrasCastellano = new List<string>();
+    public List<string> m_PalabrasCatalan = new List<string>();
+    public List<AudioClip> m_AudioPoolCastellano = new List<AudioClip>();
+    public List<AudioClip> m_AudioPoolCatalan = new List<AudioClip>();
+
     public static int m_Length;
     AudioClip m_CurrentAudioClip;
     public Image m_Image;
@@ -29,11 +33,11 @@ public class ImageControl : MonoBehaviour
         m_Animation = GetComponent<Animation>();
         m_Image.sprite = Sprite.Create(m_ImagesPool[l_Number], new Rect(0,0,511,511), Vector2.zero);
         m_ImageBehind.sprite = Sprite.Create(m_ImagesPool2[l_Number], new Rect(0, 0, 511, 511), Vector2.zero);
-        m_Text.text = m_ImagesPool[l_Number].name;
-        m_CurrentAudioClip = m_AudioPool[l_Number];
+        m_Text.text = PutName(l_Number); ;
+        m_CurrentAudioClip = m_AudioPoolCastellano[l_Number];
         m_AS.clip = m_CurrentAudioClip;
 
-        m_Length = m_AudioPool.Count;
+        m_Length = m_AudioPoolCastellano.Count;
 
     }
 
@@ -66,6 +70,19 @@ public class ImageControl : MonoBehaviour
             yield return new WaitForSeconds(seconds);
             print(Time.time);
             m_GMBit.ActivateButtons();
+        }
+    }
+
+    private string PutName(int _alea)
+    {
+        switch(SingletonLenguage.GetInstance().GetLenguage())
+        {
+            case SingletonLenguage.Lenguage.CASTELLANO:
+                return m_PalabrasCastellano[_alea];
+            case SingletonLenguage.Lenguage.CATALAN:
+                return m_PalabrasCatalan[_alea];
+            default:
+                return m_PalabrasCastellano[_alea];
         }
     }
 

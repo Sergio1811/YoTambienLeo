@@ -4836,7 +4836,29 @@ MonoBehaviour:
   - {fileID: 2800000, guid: dfbe0952eccd72746a2c094001bfdcff, type: 3}
   - {fileID: 2800000, guid: 612aae2c13a62eb4699b89297ea3f3b7, type: 3}
   - {fileID: 2800000, guid: 9f91c737c076787408e0928011a86e2d, type: 3}
-  m_AudioPool:
+  m_PalabrasCastellano:
+  - Ojo
+  - Saltar
+  - Boca
+  - Pie
+  - Culo
+  - Escuela
+  - Asustado
+  - Pelo
+  - Casa
+  - Verde
+  m_PalabrasCatalan:
+  - Ull
+  - Saltar
+  - Boca
+  - Peu
+  - Cul
+  - Escola
+  - Espantat
+  - Pel
+  - Casa
+  - Verd
+  m_AudioPoolCastellano:
   - {fileID: 8300000, guid: 5cec021bcc849224d8587785454bbb22, type: 3}
   - {fileID: 8300000, guid: c7647621c1fbdfb4c99a079b8bea7d95, type: 3}
   - {fileID: 8300000, guid: 5e8c51a8e2b3e7b4dbf01a94bf527e25, type: 3}
@@ -4847,6 +4869,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 129d2e5adbbdc4342bd837cb983fb2a3, type: 3}
   - {fileID: 8300000, guid: faf13593e27d9a342abce2e160452301, type: 3}
   - {fileID: 8300000, guid: 697b9527273b2c24785b63407dce7be8, type: 3}
+  m_AudioPoolCatalan: []
   m_Image: {fileID: 9153904701987078311}
   m_ImageBehind: {fileID: 2046781549542339956}
   m_Text: {fileID: 9153904701266079421}
