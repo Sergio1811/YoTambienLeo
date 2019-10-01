@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using System.Data;
 using Mono.Data.Sqlite;
+using System.IO;
 
 public class ManagementBD : MonoBehaviour
 {
@@ -19,24 +20,31 @@ public class ManagementBD : MonoBehaviour
     private NumofSearchFrase currentSearchFrase = NumofSearchFrase.NONE;
     public Image imagen;
     public AudioSource audioSource;
+    public Text prueba;
     private string ruteFolderImage;
     private string ruteFolderAudio;
 
     // Start is called before the first frame update
     void Awake()
     {
-        ruteFolderImage = "file://" + Application.dataPath + "/Resources/Images/BurbujasMinigame/";//cambiar la dirección cuando se tenga la definitiva
-        ruteFolderAudio = "file://" + Application.dataPath + "/Resources/Audios/";
+        ruteFolderImage =  Application.streamingAssetsPath + "/Resources/";//cambiar la dirección cuando se tenga la definitiva    //////   file://" + Application.dataPath + "/Resources/Images/BurbujasMinigame/
+        ruteFolderAudio =  Application.streamingAssetsPath + "/Resources/Audios/";
+        prueba.text = Application.streamingAssetsPath + "\n" + ruteFolderImage;
+        SearchSpriteInRuteFolders("13jOyOI.png", imagen);
         //ObtainFrase("Manzana Pera Melocoton");
-        ReadSQlitePalabra();
+        //ReadSQlitePalabra();
     }
 
     // Update is called once per frame
     public List<PalabraBD> ReadSQlitePalabra()
     {
-        string conection = "URI=file:" + Application.persistentDataPath + "/Plugins/SQLite/BaseDeDatosYoTambienLeo.db";
+        string conection = "jar=file://" + Application.dataPath + "!/assets/Plugins/SQLite/BaseDeDatosYoTambienLeo.db";
+        prueba.text = conection + "  " + File.Exists(conection); 
         IDbConnection dbConection = (IDbConnection)new SqliteConnection(conection);
+        prueba.text = "Entra0";
+
         dbConection.Open();
+
         IDbCommand dbcommand = dbConection.CreateCommand();
         string sqlQuery = SearchInBDContenido("Contenido");
         //string sqlQuery = "SELECT id, nombre, imagen, imagen2 FROM Contenido";  //en el from tiene que poner el nombre de la tabla y antes lo que se tiene que seleccionar en sql. Al buscar algun string hay que ponerle las comillas estas '  ' osino no lo reconoce
@@ -288,7 +296,8 @@ public class ManagementBD : MonoBehaviour
         yield return www;
 
         texture = www.texture; //una vez cargada 
-        PassTexture2DToSprite();
+        if(texture != null)
+            PassTexture2DToSprite();
     }
 
 

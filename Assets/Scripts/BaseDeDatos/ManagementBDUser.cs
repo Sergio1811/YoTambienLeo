@@ -156,7 +156,8 @@ public class ManagementBDUser : MonoBehaviour
         yield return www;
 
         texture = www.texture; //una vez cargada 
-        PassTexture2DToSprite();
+        if(texture != null)
+            PassTexture2DToSprite();
     }
 
     private void PassTexture2DToSprite()
