@@ -10,11 +10,11 @@ public class Frases : MonoBehaviour
     
     private void Start()
     {
-        Init();
+        /*Init();
         foreach (PalabraBD p in GetRandomFrase().palabras)
         {
             print(p.nameSpanish);
-        }
+        }*/
     }
 
     private void Init()

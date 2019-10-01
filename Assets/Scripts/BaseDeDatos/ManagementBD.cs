@@ -29,8 +29,8 @@ public class ManagementBD : MonoBehaviour
     {
         ruteFolderImage =  Application.streamingAssetsPath + "/Resources/";//cambiar la dirección cuando se tenga la definitiva    //////   file://" + Application.dataPath + "/Resources/Images/BurbujasMinigame/
         ruteFolderAudio =  Application.streamingAssetsPath + "/Resources/Audios/";
-        prueba.text = Application.streamingAssetsPath + "\n" + ruteFolderImage;
-        SearchSpriteInRuteFolders("13jOyOI.png", imagen);
+        //prueba.text = Application.streamingAssetsPath + "\n" + ruteFolderImage;
+        //SearchSpriteInRuteFolders("13jOyOI.png", imagen);
         //ObtainFrase("Manzana Pera Melocoton");
         //ReadSQlitePalabra();
     }
