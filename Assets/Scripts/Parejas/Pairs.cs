@@ -9,6 +9,7 @@ public class Pairs : MonoBehaviour
     bool m_PieceClicked = false;
 
     private Vector3 m_ClickedPiecePosition;
+    public string nombre = "";
 
     public GameManagerParejas m_GameManagerParejas;
 
@@ -88,7 +89,7 @@ public class Pairs : MonoBehaviour
         {
             this.transform.position = collision.gameObject.transform.position;
             m_GameManagerParejas.m_ImageZoomed.sprite= this.gameObject.GetComponent<Image>().sprite;
-            m_GameManagerParejas.m_TextZoomed.text = this.name;
+            m_GameManagerParejas.m_TextZoomed.text = nombre;
             m_GameManagerParejas.PairDone();
             Destroy(collision.gameObject);
             Destroy(this.gameObject);

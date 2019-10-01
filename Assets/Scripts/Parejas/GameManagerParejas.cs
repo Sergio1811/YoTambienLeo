@@ -13,6 +13,10 @@ public class GameManagerParejas : MonoBehaviour
     public Image m_ImageZoomed;
     public Text m_TextZoomed;
     public Texture2D[] m_ImagePairs;
+    public List<string> palabrasCastellano = new List<string>();
+    public List<string> palabrasCatalan = new List<string>();
+    public List<AudioClip> audiosCastellano = new List<AudioClip>();
+    public List<AudioClip> audiosCatalan = new List<AudioClip>();
     List<Texture2D> RepeatList = new List<Texture2D>();
     int m_CurrentNumRep = 0;
     public static int m_CurrentPairs; 
@@ -481,5 +485,18 @@ public class GameManagerParejas : MonoBehaviour
     {
         m_CurrentPairs++;
         m_Animation.Play();
+    }
+
+    private string PutName(int _name)
+    {
+        switch(SingletonLenguage.GetInstance().GetLenguage())
+        {
+            case SingletonLenguage.Lenguage.CASTELLANO:
+                return palabrasCastellano[_name];
+            case SingletonLenguage.Lenguage.CATALAN:
+                return palabrasCatalan[_name];
+            default:
+                return palabrasCastellano[_name];
+        }
     }
 }
