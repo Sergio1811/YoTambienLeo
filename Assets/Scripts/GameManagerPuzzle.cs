@@ -14,6 +14,8 @@ public class GameManagerPuzzle : MonoBehaviour
     public List<Texture2D> m_ImagesPool = new List<Texture2D>();
     public List<string> palabrasCastellano = new List<string>();
     public List<string> palabrasCatalan = new List<string>();
+    public List<AudioClip> audiosCastellano = new List<AudioClip>();
+    public List<AudioClip> audiosCatalan = new List<AudioClip>();
 
     List<GameObject> m_Words = new List<GameObject>();
     public SceneManagement m_Scener;
@@ -113,7 +115,7 @@ public class GameManagerPuzzle : MonoBehaviour
         if (m_Puntuacion == m_NumPieces+1)
         {
             AudioSource l_AS = GetComponent<AudioSource>();
-            //l_AS.clip =;
+            l_AS.clip = PutAudio();
             l_AS.Play();
           
             m_Completed = true;
@@ -403,6 +405,20 @@ public class GameManagerPuzzle : MonoBehaviour
         }
 
         return name;
+    }
+
+    private AudioClip PutAudio()
+    {
+        switch (SingletonLenguage.GetInstance().GetLenguage())
+        {
+            case SingletonLenguage.Lenguage.CASTELLANO:
+                return audiosCastellano[numRandom];
+            case SingletonLenguage.Lenguage.CATALAN:
+                return audiosCatalan[numRandom];
+            default:
+                return audiosCastellano[numRandom];
+
+        }
     }
 
     IEnumerator WaitSeconds(float seconds)
