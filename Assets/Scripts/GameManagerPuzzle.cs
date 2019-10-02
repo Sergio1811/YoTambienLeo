@@ -145,6 +145,7 @@ public class GameManagerPuzzle : MonoBehaviour
         m_ImagePuzzle = m_ImagesPool[numRandom];
         WordInstantiation(m_ImagePuzzle);
         m_TextAnim.text = PutName();
+        m_TextAnim.GetComponent<ConvertFont>().Convert();
 
         Sprite l_SpriteImage;
         Rect rectImage = new Rect(new Vector2(0, 0), l_Colliders.sizeDelta);
@@ -383,8 +384,11 @@ public class GameManagerPuzzle : MonoBehaviour
         GameObject l_Word = Instantiate(m_Word, m_WordTransform.transform);
         GameObject l_UnseenWord = Instantiate(m_UnseenWord, m_UnseenWordTransform.transform);
         l_Word.GetComponentInChildren<Text>().text = PutName();
+        l_Word.GetComponentInChildren<ConvertFont>().Convert();
+
         l_Word.name = "Word";
         l_UnseenWord.GetComponentInChildren<Text>().text = PutName();
+        l_UnseenWord.GetComponentInChildren<ConvertFont>().Convert();
         l_UnseenWord.name = "Word";
         m_Words.Add(l_Word);
         m_Words.Add(l_UnseenWord);

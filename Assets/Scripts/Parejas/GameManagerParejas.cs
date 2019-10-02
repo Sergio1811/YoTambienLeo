@@ -12,12 +12,14 @@ public class GameManagerParejas : MonoBehaviour
     public GameObject m_ImageZoom;
     public Image m_ImageZoomed;
     public Text m_TextZoomed;
-    public Texture2D[] m_ImagePairs;
+    public List<Texture2D> m_ImagePairs = new List<Texture2D>();
     public List<string> palabrasCastellano = new List<string>();
     public List<string> palabrasCatalan = new List<string>();
     public List<AudioClip> audiosCastellano = new List<AudioClip>();
     public List<AudioClip> audiosCatalan = new List<AudioClip>();
     List<Texture2D> RepeatList = new List<Texture2D>();
+    List<string> repeatListPalabras = new List<string>();
+    List<AudioClip> repeatListAudios = new List<AudioClip>();
     int m_CurrentNumRep = 0;
     public static int m_CurrentPairs; 
 
@@ -95,14 +97,28 @@ public class GameManagerParejas : MonoBehaviour
         m_CurrentNumRep = 0;
 
         List<Texture2D> l_Pairs = new List<Texture2D>();
-        foreach (Texture2D item in m_ImagePairs)
+        List<string> l_Palabras = new List<string>();
+        List<AudioClip> l_Audios = new List<AudioClip>();
+
+        l_Pairs = m_ImagePairs;
+        l_Palabras = ObtainListOfPalabras();
+        l_Audios = ObtainListOfAudios();
+       /* foreach (Texture2D item in m_ImagePairs)
         {
             l_Pairs.Add(item);
-        }
-
+        }*/
+        
         List<Texture2D> l_SecondPair = new List<Texture2D>();
         List<Texture2D> l_ThirdPair = new List<Texture2D>();
         RepeatList = l_ThirdPair;
+
+        List<string> l_SecondPalabra = new List<string>();
+        List<string> l_ThirdPalabra = new List<string>();
+        repeatListPalabras = l_ThirdPalabra;
+
+        List<AudioClip> l_SecondAudio = new List<AudioClip>();
+        List<AudioClip> l_ThirdAudio = new List<AudioClip>();
+        repeatListAudios = l_ThirdAudio;
 
         if (Random.Range(0, 2) == 1)
             m_IsHorizontal = true;
@@ -135,6 +151,14 @@ public class GameManagerParejas : MonoBehaviour
                         l_ThirdPair.Add(l_Pairs[l_RandomPair]);
                         l_Pairs.RemoveAt(l_RandomPair);
 
+                        l_SecondPalabra.Add(l_Palabras[l_RandomPair]);
+                        l_ThirdPalabra.Add(l_Palabras[l_RandomPair]);
+                        l_Palabras.RemoveAt(l_RandomPair);
+
+                        l_SecondAudio.Add(l_Audios[l_RandomPair]);
+                        l_ThirdAudio.Add(l_Audios[l_RandomPair]);
+                        l_Audios.RemoveAt(l_RandomPair);
+
                         k++;
                         k++;
                     }
@@ -149,7 +173,12 @@ public class GameManagerParejas : MonoBehaviour
                         m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                         m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
+                        m_NewPair.GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
+                        m_NewPair.GetComponent<Pairs>().audioClip = l_SecondAudio[l_RandomPair];
+
                         l_SecondPair.RemoveAt(l_RandomPair);
+                        l_SecondPalabra.RemoveAt(l_RandomPair);
+                        l_SecondAudio.RemoveAt(l_RandomPair);
 
                         k++;
                         k++;
@@ -180,10 +209,21 @@ public class GameManagerParejas : MonoBehaviour
                         m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                         m_NewPair.name = j.ToString();
+                        m_NewPair.GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
+                        m_NewPair.GetComponent<Pairs>().audioClip = l_Audios[l_RandomPair];
 
                         l_SecondPair.Add(l_Pairs[l_RandomPair]);
                         l_ThirdPair.Add(l_Pairs[l_RandomPair]);
                         l_Pairs.RemoveAt(l_RandomPair);
+
+                        l_SecondPalabra.Add(l_Palabras[l_RandomPair]);
+                        l_ThirdPalabra.Add(l_Palabras[l_RandomPair]);
+                        l_Palabras.RemoveAt(l_RandomPair);
+
+                        l_SecondAudio.Add(l_Audios[l_RandomPair]);
+                        l_ThirdAudio.Add(l_Audios[l_RandomPair]);
+                        l_Audios.RemoveAt(l_RandomPair);
+
 
                         k++;
                         k++;
@@ -202,6 +242,8 @@ public class GameManagerParejas : MonoBehaviour
 
                         m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                         l_SecondPair.RemoveAt(l_RandomPair);
+                        l_SecondPalabra.RemoveAt(l_RandomPair);
+                        l_SecondAudio.RemoveAt(l_RandomPair);
 
                         k++;
                         k++;
@@ -225,14 +267,35 @@ public class GameManagerParejas : MonoBehaviour
         else
         {
             List<Texture2D> l_Pairs = new List<Texture2D>();
-            foreach (Texture2D item in m_ImagePairs)
+            List<string> l_Palabras = new List<string>();
+            List<AudioClip> l_Audios = new List<AudioClip>();
+
+            foreach (Texture2D item in RepeatList)
+             {
+                 l_Pairs.Add(item);
+             }
+
+            foreach (string item in repeatListPalabras)
             {
-                l_Pairs.Add(item);
+                l_Palabras.Add(item);
+            }
+
+            foreach (AudioClip item in repeatListAudios)
+            {
+                l_Audios.Add(item);
             }
 
             List<Texture2D> l_SecondPair = new List<Texture2D>();
             List<Texture2D> l_ThirdPair = new List<Texture2D>();
             RepeatList = l_ThirdPair;
+
+            List<string> l_SecondPalabra = new List<string>();
+            List<string> l_ThirdPalabra = new List<string>();
+            repeatListPalabras = l_ThirdPalabra;
+
+            List<AudioClip> l_SecondAudio = new List<AudioClip>();
+            List<AudioClip> l_ThirdAudio = new List<AudioClip>();
+            repeatListAudios = l_ThirdAudio;
 
             if (Random.Range(0, 2) == 1)
                 m_IsHorizontal = true;
@@ -265,6 +328,14 @@ public class GameManagerParejas : MonoBehaviour
                             l_ThirdPair.Add(l_Pairs[l_RandomPair]);
                             l_Pairs.RemoveAt(l_RandomPair);
 
+                            l_SecondPalabra.Add(l_Palabras[l_RandomPair]);
+                            l_ThirdPalabra.Add(l_Palabras[l_RandomPair]);
+                            l_Palabras.RemoveAt(l_RandomPair);
+
+                            l_SecondAudio.Add(l_Audios[l_RandomPair]);
+                            l_ThirdAudio.Add(l_Audios[l_RandomPair]);
+                            l_Audios.RemoveAt(l_RandomPair);
+
                             k++;
                             k++;
                         }
@@ -279,7 +350,12 @@ public class GameManagerParejas : MonoBehaviour
                             m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
                             m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                             m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
+                            m_NewPair.GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
+                            m_NewPair.GetComponent<Pairs>().audioClip = l_SecondAudio[l_RandomPair];
+
                             l_SecondPair.RemoveAt(l_RandomPair);
+                            l_SecondPalabra.RemoveAt(l_RandomPair);
+                            l_SecondAudio.RemoveAt(l_RandomPair);
 
                             k++;
                             k++;
@@ -310,10 +386,20 @@ public class GameManagerParejas : MonoBehaviour
                             m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
                             m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                             m_NewPair.name = j.ToString();
+                            m_NewPair.GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
+                            m_NewPair.GetComponent<Pairs>().audioClip = l_Audios[l_RandomPair];
 
                             l_SecondPair.Add(l_Pairs[l_RandomPair]);
                             l_ThirdPair.Add(l_Pairs[l_RandomPair]);
                             l_Pairs.RemoveAt(l_RandomPair);
+
+                            l_SecondPalabra.Add(l_Palabras[l_RandomPair]);
+                            l_ThirdPalabra.Add(l_Palabras[l_RandomPair]);
+                            l_Palabras.RemoveAt(l_RandomPair);
+
+                            l_SecondAudio.Add(l_Audios[l_RandomPair]);
+                            l_ThirdAudio.Add(l_Audios[l_RandomPair]);
+                            l_Audios.RemoveAt(l_RandomPair);
 
                             k++;
                             k++;
@@ -332,6 +418,8 @@ public class GameManagerParejas : MonoBehaviour
 
                             m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                             l_SecondPair.RemoveAt(l_RandomPair);
+                            l_SecondPalabra.RemoveAt(l_RandomPair);
+                            l_SecondAudio.RemoveAt(l_RandomPair);
 
                             k++;
                             k++;
@@ -349,13 +437,32 @@ public class GameManagerParejas : MonoBehaviour
         m_CurrentNumRep++;
 
         List<Texture2D> l_Pairs = new List<Texture2D>();
+        List<string> l_Palabras = new List<string>();
+        List<AudioClip> l_Audios = new List<AudioClip>();
+
         foreach (Texture2D item in RepeatList)
         {
             l_Pairs.Add(item);
         }
 
+        foreach (string item in repeatListPalabras)
+        {
+            l_Palabras.Add(item);
+        }
+
+        foreach(AudioClip item in repeatListAudios)
+        {
+            l_Audios.Add(item);
+        }
+
         List<Texture2D> l_SecondPair = new List<Texture2D>();
         List<Texture2D> l_ThirdPair = new List<Texture2D>();
+
+        List<string> l_SecondPalabra = new List<string>();
+        List<string> l_ThirdPalabra = new List<string>();
+
+        List<AudioClip> l_SecondAudio = new List<AudioClip>();
+        List<AudioClip> l_ThirdAudio = new List<AudioClip>();
 
         if (Random.Range(0, 2) == 1)
             m_IsHorizontal = true;
@@ -388,6 +495,14 @@ public class GameManagerParejas : MonoBehaviour
                         l_ThirdPair.Add(l_Pairs[l_RandomPair]);
                         l_Pairs.RemoveAt(l_RandomPair);
 
+                        l_SecondPalabra.Add(l_Palabras[l_RandomPair]);
+                        l_ThirdPalabra.Add(l_Palabras[l_RandomPair]);
+                        l_Palabras.RemoveAt(l_RandomPair);
+
+                        l_SecondAudio.Add(l_Audios[l_RandomPair]);
+                        l_ThirdAudio.Add(l_Audios[l_RandomPair]);
+                        l_Audios.RemoveAt(l_RandomPair);
+
                         k++;
                         k++;
                     }
@@ -402,7 +517,12 @@ public class GameManagerParejas : MonoBehaviour
                         m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                         m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
+                        m_NewPair.GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
+                        m_NewPair.GetComponent<Pairs>().audioClip = l_SecondAudio[l_RandomPair];
+
                         l_SecondPair.RemoveAt(l_RandomPair);
+                        l_SecondPalabra.RemoveAt(l_RandomPair);
+                        l_SecondAudio.RemoveAt(l_RandomPair);
 
                         k++;
                         k++;
@@ -433,10 +553,20 @@ public class GameManagerParejas : MonoBehaviour
                         m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                         m_NewPair.name = j.ToString();
+                        m_NewPair.GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
+                        m_NewPair.GetComponent<Pairs>().audioClip = l_Audios[l_RandomPair];
 
                         l_SecondPair.Add(l_Pairs[l_RandomPair]);
                         l_ThirdPair.Add(l_Pairs[l_RandomPair]);
                         l_Pairs.RemoveAt(l_RandomPair);
+
+                        l_SecondPalabra.Add(l_Palabras[l_RandomPair]);
+                        l_ThirdPalabra.Add(l_Palabras[l_RandomPair]);
+                        l_Palabras.RemoveAt(l_RandomPair);
+
+                        l_SecondAudio.Add(l_Audios[l_RandomPair]);
+                        l_ThirdAudio.Add(l_Audios[l_RandomPair]);
+                        l_Audios.RemoveAt(l_RandomPair);
 
                         k++;
                         k++;
@@ -455,6 +585,8 @@ public class GameManagerParejas : MonoBehaviour
 
                         m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                         l_SecondPair.RemoveAt(l_RandomPair);
+                        l_SecondPalabra.RemoveAt(l_RandomPair);
+                        l_SecondAudio.RemoveAt(l_RandomPair);
 
                         k++;
                         k++;
@@ -487,16 +619,29 @@ public class GameManagerParejas : MonoBehaviour
         m_Animation.Play();
     }
 
-    private string PutName(int _name)
+    private List<string> ObtainListOfPalabras()
     {
-        switch(SingletonLenguage.GetInstance().GetLenguage())
+        switch (SingletonLenguage.GetInstance().GetLenguage())
         {
             case SingletonLenguage.Lenguage.CASTELLANO:
-                return palabrasCastellano[_name];
+                return palabrasCastellano;
             case SingletonLenguage.Lenguage.CATALAN:
-                return palabrasCatalan[_name];
+                return palabrasCatalan;
             default:
-                return palabrasCastellano[_name];
+                return palabrasCastellano;
+        }
+    }
+
+    private List<AudioClip> ObtainListOfAudios()
+    {
+        switch (SingletonLenguage.GetInstance().GetLenguage())
+        {
+            case SingletonLenguage.Lenguage.CASTELLANO:
+                return audiosCastellano;
+            case SingletonLenguage.Lenguage.CATALAN:
+                return audiosCatalan;
+            default:
+                return audiosCastellano;
         }
     }
 }

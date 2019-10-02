@@ -23,6 +23,7 @@ public class ImageControl : MonoBehaviour
     public Image m_Image;
     public Image m_ImageBehind;
     public Text m_Text;
+    public List<Font> ourFonts = new List<Font>();
     public AudioSource m_AS;
 
 
@@ -33,7 +34,8 @@ public class ImageControl : MonoBehaviour
         m_Animation = GetComponent<Animation>();
         m_Image.sprite = Sprite.Create(m_ImagesPool[l_Number], new Rect(0,0, m_ImagesPool[l_Number].width/1.02f, m_ImagesPool[l_Number].height/1.02f), Vector2.zero);
         m_ImageBehind.sprite = Sprite.Create(m_ImagesPool2[l_Number], new Rect(0, 0, m_ImagesPool[l_Number].width/1.02f, m_ImagesPool[l_Number].height/1.02f), Vector2.zero);
-        m_Text.text = PutName(l_Number); ;
+        m_Text.text = PutName(l_Number);
+        m_Text.font = SearchFont();
         m_CurrentAudioClip = m_AudioPoolCastellano[l_Number];
         m_AS.clip = m_CurrentAudioClip;
 
@@ -83,6 +85,22 @@ public class ImageControl : MonoBehaviour
                 return m_PalabrasCatalan[_alea];
             default:
                 return m_PalabrasCastellano[_alea];
+        }
+    }
+
+    private Font  SearchFont()
+    {
+        switch (SingletonLenguage.GetInstance().GetFont())
+        {
+            case SingletonLenguage.OurFont.IMPRENTA:
+                 return ourFonts[0];
+            case SingletonLenguage.OurFont.MANUSCRITA:
+                return ourFonts[1];
+            case SingletonLenguage.OurFont.MAYUSCULA:
+                m_Text.text = m_Text.text.ToUpper();
+                return ourFonts[2];
+            default:
+                return ourFonts[0];
         }
     }
 
