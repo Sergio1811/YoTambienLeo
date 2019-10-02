@@ -1325,6 +1325,7 @@ GameObject:
   - component: {fileID: 7081414336341522810}
   - component: {fileID: 7081414336341522808}
   - component: {fileID: 7081414336341522809}
+  - component: {fileID: 7081414336341522812}
   m_Layer: 5
   m_Name: TextoPalabra
   m_TagString: Untagged
@@ -1332,6 +1333,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7081414336341522812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7081414336341522811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf0e99cf40e20fa4e9ee67c8c2ecd123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ourFonts:
+  - {fileID: 12800000, guid: 997576ae6f1d9b64b9c51820c092d284, type: 3}
+  - {fileID: 12800000, guid: 96f05e2c60466064ea46dfb2c7640efd, type: 3}
+  - {fileID: 12800000, guid: 997576ae6f1d9b64b9c51820c092d284, type: 3}
+  myText: {fileID: 7081414336341522809}
 --- !u!222 &7081414336503434273
 CanvasRenderer:
   m_ObjectHideFlags: 0

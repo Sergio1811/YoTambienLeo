@@ -16,7 +16,7 @@ public class SingletonLenguage
         {
             instance = new SingletonLenguage();
             instance.SetLenguage(Lenguage.CASTELLANO);//cambiar en un futuro
-            instance.SetFont(OurFont.MANUSCRITA);//cambiar en un futuro
+            instance.SetFont(OurFont.MAYUSCULA);//cambiar en un futuro
         }
         return instance;
     }

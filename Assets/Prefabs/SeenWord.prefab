@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PieceLocked: 0
+  Word: 1
 --- !u!61 &8652956090916772114
 BoxCollider2D:
   m_ObjectHideFlags: 0

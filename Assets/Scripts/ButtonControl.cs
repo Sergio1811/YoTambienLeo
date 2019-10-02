@@ -91,4 +91,33 @@ public class ButtonControl : MonoBehaviour
         l_Texto.text = m_CurrentEditWord.ToString() +" de 8";
     }
 
+    public void SetFont(int _font)
+    {
+        switch (_font)
+        {
+            case 0:
+                SingletonLenguage.GetInstance().SetFont(SingletonLenguage.OurFont.MAYUSCULA);
+                break;
+            case 1:
+                SingletonLenguage.GetInstance().SetFont(SingletonLenguage.OurFont.IMPRENTA);
+                break;
+            case 2:
+                SingletonLenguage.GetInstance().SetFont(SingletonLenguage.OurFont.MANUSCRITA);
+                break;
+        }
+    }
+
+    public void SetLenguage(int _lengauge)
+    {
+        switch(_lengauge)
+        {
+            case 0:
+                SingletonLenguage.GetInstance().SetLenguage(SingletonLenguage.Lenguage.CASTELLANO);
+                break;
+            case 1:
+                SingletonLenguage.GetInstance().SetLenguage(SingletonLenguage.Lenguage.CATALAN);
+                break;
+        }
+    }
+
 }
