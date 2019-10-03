@@ -55,7 +55,7 @@ public class ImageControl : MonoBehaviour
             print("0 done");
         }
 
-        else if (GameManager.Instance.InputRecieved() && m_1touch && !m_Animation.isPlaying)
+        else if (GameManager.Instance.InputRecieved() && m_1touch && !m_Animation.isPlaying && !m_AS.isPlaying)
         {
             m_Animation.clip = m_Spin;
             m_Animation.Play();
