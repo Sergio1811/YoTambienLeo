@@ -118,7 +118,7 @@ public class MoveTouch : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if ((collision.gameObject.name == this.gameObject.name) && (Input.touchCount == 0 && Input.GetMouseButtonUp(0)) && !m_PieceLocked)
+        if ((collision.gameObject.name == this.gameObject.name) && ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) && Input.GetMouseButtonUp(0)) && !m_PieceLocked)
         {
             this.transform.position = collision.gameObject.transform.position;
             m_PieceLocked = true;
