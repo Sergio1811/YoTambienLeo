@@ -250,6 +250,7 @@ GameObject:
   - component: {fileID: 223672324}
   - component: {fileID: 223672323}
   - component: {fileID: 223672325}
+  - component: {fileID: 223672326}
   m_Layer: 0
   m_Name: GameManagerParejas
   m_TagString: GMParejas
@@ -443,6 +444,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &223672326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223672322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782f670df1a2b4145ab5f56657d3425f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 0}
 --- !u!1 &292697740
 GameObject:
   m_ObjectHideFlags: 0

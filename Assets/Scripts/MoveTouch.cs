@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class MoveTouch : MonoBehaviour
 {
     [HideInInspector]
+    public OnlyOneManager managerOnlyOne;
     public bool m_PieceLocked = false;
     bool m_PieceClicked = false;
     private Vector3 m_ClickedPiecePosition;
@@ -20,72 +21,86 @@ public class MoveTouch : MonoBehaviour
 
     void Update()
     {
-        if (!m_PieceLocked && !m_PieceClicked)
+        if (managerOnlyOne != null)
         {
-            if (Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0);
-                Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-                touchPosition.z = 0f;
 
-                RaycastHit2D l_RaycastHit = Physics2D.Raycast(touchPosition, Camera.main.transform.forward);
-                if (l_RaycastHit)
+            if (!m_PieceLocked && !m_PieceClicked)
+            {
+                if (Input.touchCount > 0 && managerOnlyOne.go == null)
                 {
-                    if (l_RaycastHit.collider.gameObject == this.gameObject)
+                    Touch touch = Input.GetTouch(0);
+                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                    touchPosition.z = 0f;
+
+                    RaycastHit2D l_RaycastHit = Physics2D.Raycast(touchPosition, Camera.main.transform.forward);
+                    if (l_RaycastHit)
                     {
-                        m_PieceClicked = true;
-                        m_ClickedPiecePosition = this.gameObject.transform.position;
+                        if (l_RaycastHit.collider.gameObject == this.gameObject)
+                        {
+                            m_PieceClicked = true;
+                            m_ClickedPiecePosition = this.gameObject.transform.position;
+                            managerOnlyOne.Catch(true, gameObject);
+                        }
                     }
+
                 }
 
-            }
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                touchPosition.z = 0f;
-
-                RaycastHit2D l_RaycastHit = Physics2D.Raycast(touchPosition, Camera.main.transform.forward);
-                if (l_RaycastHit)
+                if (Input.GetMouseButtonDown(0) && managerOnlyOne.go == null)
                 {
-                    if (l_RaycastHit.collider.gameObject == this.gameObject)
+                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    touchPosition.z = 0f;
+
+                    RaycastHit2D l_RaycastHit = Physics2D.Raycast(touchPosition, Camera.main.transform.forward);
+                    if (l_RaycastHit)
                     {
-                        m_PieceClicked = true;
-                        m_ClickedPiecePosition = this.gameObject.transform.position;
+                        if (l_RaycastHit.collider.gameObject == this.gameObject)
+                        {
+                            m_PieceClicked = true;
+                            m_ClickedPiecePosition = this.gameObject.transform.position;
+                            m_ClickedPiecePosition = this.gameObject.transform.position;
+                            managerOnlyOne.Catch(true, gameObject);
+                        }
                     }
                 }
             }
-        }
 
-        if (m_PieceClicked)
-        {
-            if (Input.GetMouseButton(0))
+            if (m_PieceClicked)
             {
-                Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                touchPosition.z = 0f;
-                if (!Word)
-                    this.transform.position = touchPosition - new Vector3(myImage.rectTransform.rect.width / 256, -myImage.rectTransform.rect.height / 256);
-                else
+                if (Input.GetMouseButton(0))
+                {
+                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    touchPosition.z = 0f;
+                    if (!Word)
+                        this.transform.position = touchPosition - new Vector3(myImage.rectTransform.rect.width / 256, -myImage.rectTransform.rect.height / 256);
+                    else
+                        this.transform.position = touchPosition;
+                }
+
+                else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved))
+                {
+                    Touch touch = Input.GetTouch(0);
+                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                    touchPosition.z = 0f;
                     this.transform.position = touchPosition;
+                }
             }
 
-            else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved))
+            if (m_PieceClicked && (Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)))
             {
-                Touch touch = Input.GetTouch(0);
-                Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-                touchPosition.z = 0f;
-                this.transform.position = touchPosition;
+                StartCoroutine(WaitToFrame());
             }
         }
 
-        if (m_PieceClicked && (Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)))
-        {
-            if(!m_PieceLocked)
-                this.transform.position = m_ClickedPiecePosition;
+    }
 
-            m_PieceClicked = false;
-        }
+    IEnumerator WaitToFrame()
+    {
+        if (!m_PieceLocked)
+            this.transform.position = m_ClickedPiecePosition;
 
+        m_PieceClicked = false;
+        managerOnlyOne.Catch(false, null);
+        yield return new WaitForSeconds(0.5f);
     }
 
 
@@ -95,8 +110,8 @@ public class MoveTouch : MonoBehaviour
         {
             this.transform.position = collision.gameObject.transform.position;
             m_PieceLocked = true;
-            if(SceneManager.GetActiveScene().name=="Puzzle")
-            GameObject.FindGameObjectWithTag("GameManagerPuzzle").GetComponent<GameManagerPuzzle>().m_Puntuacion++;
+            if (SceneManager.GetActiveScene().name == "Puzzle")
+                GameObject.FindGameObjectWithTag("GameManagerPuzzle").GetComponent<GameManagerPuzzle>().m_Puntuacion++;
         }
     }
 

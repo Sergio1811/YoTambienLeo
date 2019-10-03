@@ -1287,6 +1287,7 @@ GameObject:
   - component: {fileID: 1618241203}
   - component: {fileID: 1618241204}
   - component: {fileID: 1618241205}
+  - component: {fileID: 1618241206}
   m_Layer: 0
   m_Name: ScriptHolder
   m_TagString: GameManagerPuzzle
@@ -1533,6 +1534,19 @@ MonoBehaviour:
   MainMenuCanvas: {fileID: 0}
   "ConfiguracionPesta\xF1a": {fileID: 0}
   AllCanvas: []
+--- !u!114 &1618241206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618241200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782f670df1a2b4145ab5f56657d3425f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 0}
 --- !u!114 &1681611315 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8652956090537760681, guid: 0fa924cdc97b37044bdb6721d7ae4d72,

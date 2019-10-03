@@ -7,10 +7,11 @@ public class Pairs : MonoBehaviour
 {
     [HideInInspector]
     bool m_PieceClicked = false;
-
+    public OnlyOneManager managerOnlyOne;
     private Vector3 m_ClickedPiecePosition;
     public string nombre = "";
     public AudioClip audioClip;
+    private Image myImage;
 
     public GameManagerParejas m_GameManagerParejas;
     private AudioSource audioSource;
@@ -19,71 +20,85 @@ public class Pairs : MonoBehaviour
     {
         m_GameManagerParejas = GameObject.FindGameObjectWithTag("GMParejas").GetComponent<GameManagerParejas>();
         audioSource = m_GameManagerParejas.GetComponent<AudioSource>();
+        myImage = gameObject.GetComponent<Image>();
     }
     private void Update()
     {
-        if (!m_PieceClicked)
+        if (managerOnlyOne != null)
         {
-            if (Input.touchCount > 0)
+            if (!m_PieceClicked)
             {
-                Touch touch = Input.GetTouch(0);
-                Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-                touchPosition.z = 0f;
-
-                RaycastHit2D l_RaycastHit = Physics2D.Raycast(touchPosition, Camera.main.transform.forward);
-                if (l_RaycastHit)
+                if (Input.touchCount > 0 && managerOnlyOne.go == null)
                 {
-                    if (l_RaycastHit.collider.gameObject == this.gameObject)
+                    Touch touch = Input.GetTouch(0);
+                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                    touchPosition.z = 0f;
+
+                    RaycastHit2D l_RaycastHit = Physics2D.Raycast(touchPosition, Camera.main.transform.forward);
+                    if (l_RaycastHit)
                     {
-                        m_PieceClicked = true;
-                        m_ClickedPiecePosition = this.gameObject.transform.position;
+                        if (l_RaycastHit.collider.gameObject == this.gameObject)
+                        {
+                            m_PieceClicked = true;
+                            m_ClickedPiecePosition = this.gameObject.transform.position;
+                            managerOnlyOne.Catch(true, gameObject);
+                        }
                     }
+
                 }
 
-            }
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                touchPosition.z = 0f;
-
-                RaycastHit2D l_RaycastHit = Physics2D.Raycast(touchPosition, Camera.main.transform.forward);
-                if (l_RaycastHit)
+                if (Input.GetMouseButtonDown(0) && managerOnlyOne.go == null)
                 {
-                    if (l_RaycastHit.collider.gameObject == this.gameObject)
+                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    touchPosition.z = 0f;
+
+                    RaycastHit2D l_RaycastHit = Physics2D.Raycast(touchPosition, Camera.main.transform.forward);
+                    if (l_RaycastHit)
                     {
-                        m_PieceClicked = true;
-                        m_ClickedPiecePosition = this.gameObject.transform.position;
+                        if (l_RaycastHit.collider.gameObject == this.gameObject)
+                        {
+                            m_PieceClicked = true;
+                            m_ClickedPiecePosition = this.gameObject.transform.position;
+                            managerOnlyOne.Catch(true, gameObject);
+
+                        }
                     }
                 }
             }
-        }
 
-        if (m_PieceClicked)
-        {
-            if (Input.GetMouseButton(0))
+            if (m_PieceClicked)
             {
-                Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                touchPosition.z = 0f;
-                this.transform.position = touchPosition;
+                if (Input.GetMouseButton(0))
+                {
+                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    touchPosition.z = 0f;
+                    this.transform.position = touchPosition - new Vector3(myImage.rectTransform.rect.width / 200, myImage.rectTransform.rect.height / 200);
+                }
+
+                else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved))
+                {
+                    Touch touch = Input.GetTouch(0);
+                    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                    touchPosition.z = 0f;
+                    this.transform.position = touchPosition;
+                }
             }
 
-            else if ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved))
+            if (m_PieceClicked && (Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)))
             {
-                Touch touch = Input.GetTouch(0);
-                Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-                touchPosition.z = 0f;
-                this.transform.position = touchPosition;
+                StartCoroutine(WaitToFrame());
             }
-        }
-
-        if (m_PieceClicked && (Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)))
-        {
-            this.transform.position = m_ClickedPiecePosition;
-            m_PieceClicked = false;
         }
 
     }
+    IEnumerator WaitToFrame()
+    {
+        this.transform.position = m_ClickedPiecePosition;
+        m_PieceClicked = false;
+        managerOnlyOne.Catch(false, null);
+        yield return new WaitForSeconds(0.5f);
+    }
+
 
 
     private void OnTriggerStay2D(Collider2D collision)

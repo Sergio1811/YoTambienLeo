@@ -181,6 +181,7 @@ public class GameManagerPuzzle : MonoBehaviour
                 #region ImageInstantiation
                 GameObject local = Instantiate(m_ImageTemplate, m_ImagesSpawn.transform);
                 m_Images.Add(local);
+                m_Images[m_Images.Count - 1].GetComponent<MoveTouch>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
                 l_Number = Random.Range(0, m_NumPieces);
 
                 while(l_Numbers.Contains(l_Number))
@@ -266,6 +267,7 @@ public class GameManagerPuzzle : MonoBehaviour
                 #region ImageInstantiation
                 GameObject local = Instantiate(m_ImageTemplate, m_ImagesSpawn.transform);
                 m_Images.Add(local);
+                m_Images[m_Images.Count - 1].GetComponent<MoveTouch>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
                 l_Number = Random.Range(0, m_NumPieces);
 
                 while (l_Numbers.Contains(l_Number))
@@ -391,6 +393,7 @@ public class GameManagerPuzzle : MonoBehaviour
         l_UnseenWord.GetComponentInChildren<ConvertFont>().Convert();
         l_UnseenWord.name = "Word";
         m_Words.Add(l_Word);
+        m_Words[m_Words.Count - 1].GetComponent<MoveTouch>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
         m_Words.Add(l_UnseenWord);
     }
 

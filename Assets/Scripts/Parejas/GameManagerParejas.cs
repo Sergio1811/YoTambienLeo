@@ -175,7 +175,7 @@ public class GameManagerParejas : MonoBehaviour
                         m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                         m_NewPair.GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
                         m_NewPair.GetComponent<Pairs>().audioClip = l_SecondAudio[l_RandomPair];
-
+                        m_NewPair.GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
                         l_SecondPair.RemoveAt(l_RandomPair);
                         l_SecondPalabra.RemoveAt(l_RandomPair);
                         l_SecondAudio.RemoveAt(l_RandomPair);
@@ -211,6 +211,7 @@ public class GameManagerParejas : MonoBehaviour
                         m_NewPair.name = j.ToString();
                         m_NewPair.GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
                         m_NewPair.GetComponent<Pairs>().audioClip = l_Audios[l_RandomPair];
+                        m_NewPair.GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
 
                         l_SecondPair.Add(l_Pairs[l_RandomPair]);
                         l_ThirdPair.Add(l_Pairs[l_RandomPair]);
@@ -352,6 +353,7 @@ public class GameManagerParejas : MonoBehaviour
                             m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                             m_NewPair.GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
                             m_NewPair.GetComponent<Pairs>().audioClip = l_SecondAudio[l_RandomPair];
+                            m_NewPair.GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
 
                             l_SecondPair.RemoveAt(l_RandomPair);
                             l_SecondPalabra.RemoveAt(l_RandomPair);
@@ -388,6 +390,7 @@ public class GameManagerParejas : MonoBehaviour
                             m_NewPair.name = j.ToString();
                             m_NewPair.GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
                             m_NewPair.GetComponent<Pairs>().audioClip = l_Audios[l_RandomPair];
+                            m_NewPair.GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
 
                             l_SecondPair.Add(l_Pairs[l_RandomPair]);
                             l_ThirdPair.Add(l_Pairs[l_RandomPair]);
@@ -519,6 +522,7 @@ public class GameManagerParejas : MonoBehaviour
                         m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                         m_NewPair.GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
                         m_NewPair.GetComponent<Pairs>().audioClip = l_SecondAudio[l_RandomPair];
+                        m_NewPair.GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
 
                         l_SecondPair.RemoveAt(l_RandomPair);
                         l_SecondPalabra.RemoveAt(l_RandomPair);
@@ -555,6 +559,7 @@ public class GameManagerParejas : MonoBehaviour
                         m_NewPair.name = j.ToString();
                         m_NewPair.GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
                         m_NewPair.GetComponent<Pairs>().audioClip = l_Audios[l_RandomPair];
+                        m_NewPair.GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
 
                         l_SecondPair.Add(l_Pairs[l_RandomPair]);
                         l_ThirdPair.Add(l_Pairs[l_RandomPair]);
