@@ -13,12 +13,17 @@ public class ImageControl : MonoBehaviour
     public AnimationClip m_Slide;
     public List<Texture2D> m_ImagesPool = new List<Texture2D>();
     public List<Texture2D> m_ImagesPool2 = new List<Texture2D>();
-    public List<AudioClip> m_AudioPool = new List<AudioClip>();
+    public List<string> m_PalabrasCastellano = new List<string>();
+    public List<string> m_PalabrasCatalan = new List<string>();
+    public List<AudioClip> m_AudioPoolCastellano = new List<AudioClip>();
+    public List<AudioClip> m_AudioPoolCatalan = new List<AudioClip>();
+
     public static int m_Length;
     AudioClip m_CurrentAudioClip;
     public Image m_Image;
     public Image m_ImageBehind;
     public Text m_Text;
+    public List<Font> ourFonts = new List<Font>();
     public AudioSource m_AS;
 
 
@@ -27,13 +32,14 @@ public class ImageControl : MonoBehaviour
         int l_Number = GameManagerBit.m_Alea;
         m_GMBit = GameObject.FindGameObjectWithTag("Bit").GetComponent<GameManagerBit>();
         m_Animation = GetComponent<Animation>();
-        m_Image.sprite = Sprite.Create(m_ImagesPool[l_Number], new Rect(0,0,511,511), Vector2.zero);
-        m_ImageBehind.sprite = Sprite.Create(m_ImagesPool2[l_Number], new Rect(0, 0, 511, 511), Vector2.zero);
-        m_Text.text = m_ImagesPool[l_Number].name;
-        m_CurrentAudioClip = m_AudioPool[l_Number];
+        m_Image.sprite = Sprite.Create(m_ImagesPool[l_Number], new Rect(0,0, m_ImagesPool[l_Number].width/1.02f, m_ImagesPool[l_Number].height/1.02f), Vector2.zero);
+        m_ImageBehind.sprite = Sprite.Create(m_ImagesPool2[l_Number], new Rect(0, 0, m_ImagesPool[l_Number].width/1.02f, m_ImagesPool[l_Number].height/1.02f), Vector2.zero);
+        m_Text.text = PutName(l_Number);
+        m_Text.font = SearchFont();
+        m_CurrentAudioClip = m_AudioPoolCastellano[l_Number];
         m_AS.clip = m_CurrentAudioClip;
 
-        m_Length = m_AudioPool.Count;
+        m_Length = m_AudioPoolCastellano.Count;
 
     }
 
@@ -66,6 +72,35 @@ public class ImageControl : MonoBehaviour
             yield return new WaitForSeconds(seconds);
             print(Time.time);
             m_GMBit.ActivateButtons();
+        }
+    }
+
+    private string PutName(int _alea)
+    {
+        switch(SingletonLenguage.GetInstance().GetLenguage())
+        {
+            case SingletonLenguage.Lenguage.CASTELLANO:
+                return m_PalabrasCastellano[_alea];
+            case SingletonLenguage.Lenguage.CATALAN:
+                return m_PalabrasCatalan[_alea];
+            default:
+                return m_PalabrasCastellano[_alea];
+        }
+    }
+
+    private Font  SearchFont()
+    {
+        switch (SingletonLenguage.GetInstance().GetFont())
+        {
+            case SingletonLenguage.OurFont.IMPRENTA:
+                 return ourFonts[0];
+            case SingletonLenguage.OurFont.MANUSCRITA:
+                return ourFonts[1];
+            case SingletonLenguage.OurFont.MAYUSCULA:
+                m_Text.text = m_Text.text.ToUpper();
+                return ourFonts[2];
+            default:
+                return ourFonts[0];
         }
     }
 

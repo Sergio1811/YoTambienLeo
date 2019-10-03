@@ -12,6 +12,11 @@ public class GameManagerPuzzle : MonoBehaviour
     public Image m_ImageAnim;
     public Text m_TextAnim;
     public List<Texture2D> m_ImagesPool = new List<Texture2D>();
+    public List<string> palabrasCastellano = new List<string>();
+    public List<string> palabrasCatalan = new List<string>();
+    public List<AudioClip> audiosCastellano = new List<AudioClip>();
+    public List<AudioClip> audiosCatalan = new List<AudioClip>();
+
     List<GameObject> m_Words = new List<GameObject>();
     public SceneManagement m_Scener;
     int m_CurrentNumRep = 0;
@@ -33,6 +38,7 @@ public class GameManagerPuzzle : MonoBehaviour
     int m_NumPiecesX;
     int m_NumPiecesY;
     bool m_Completed;
+    int numRandom = 0;
 
     public Sprite m_CompletedPoint;
     public Transform m_SpawnImpar;
@@ -109,7 +115,7 @@ public class GameManagerPuzzle : MonoBehaviour
         if (m_Puntuacion == m_NumPieces+1)
         {
             AudioSource l_AS = GetComponent<AudioSource>();
-            //l_AS.clip =;
+            l_AS.clip = PutAudio();
             l_AS.Play();
           
             m_Completed = true;
@@ -135,9 +141,11 @@ public class GameManagerPuzzle : MonoBehaviour
         int l_CurrentPiece = 0;
         int k = 0;
 
-        m_ImagePuzzle = m_ImagesPool[Random.Range(0, m_ImagesPool.Count)];
+        numRandom = Random.Range(0, m_ImagesPool.Count);
+        m_ImagePuzzle = m_ImagesPool[numRandom];
         WordInstantiation(m_ImagePuzzle);
-        m_TextAnim.text = m_ImagePuzzle.name;
+        m_TextAnim.text = PutName();
+        m_TextAnim.GetComponent<ConvertFont>().Convert();
 
         Sprite l_SpriteImage;
         Rect rectImage = new Rect(new Vector2(0, 0), l_Colliders.sizeDelta);
@@ -173,6 +181,7 @@ public class GameManagerPuzzle : MonoBehaviour
                 #region ImageInstantiation
                 GameObject local = Instantiate(m_ImageTemplate, m_ImagesSpawn.transform);
                 m_Images.Add(local);
+                m_Images[m_Images.Count - 1].GetComponent<MoveTouch>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
                 l_Number = Random.Range(0, m_NumPieces);
 
                 while(l_Numbers.Contains(l_Number))
@@ -258,6 +267,7 @@ public class GameManagerPuzzle : MonoBehaviour
                 #region ImageInstantiation
                 GameObject local = Instantiate(m_ImageTemplate, m_ImagesSpawn.transform);
                 m_Images.Add(local);
+                m_Images[m_Images.Count - 1].GetComponent<MoveTouch>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
                 l_Number = Random.Range(0, m_NumPieces);
 
                 while (l_Numbers.Contains(l_Number))
@@ -375,12 +385,47 @@ public class GameManagerPuzzle : MonoBehaviour
     {
         GameObject l_Word = Instantiate(m_Word, m_WordTransform.transform);
         GameObject l_UnseenWord = Instantiate(m_UnseenWord, m_UnseenWordTransform.transform);
-        l_Word.GetComponentInChildren<Text>().text = l_ImagePuzzle.name;
+        l_Word.GetComponentInChildren<Text>().text = PutName();
+        l_Word.GetComponentInChildren<ConvertFont>().Convert();
+
         l_Word.name = "Word";
-        l_UnseenWord.GetComponentInChildren<Text>().text = l_ImagePuzzle.name;
+        l_UnseenWord.GetComponentInChildren<Text>().text = PutName();
+        l_UnseenWord.GetComponentInChildren<ConvertFont>().Convert();
         l_UnseenWord.name = "Word";
         m_Words.Add(l_Word);
+        m_Words[m_Words.Count - 1].GetComponent<MoveTouch>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
         m_Words.Add(l_UnseenWord);
+    }
+
+    private string PutName()
+    {
+        string name = "";
+
+        switch(SingletonLenguage.GetInstance().GetLenguage())
+        {
+            case SingletonLenguage.Lenguage.CASTELLANO:
+                name = palabrasCastellano[numRandom];
+                break;
+            case SingletonLenguage.Lenguage.CATALAN:
+                name = palabrasCatalan[numRandom];
+                break;
+        }
+
+        return name;
+    }
+
+    private AudioClip PutAudio()
+    {
+        switch (SingletonLenguage.GetInstance().GetLenguage())
+        {
+            case SingletonLenguage.Lenguage.CASTELLANO:
+                return audiosCastellano[numRandom];
+            case SingletonLenguage.Lenguage.CATALAN:
+                return audiosCatalan[numRandom];
+            default:
+                return audiosCastellano[numRandom];
+
+        }
     }
 
     IEnumerator WaitSeconds(float seconds)
