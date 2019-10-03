@@ -29,7 +29,7 @@ public class Pairs : MonoBehaviour
         {
             if (!m_PieceClicked)
             {
-                if (Input.touchCount > 0 && managerOnlyOne.go == null)
+                if (Input.touchCount > 0 && managerOnlyOne.go == null && !m_GameManagerParejas.m_Animation.isPlaying)
                 {
                     Touch touch = Input.GetTouch(0);
                     Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
@@ -49,7 +49,7 @@ public class Pairs : MonoBehaviour
 
                 }
 
-                if (Input.GetMouseButtonDown(0) && managerOnlyOne.go == null)
+                if (Input.GetMouseButtonDown(0) && managerOnlyOne.go == null && !m_GameManagerParejas.m_Animation.isPlaying)
                 {
                     Vector3 touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     touchPosition.z = 0f;

@@ -8,7 +8,8 @@ public class GameManagerParejas : MonoBehaviour
     public SceneManagement m_Scener;
     public GameObject m_Canvas;
     public GameObject m_RealCanvas;
-    Animation m_Animation;
+    [HideInInspector]
+    public Animation m_Animation;
     public GameObject m_ImageZoom;
     public Image m_ImageZoomed;
     public Text m_TextZoomed;
