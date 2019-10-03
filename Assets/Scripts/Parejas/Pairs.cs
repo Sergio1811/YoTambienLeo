@@ -15,6 +15,7 @@ public class Pairs : MonoBehaviour
 
     public GameManagerParejas m_GameManagerParejas;
     private AudioSource audioSource;
+    private float timer = 0;
 
     private void Start()
     {
@@ -84,19 +85,25 @@ public class Pairs : MonoBehaviour
                 }
             }
 
-            if (m_PieceClicked && (Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)))
+            if (timer > 0)
             {
-                StartCoroutine(WaitToFrame());
+                timer -= Time.deltaTime;
+                if (timer <= 0)
+                {
+                    timer = 0;
+                    this.transform.position = m_ClickedPiecePosition;
+                    m_PieceClicked = false;
+                    managerOnlyOne.Catch(false, null);
+                }
+
+            }
+
+            if (m_PieceClicked && (Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)) && timer == 0)
+            {
+                timer = 0.2f;
             }
         }
 
-    }
-    IEnumerator WaitToFrame()
-    {
-        this.transform.position = m_ClickedPiecePosition;
-        m_PieceClicked = false;
-        managerOnlyOne.Catch(false, null);
-        yield return new WaitForSeconds(0.5f);
     }
 
 

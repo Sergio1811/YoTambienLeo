@@ -13,6 +13,7 @@ public class MoveTouch : MonoBehaviour
     private Vector3 m_ClickedPiecePosition;
     private Image myImage;
     public bool Word = false;
+    private float timer = 0;
 
     void Start()
     {
@@ -64,7 +65,7 @@ public class MoveTouch : MonoBehaviour
                 }
             }
 
-            if (m_PieceClicked)
+            if (m_PieceClicked && timer == 0)
             {
                 if (Input.GetMouseButton(0))
                 {
@@ -85,22 +86,33 @@ public class MoveTouch : MonoBehaviour
                 }
             }
 
-            if (m_PieceClicked && (Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)))
+            if (timer > 0)
             {
-                StartCoroutine(WaitToFrame());
+                timer -= Time.deltaTime;
+                if (timer <= 0)
+                {
+                    timer = 0;
+                    if (!m_PieceLocked)
+                        this.transform.position = m_ClickedPiecePosition;
+
+                    m_PieceClicked = false;
+                    managerOnlyOne.Catch(false, null);
+                }
+
             }
+
+            if (m_PieceClicked && (Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)) && timer == 0)
+            {
+                timer = 0.2f;
+            }
+
         }
 
     }
 
     IEnumerator WaitToFrame()
     {
-        if (!m_PieceLocked)
-            this.transform.position = m_ClickedPiecePosition;
-
-        m_PieceClicked = false;
-        managerOnlyOne.Catch(false, null);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(5);
     }
 
 
