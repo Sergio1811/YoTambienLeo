@@ -19,7 +19,6 @@ public class ImageControl : MonoBehaviour
     public List<AudioClip> m_AudioPoolCatalan = new List<AudioClip>();
 
     public static int m_Length;
-    AudioClip m_CurrentAudioClip;
     public Image m_Image;
     public Image m_ImageBehind;
     public Text m_Text;
@@ -36,8 +35,7 @@ public class ImageControl : MonoBehaviour
         m_ImageBehind.sprite = Sprite.Create(m_ImagesPool2[l_Number], new Rect(0, 0, m_ImagesPool[l_Number].width/1.02f, m_ImagesPool[l_Number].height/1.02f), Vector2.zero);
         m_Text.text = PutName(l_Number);
         m_Text.font = SearchFont();
-        m_CurrentAudioClip = m_AudioPoolCastellano[l_Number];
-        m_AS.clip = m_CurrentAudioClip;
+        m_AS.clip = PutAudio(l_Number);
 
         m_Length = m_AudioPoolCastellano.Count;
 
@@ -87,6 +85,21 @@ public class ImageControl : MonoBehaviour
                 return m_PalabrasCastellano[_alea];
         }
     }
+
+    private AudioClip PutAudio(int _alea)
+    {
+        switch (SingletonLenguage.GetInstance().GetLenguage())
+        {
+            case SingletonLenguage.Lenguage.CASTELLANO:
+                return m_AudioPoolCastellano[_alea];
+            case SingletonLenguage.Lenguage.CATALAN:
+                return m_AudioPoolCatalan[_alea];
+            default:
+                return m_AudioPoolCastellano[_alea];
+
+        }
+    }
+
 
     private Font  SearchFont()
     {
