@@ -79,8 +79,8 @@ public class GameManagerParejas : MonoBehaviour
 
     private void Update()
     {
-        print(m_CurrentPairs);
-        print(m_NumPairs);
+        //print(m_CurrentPairs);
+        //print(m_NumPairs);
         if(m_CurrentPairs==m_NumPairs)
         {
             StartCoroutine(WaitSeconds(3));
