@@ -41,6 +41,7 @@ public class Pairs : MonoBehaviour
                         if (l_RaycastHit.collider.gameObject == this.gameObject)
                         {
                             m_PieceClicked = true;
+                            this.gameObject.transform.SetAsLastSibling();
                             m_ClickedPiecePosition = this.gameObject.transform.position;
                             managerOnlyOne.Catch(true, gameObject);
                         }
@@ -59,6 +60,7 @@ public class Pairs : MonoBehaviour
                         if (l_RaycastHit.collider.gameObject == this.gameObject)
                         {
                             m_PieceClicked = true;
+                            this.gameObject.transform.SetAsLastSibling();
                             m_ClickedPiecePosition = this.gameObject.transform.position;
                             managerOnlyOne.Catch(true, gameObject);
 

@@ -39,6 +39,7 @@ public class MoveTouch : MonoBehaviour
                         if (l_RaycastHit.collider.gameObject == this.gameObject)
                         {
                             m_PieceClicked = true;
+                            this.gameObject.transform.SetAsLastSibling();
                             m_ClickedPiecePosition = this.gameObject.transform.position;
                             managerOnlyOne.Catch(true, gameObject);
                         }
@@ -57,6 +58,7 @@ public class MoveTouch : MonoBehaviour
                         if (l_RaycastHit.collider.gameObject == this.gameObject)
                         {
                             m_PieceClicked = true;
+                            this.gameObject.transform.SetAsLastSibling();
                             m_ClickedPiecePosition = this.gameObject.transform.position;
                             m_ClickedPiecePosition = this.gameObject.transform.position;
                             managerOnlyOne.Catch(true, gameObject);
