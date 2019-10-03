@@ -15,7 +15,7 @@ public class ManagementBD : MonoBehaviour
     private int m_dificult = 0;//Estos de frase
     private Texture2D texture;
     public enum NumOfSearch { NONE, ID, NAME, DIFICULT };
-    private NumOfSearch currentSearch = NumOfSearch.NAME;
+    private NumOfSearch currentSearch = NumOfSearch.NONE;
     public enum NumofSearchFrase { NONE, NAME, DIFICULT };
     private NumofSearchFrase currentSearchFrase = NumofSearchFrase.NONE;
     public Image imagen;
@@ -27,10 +27,12 @@ public class ManagementBD : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        ruteFolderImage =  Application.streamingAssetsPath + "/Resources/";//cambiar la dirección cuando se tenga la definitiva    //////   file://" + Application.dataPath + "/Resources/Images/BurbujasMinigame/
+        ruteFolderImage =  Application.streamingAssetsPath + "/";//cambiar la dirección cuando se tenga la definitiva    //////   file://" + Application.dataPath + "/Resources/Images/BurbujasMinigame/
         ruteFolderAudio =  Application.streamingAssetsPath + "/Resources/Audios/";
         //prueba.text = Application.streamingAssetsPath + "\n" + ruteFolderImage;
-        //SearchSpriteInRuteFolders("13jOyOI.png", imagen);
+        //SearchSpriteInRuteFolders("Runtime/Export/Resources/Resources.bindings.h/images/activitats-ja", imagen);
+        //imagen.sprite = Resources.Load<Sprite>("images/activitats-ja");//para cargar imagenes
+
         //ObtainFrase("Manzana Pera Melocoton");
         //ReadSQlitePalabra();
     }
@@ -38,7 +40,8 @@ public class ManagementBD : MonoBehaviour
     // Update is called once per frame
     public List<PalabraBD> ReadSQlitePalabra()
     {
-        string conection = "jar=file://" + Application.dataPath + "!/assets/Plugins/SQLite/BaseDeDatosYoTambienLeo.db";
+        //string conection = "jar=file://" + Application.dataPath + "!/assets/Plugins/SQLite/BaseDeDatosYoTambienLeo.db";
+        string conection = "Runtime/Export/Resources/Resources.bindings.h/SQLite/BaseDeDatosYoTambienLeo";
         prueba.text = conection + "  " + File.Exists(conection); 
         IDbConnection dbConection = (IDbConnection)new SqliteConnection(conection);
         prueba.text = "Entra0";
@@ -83,7 +86,9 @@ public class ManagementBD : MonoBehaviour
             {
                 p.SeparateSilabas(SingletonLenguage.GetInstance().GetLenguage());
             }
-            SearchSpriteInRuteFolders(currentObjectBD[0].image1, imagen);
+            //SearchSpriteInRuteFolders(currentObjectBD[0].image1, imagen);
+            imagen.sprite = Resources.Load<Sprite>("images/activitats-ja");
+
         }
         else Debug.Log("No existe");
 
