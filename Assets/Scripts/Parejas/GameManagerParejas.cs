@@ -261,13 +261,13 @@ public class GameManagerParejas : MonoBehaviour
     {
        
         GameManager.m_CurrentToMinigame++;
-        m_Points[GameManager.m_CurrentToMinigame].GetComponent<Image>().sprite = m_CompletedPoint;
         m_CurrentNumRep = 0;
 
         if (GameManager.m_CurrentToMinigame >= GameManager.Instance.m_NeededToMinigame)
             m_Scener.RandomMinigame();
         else
         {
+            m_Points[GameManager.m_CurrentToMinigame].GetComponent<Image>().sprite = m_CompletedPoint;
             List<Texture2D> l_Pairs = new List<Texture2D>();
             List<string> l_Palabras = new List<string>();
             List<AudioClip> l_Audios = new List<AudioClip>();
