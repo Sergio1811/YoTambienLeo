@@ -103,14 +103,26 @@ public class GameManagerParejas : MonoBehaviour
         List<string> l_Palabras = new List<string>();
         List<AudioClip> l_Audios = new List<AudioClip>();
 
-        l_Pairs = m_ImagePairs;
-        l_Palabras = ObtainListOfPalabras();
-        l_Audios = ObtainListOfAudios();
-       /* foreach (Texture2D item in m_ImagePairs)
+        foreach (Texture2D item in m_ImagePairs)
         {
             l_Pairs.Add(item);
-        }*/
-        
+        }
+
+        foreach (string item in ObtainListOfPalabras())
+        {
+            l_Palabras.Add(item);
+        }
+
+        foreach (AudioClip item in ObtainListOfAudios())
+        {
+            l_Audios.Add(item);
+        }
+
+        /* foreach (Texture2D item in m_ImagePairs)
+         {
+             l_Pairs.Add(item);
+         }*/
+
         List<Texture2D> l_SecondPair = new List<Texture2D>();
         List<Texture2D> l_ThirdPair = new List<Texture2D>();
         RepeatList = l_ThirdPair;
@@ -275,9 +287,20 @@ public class GameManagerParejas : MonoBehaviour
             List<string> l_Palabras = new List<string>();
             List<AudioClip> l_Audios = new List<AudioClip>();
 
-            l_Pairs = m_ImagePairs;
-            l_Palabras = ObtainListOfPalabras();
-            l_Audios = ObtainListOfAudios();
+            foreach (Texture2D item in m_ImagePairs)
+            {
+                l_Pairs.Add(item);
+            }
+
+            foreach (string item in ObtainListOfPalabras())
+            {
+                l_Palabras.Add(item);
+            }
+
+            foreach (AudioClip item in ObtainListOfAudios())
+            {
+                l_Audios.Add(item);
+            }
 
             List<Texture2D> l_SecondPair = new List<Texture2D>();
             List<Texture2D> l_ThirdPair = new List<Texture2D>();

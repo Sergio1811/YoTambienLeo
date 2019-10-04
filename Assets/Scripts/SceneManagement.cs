@@ -106,7 +106,7 @@ public class SceneManagement : MonoBehaviour
 
     public void RandomMinigame ()
     {
-        int Rng = Random.Range(0, 1);
+        int Rng = Random.Range(0, 2);
 
         switch (Rng)
         {
