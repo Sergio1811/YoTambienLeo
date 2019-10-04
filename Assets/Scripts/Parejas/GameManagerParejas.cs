@@ -52,6 +52,7 @@ public class GameManagerParejas : MonoBehaviour
 
     void Start()
     {
+        Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
         if (l_NumReps % 2 == 0)
         {
             m_CurrentSpawn = m_SpawnPar;
@@ -94,6 +95,7 @@ public class GameManagerParejas : MonoBehaviour
 
     public void InstantiatePairs ()
     {
+        Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
         m_Points[GameManager.m_CurrentToMinigame].GetComponent<Image>().sprite = m_CompletedPoint;
         m_CurrentNumRep = 0;
 
@@ -259,7 +261,8 @@ public class GameManagerParejas : MonoBehaviour
 
     public void NextPairs()
     {
-       
+        Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
+
         GameManager.m_CurrentToMinigame++;
         m_CurrentNumRep = 0;
 
@@ -272,20 +275,9 @@ public class GameManagerParejas : MonoBehaviour
             List<string> l_Palabras = new List<string>();
             List<AudioClip> l_Audios = new List<AudioClip>();
 
-            foreach (Texture2D item in RepeatList)
-             {
-                 l_Pairs.Add(item);
-             }
-
-            foreach (string item in repeatListPalabras)
-            {
-                l_Palabras.Add(item);
-            }
-
-            foreach (AudioClip item in repeatListAudios)
-            {
-                l_Audios.Add(item);
-            }
+            l_Pairs = m_ImagePairs;
+            l_Palabras = ObtainListOfPalabras();
+            l_Audios = ObtainListOfAudios();
 
             List<Texture2D> l_SecondPair = new List<Texture2D>();
             List<Texture2D> l_ThirdPair = new List<Texture2D>();
@@ -438,6 +430,7 @@ public class GameManagerParejas : MonoBehaviour
 
     public void RepeatPairs()
     {
+        Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
         m_CurrentNumRep++;
 
         List<Texture2D> l_Pairs = new List<Texture2D>();
@@ -613,9 +606,9 @@ public class GameManagerParejas : MonoBehaviour
 
     IEnumerator WaitSeconds(float seconds)
     {
-        print(Time.time);
+        //print(Time.time);
         yield return new WaitForSeconds(seconds);
-        print(Time.time);
+        //print(Time.time);
         ActivateButtons();
     }
 

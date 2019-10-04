@@ -29,6 +29,7 @@ public class GameManagerBit : MonoBehaviour
     private void Start()
     {
         //GameManager.Instance.m_CurrentToMinigame;
+        Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
 
         print(m_Points.Length);
         if (l_NumReps % 2 == 0)
