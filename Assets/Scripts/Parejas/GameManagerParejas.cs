@@ -144,7 +144,7 @@ public class GameManagerParejas : MonoBehaviour
                         Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
                         int l_RandomPair = Random.Range(0, l_Pairs.Count);
                         GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                         m_NewPair.name = j.ToString();
 
@@ -171,7 +171,7 @@ public class GameManagerParejas : MonoBehaviour
                         Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
                         GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                         m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                         m_NewPair.GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
@@ -207,7 +207,7 @@ public class GameManagerParejas : MonoBehaviour
                         Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * k, 0f);
                         int l_RandomPair = Random.Range(0, l_Pairs.Count);
                         GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                         m_NewPair.name = j.ToString();
                         m_NewPair.GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
@@ -239,7 +239,7 @@ public class GameManagerParejas : MonoBehaviour
                         Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * k, 0f);
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
                         GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
 
                         m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
@@ -322,7 +322,7 @@ public class GameManagerParejas : MonoBehaviour
                             Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
                             int l_RandomPair = Random.Range(0, l_Pairs.Count);
                             GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
-                            m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                            m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
                             m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                             m_NewPair.name = j.ToString();
 
@@ -349,7 +349,7 @@ public class GameManagerParejas : MonoBehaviour
                             Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
                             int l_RandomPair = Random.Range(0, l_SecondPair.Count);
                             GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
-                            m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                            m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
                             m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                             m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                             m_NewPair.GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
@@ -386,7 +386,7 @@ public class GameManagerParejas : MonoBehaviour
                             Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * k, 0f);
                             int l_RandomPair = Random.Range(0, l_Pairs.Count);
                             GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
-                            m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                            m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
                             m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                             m_NewPair.name = j.ToString();
                             m_NewPair.GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
@@ -417,7 +417,7 @@ public class GameManagerParejas : MonoBehaviour
                             Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * k, 0f);
                             int l_RandomPair = Random.Range(0, l_SecondPair.Count);
                             GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
-                            m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                            m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
                             m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
 
                             m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
@@ -491,7 +491,7 @@ public class GameManagerParejas : MonoBehaviour
                         Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
                         int l_RandomPair = Random.Range(0, l_Pairs.Count);
                         GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                         m_NewPair.name = j.ToString();
 
@@ -518,7 +518,7 @@ public class GameManagerParejas : MonoBehaviour
                         Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
                         GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                         m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                         m_NewPair.GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
@@ -555,7 +555,7 @@ public class GameManagerParejas : MonoBehaviour
                         Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * k, 0f);
                         int l_RandomPair = Random.Range(0, l_Pairs.Count);
                         GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
                         m_NewPair.name = j.ToString();
                         m_NewPair.GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
@@ -586,7 +586,7 @@ public class GameManagerParejas : MonoBehaviour
                         Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * k, 0f);
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
                         GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, 400, 400), Vector2.zero);
+                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
                         m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
 
                         m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
