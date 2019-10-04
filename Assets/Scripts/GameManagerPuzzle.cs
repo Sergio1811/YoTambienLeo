@@ -308,18 +308,19 @@ public class GameManagerPuzzle : MonoBehaviour
         m_CollidersSpawns.SetActive(true);
         m_ImageAnim.gameObject.SetActive(false);
         m_Completed = false;
-        for (int i = 0; i <= GameManager.m_CurrentToMinigame; i++)
-        {
-            m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
-        }
-
         GameManager.m_CurrentToMinigame++;
 
         if (GameManager.m_CurrentToMinigame >= GameManager.Instance.m_NeededToMinigame)
             m_Scener.RandomMinigame();
 
+      
         else 
         {
+            for (int i = 0; i <= GameManager.m_CurrentToMinigame; i++)
+            {
+                m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
+            }
+
             foreach (GameObject item in m_Images)
             {
                 Destroy(item);
