@@ -102,7 +102,7 @@ public class Pairs : MonoBehaviour
 
             if (m_PieceClicked && (Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)) && timer == 0)
             {
-                timer = 0.2f;
+                timer = 0.01f;
             }
         }
 
