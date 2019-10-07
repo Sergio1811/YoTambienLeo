@@ -25,19 +25,24 @@ public class ImageControl : MonoBehaviour
     public List<Font> ourFonts = new List<Font>();
     public AudioSource m_AS;
 
+    void Awake()
+    {
+        m_Length = m_AudioPoolCastellano.Count;
+        GameManagerBit.m_Alea = Random.Range(0,m_Length);
+    }
 
     void Start()
     {
         int l_Number = GameManagerBit.m_Alea;
         m_GMBit = GameObject.FindGameObjectWithTag("Bit").GetComponent<GameManagerBit>();
         m_Animation = GetComponent<Animation>();
+        print("number  " + l_Number);
         m_Image.sprite = Sprite.Create(m_ImagesPool[l_Number], new Rect(0,0, m_ImagesPool[l_Number].width/1.02f, m_ImagesPool[l_Number].height/1.02f), Vector2.zero);
         m_ImageBehind.sprite = Sprite.Create(m_ImagesPool2[l_Number], new Rect(0, 0, m_ImagesPool[l_Number].width/1.02f, m_ImagesPool[l_Number].height/1.02f), Vector2.zero);
         m_Text.text = PutName(l_Number);
         m_Text.font = SearchFont();
         m_AS.clip = PutAudio(l_Number);
 
-        m_Length = m_AudioPoolCastellano.Count;
 
     }
 

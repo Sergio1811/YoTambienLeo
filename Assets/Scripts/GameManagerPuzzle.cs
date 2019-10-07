@@ -159,7 +159,7 @@ public class GameManagerPuzzle : MonoBehaviour
             while (same)
             {
                 count++;
-                Random.InitState(count);
+                Random.InitState(count * System.DateTime.Now.Second);
                 numRandom = Random.Range(0, m_ImagesPool.Count);
                 if (rand != numRandom)
                     same = false;

@@ -46,7 +46,7 @@ public class GameManagerBitReady : MonoBehaviour
                 m_Points[i].GetComponent<RectTransform>().anchoredPosition += new Vector2(m_Points[i].transform.position.x + (i * 75), 0);
         }
 
-        for (int i = 0; i <= GameManager.m_CurrentToMinigame[2]; i++)
+        for (int i = 0; i <= GameManager.m_CurrentToMinigame[1]; i++)
         {
             m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
         }
@@ -64,16 +64,16 @@ public class GameManagerBitReady : MonoBehaviour
 
     public void NextBit()
     {
-        GameManager.m_CurrentToMinigame[2]++;
+        GameManager.m_CurrentToMinigame[1]++;
 
-        if (GameManager.m_CurrentToMinigame[2] >= GameManager.Instance.m_NeededToMinigame)
+        if (GameManager.m_CurrentToMinigame[1] >= GameManager.Instance.m_NeededToMinigame)
             m_Scener.RandomMinigame();
 
         else
         {
             Destroy(m_CurrentBit);
             print("FinishRep");
-            m_Points[GameManager.m_CurrentToMinigame[2]].GetComponent<Image>().sprite = m_CompletedPoint;
+            m_Points[GameManager.m_CurrentToMinigame[1]].GetComponent<Image>().sprite = m_CompletedPoint;
             m_CurrentNumRep = 0;
             RepeatImage();
         }

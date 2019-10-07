@@ -24,12 +24,13 @@ public class GameManagerBit : MonoBehaviour
     public GameObject m_Siguiente;
     public GameObject m_Repetir;
 
-    public static int m_Alea;
+    public static int m_Alea = 0;
 
     private void Start()
     {
         //GameManager.Instance.m_CurrentToMinigame;
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
+        m_Alea = Random.Range(0, ImageControl.m_Length);
 
         print(m_Points.Length);
         if (l_NumReps % 2 == 0)
@@ -45,29 +46,46 @@ public class GameManagerBit : MonoBehaviour
 
         for (int i = 0; i < l_NumReps; i++)
         {
-                m_Points[i] = Instantiate(m_Point, m_CurrentSpawn.transform);
-                m_Points[i].GetComponent<RectTransform>().anchoredPosition += new Vector2(m_Points[i].transform.position.x + (i * 75), 0);
+            m_Points[i] = Instantiate(m_Point, m_CurrentSpawn.transform);
+            m_Points[i].GetComponent<RectTransform>().anchoredPosition += new Vector2(m_Points[i].transform.position.x + (i * 75), 0);
         }
 
         for (int i = 0; i <= GameManager.m_CurrentToMinigame[1]; i++)
         {
             m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
         }
-       
+
         InicioBit();
     }
 
     public void RepeatImage()
     {
-            Destroy(m_CurrentBit);
-            m_CurrentBit = Instantiate(m_NewBit, m_NewBitPosition);
-            m_CurrentNumRep++;
-            print("nextImage");     
+        Destroy(m_CurrentBit);
+        m_CurrentBit = Instantiate(m_NewBit, m_NewBitPosition);
+        m_CurrentNumRep++;
+        print("nextImage");
     }
 
     public void NextBit()
     {
-        m_Alea = Random.Range(0, ImageControl.m_Length);
+        if (m_Alea == 0)
+        {
+            m_Alea = Random.Range(0, ImageControl.m_Length);
+        }
+        else
+        {
+            bool same = true;
+            int count = 0;
+            int rand = m_Alea;
+            while (same)
+            {
+                count += System.DateTime.Now.Second + 1;
+                Random.InitState(count);
+                m_Alea = Random.Range(0, ImageControl.m_Length);
+                if (rand != m_Alea)
+                    same = false;
+            }
+        }
         GameManager.m_CurrentToMinigame[1]++;
 
         if (GameManager.m_CurrentToMinigame[1] >= GameManager.Instance.m_NeededToMinigame)
@@ -84,18 +102,35 @@ public class GameManagerBit : MonoBehaviour
 
     public void InicioBit()
     {
+        if (m_Alea == 0)
+        {
             m_Alea = Random.Range(0, ImageControl.m_Length);
-            Destroy(m_CurrentBit);
-            print("FinishRep");
-            m_Points[GameManager.m_CurrentToMinigame[1]].GetComponent<Image>().sprite = m_CompletedPoint;
-            m_CurrentNumRep = 0;
-            RepeatImage();
+        }
+        else
+        {
+            bool same = true;
+            int count = 0;
+            int rand = m_Alea;
+            while (same)
+            {
+                count++;
+                Random.InitState(count * System.DateTime.Now.Second);
+                m_Alea = Random.Range(0, ImageControl.m_Length);
+                if (rand != m_Alea)
+                    same = false;
+            }
+        }
+        Destroy(m_CurrentBit);
+        print("FinishRep");
+        m_Points[GameManager.m_CurrentToMinigame[1]].GetComponent<Image>().sprite = m_CompletedPoint;
+        m_CurrentNumRep = 0;
+        RepeatImage();
     }
 
     public void ActivateButtons()
     {
         m_Siguiente.SetActive(true);
-        if(m_CurrentNumRep<=GameManager.Instance.Repeticiones)
-        m_Repetir.SetActive(true);
+        if (m_CurrentNumRep <= GameManager.Instance.Repeticiones)
+            m_Repetir.SetActive(true);
     }
 }
