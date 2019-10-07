@@ -49,7 +49,7 @@ public class GameManagerBit : MonoBehaviour
                 m_Points[i].GetComponent<RectTransform>().anchoredPosition += new Vector2(m_Points[i].transform.position.x + (i * 75), 0);
         }
 
-        for (int i = 0; i <= GameManager.m_CurrentToMinigame; i++)
+        for (int i = 0; i <= GameManager.m_CurrentToMinigame[1]; i++)
         {
             m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
         }
@@ -68,16 +68,15 @@ public class GameManagerBit : MonoBehaviour
     public void NextBit()
     {
         m_Alea = Random.Range(0, ImageControl.m_Length);
-        GameManager.m_CurrentToMinigame++;
+        GameManager.m_CurrentToMinigame[1]++;
 
-        if (GameManager.m_CurrentToMinigame >= GameManager.Instance.m_NeededToMinigame)
+        if (GameManager.m_CurrentToMinigame[1] >= GameManager.Instance.m_NeededToMinigame)
             m_Scener.RandomMinigame();
-
         else
         {
             Destroy(m_CurrentBit);
             print("FinishRep");
-            m_Points[GameManager.m_CurrentToMinigame].GetComponent<Image>().sprite = m_CompletedPoint;
+            m_Points[GameManager.m_CurrentToMinigame[1]].GetComponent<Image>().sprite = m_CompletedPoint;
             m_CurrentNumRep = 0;
             RepeatImage();
         }
@@ -88,7 +87,7 @@ public class GameManagerBit : MonoBehaviour
             m_Alea = Random.Range(0, ImageControl.m_Length);
             Destroy(m_CurrentBit);
             print("FinishRep");
-            m_Points[GameManager.m_CurrentToMinigame].GetComponent<Image>().sprite = m_CompletedPoint;
+            m_Points[GameManager.m_CurrentToMinigame[1]].GetComponent<Image>().sprite = m_CompletedPoint;
             m_CurrentNumRep = 0;
             RepeatImage();
     }

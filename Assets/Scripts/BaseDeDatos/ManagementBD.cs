@@ -34,7 +34,7 @@ public class ManagementBD : MonoBehaviour
         //imagen.sprite = Resources.Load<Sprite>("images/activitats-ja");//para cargar imagenes
 
         //ObtainFrase("Manzana Pera Melocoton");
-        ReadSQlitePalabra();
+        //ReadSQlitePalabra();
     }
 
     // Update is called once per frame

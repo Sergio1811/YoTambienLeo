@@ -70,7 +70,7 @@ public class GameManagerParejas : MonoBehaviour
             m_Points[i].GetComponent<RectTransform>().anchoredPosition += new Vector2(m_Points[i].transform.position.x + (i * 75), 0);
         }
 
-        for (int i = 0; i <= GameManager.m_CurrentToMinigame; i++)
+        for (int i = 0; i <= GameManager.m_CurrentToMinigame[0]; i++)
         {
             m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
         }
@@ -96,7 +96,7 @@ public class GameManagerParejas : MonoBehaviour
     public void InstantiatePairs ()
     {
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
-        m_Points[GameManager.m_CurrentToMinigame].GetComponent<Image>().sprite = m_CompletedPoint;
+        m_Points[GameManager.m_CurrentToMinigame[0]].GetComponent<Image>().sprite = m_CompletedPoint;
         m_CurrentNumRep = 0;
 
         List<Texture2D> l_Pairs = new List<Texture2D>();
@@ -275,14 +275,14 @@ public class GameManagerParejas : MonoBehaviour
     {
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
 
-        GameManager.m_CurrentToMinigame++;
+        GameManager.m_CurrentToMinigame[0]++;
         m_CurrentNumRep = 0;
 
-        if (GameManager.m_CurrentToMinigame >= GameManager.Instance.m_NeededToMinigame)
+        if (GameManager.m_CurrentToMinigame[0] >= GameManager.Instance.m_NeededToMinigame)
             m_Scener.RandomMinigame();
         else
         {
-            m_Points[GameManager.m_CurrentToMinigame].GetComponent<Image>().sprite = m_CompletedPoint;
+            m_Points[GameManager.m_CurrentToMinigame[0]].GetComponent<Image>().sprite = m_CompletedPoint;
             List<Texture2D> l_Pairs = new List<Texture2D>();
             List<string> l_Palabras = new List<string>();
             List<AudioClip> l_Audios = new List<AudioClip>();

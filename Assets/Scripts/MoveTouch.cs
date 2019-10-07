@@ -13,6 +13,7 @@ public class MoveTouch : MonoBehaviour
     private Vector3 m_ClickedPiecePosition;
     private Image myImage;
     public bool Word = false;
+    public bool canMove = false;
     private float timer = 0;
 
     void Start()
@@ -22,10 +23,9 @@ public class MoveTouch : MonoBehaviour
 
     void Update()
     {
-        if (managerOnlyOne != null)
+        if (managerOnlyOne != null )
         {
-
-            if (!m_PieceLocked && !m_PieceClicked)
+            if (!m_PieceLocked && !m_PieceClicked && ((!Word) || (Word && canMove)))
             {
                 if (Input.touchCount > 0 && managerOnlyOne.go == null)
                 {

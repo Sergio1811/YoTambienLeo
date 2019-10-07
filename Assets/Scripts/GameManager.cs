@@ -40,7 +40,8 @@ public class GameManager : MonoBehaviour
     public string Word;
     #endregion
 
-    public static int m_CurrentToMinigame;
+    public static List<int> m_CurrentToMinigame = new List<int>();//0 Parejas, 1 Bit, 2 Puzzle
+
     public int m_NeededToMinigame = 5;
     [HideInInspector]
     public int m_BitLevel = 1;
@@ -50,6 +51,10 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            for (int i = 0; i < 3; i++)
+            {
+                m_CurrentToMinigame.Add(0);
+            }
         }
         else
         {
@@ -66,6 +71,10 @@ public class GameManager : MonoBehaviour
             if (instance == null)
             {
                 instance = new GameManager();
+                for (int i = 0; i < 3; i++)
+                {
+                    m_CurrentToMinigame.Add(0);
+                }
             }
             return instance;
         }
