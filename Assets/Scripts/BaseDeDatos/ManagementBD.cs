@@ -34,7 +34,7 @@ public class ManagementBD : MonoBehaviour
         //imagen.sprite = Resources.Load<Sprite>("images/activitats-ja");//para cargar imagenes
 
         //ObtainFrase("Manzana Pera Melocoton");
-        //ReadSQlitePalabra();
+        ReadSQlitePalabra();
     }
 
     // Update is called once per frame
@@ -42,17 +42,21 @@ public class ManagementBD : MonoBehaviour
     {
         //string conection = "jar=file://" + Application.dataPath + "!/assets/Plugins/SQLite/BaseDeDatosYoTambienLeo.db";
         string conection = "Runtime/Export/Resources/Resources.bindings.h/SQLite/BaseDeDatosYoTambienLeo";
-        prueba.text = conection + "  " + File.Exists(conection); 
         IDbConnection dbConection = (IDbConnection)new SqliteConnection(conection);
-        prueba.text = "Entra0";
+        prueba.text = "Entra??";
 
         dbConection.Open();
+        prueba.text = "Entra";
 
         IDbCommand dbcommand = dbConection.CreateCommand();
         string sqlQuery = SearchInBDContenido("Contenido");
+        prueba.text = "Entra1";
         //string sqlQuery = "SELECT id, nombre, imagen, imagen2 FROM Contenido";  //en el from tiene que poner el nombre de la tabla y antes lo que se tiene que seleccionar en sql. Al buscar algun string hay que ponerle las comillas estas '  ' osino no lo reconoce
         dbcommand.CommandText = sqlQuery;
+        prueba.text = "Entra2";
+
         IDataReader reader = dbcommand.ExecuteReader();
+        prueba.text = "Entra3";
 
 
         List<PalabraBD> currentObjectBD = new List<PalabraBD>();
@@ -76,6 +80,7 @@ public class ManagementBD : MonoBehaviour
             currentObjectBD[currentObjectBD.Count - 1].silabasCatalan = reader.GetString(13);
             currentObjectBD[currentObjectBD.Count - 1].paquet = reader.GetInt32(14);
             // Debug.Log("Id = " + id + "  Nombre 1 =" + nombre1 + "  imagen 1 =" + imagen1 + " imagen 2 =" + imagen2);
+            imagen.sprite = Resources.Load<Sprite>("images/Lite/boca_01");
 
         }
 
@@ -87,10 +92,9 @@ public class ManagementBD : MonoBehaviour
                 p.SeparateSilabas(SingletonLenguage.GetInstance().GetLenguage());
             }
             //SearchSpriteInRuteFolders(currentObjectBD[0].image1, imagen);
-            imagen.sprite = Resources.Load<Sprite>("images/activitats-ja");
-
+            prueba.text = "existe";
         }
-        else Debug.Log("No existe");
+        else prueba.text ="No existe";
 
 
 
