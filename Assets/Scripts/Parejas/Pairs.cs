@@ -16,6 +16,7 @@ public class Pairs : MonoBehaviour
     public GameManagerParejas m_GameManagerParejas;
     private AudioSource audioSource;
     private float timer = 0;
+    public int numImage;
 
     private void Start()
     {
@@ -27,7 +28,7 @@ public class Pairs : MonoBehaviour
     {
         if (managerOnlyOne != null)
         {
-            if (!m_PieceClicked)
+            if (!m_PieceClicked && m_GameManagerParejas.m_CurrentPairs == numImage)
             {
                 if (Input.touchCount > 0 && managerOnlyOne.go == null && !m_GameManagerParejas.m_Animation.isPlaying)
                 {
