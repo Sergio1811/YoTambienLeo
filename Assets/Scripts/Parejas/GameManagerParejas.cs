@@ -54,6 +54,7 @@ public class GameManagerParejas : MonoBehaviour
     void Start()
     {
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
+        m_NumPairs = Random.Range(3,5);
         if (l_NumReps % 2 == 0)
         {
             m_CurrentSpawn = m_SpawnPar;
