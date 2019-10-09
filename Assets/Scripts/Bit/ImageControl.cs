@@ -28,7 +28,7 @@ public class ImageControl : MonoBehaviour
     void Awake()
     {
         m_Length = m_AudioPoolCastellano.Count;
-        GameManagerBit.m_Alea = Random.Range(0,m_Length);
+        GameManagerBit.m_Alea = Random.Range(0, m_Length);
     }
 
     void Start()
@@ -37,8 +37,8 @@ public class ImageControl : MonoBehaviour
         m_GMBit = GameObject.FindGameObjectWithTag("Bit").GetComponent<GameManagerBit>();
         m_Animation = GetComponent<Animation>();
         print("number  " + l_Number);
-        m_Image.sprite = Sprite.Create(m_ImagesPool[l_Number], new Rect(0,0, m_ImagesPool[l_Number].width/1.02f, m_ImagesPool[l_Number].height/1.02f), Vector2.zero);
-        m_ImageBehind.sprite = Sprite.Create(m_ImagesPool2[l_Number], new Rect(0, 0, m_ImagesPool[l_Number].width/1.02f, m_ImagesPool[l_Number].height/1.02f), Vector2.zero);
+        m_Image.sprite = Sprite.Create(m_ImagesPool[l_Number], new Rect(0, 0, m_ImagesPool[l_Number].width / 1.02f, m_ImagesPool[l_Number].height / 1.02f), Vector2.zero);
+        m_ImageBehind.sprite = Sprite.Create(m_ImagesPool2[l_Number], new Rect(0, 0, m_ImagesPool[l_Number].width / 1.02f, m_ImagesPool[l_Number].height / 1.02f), Vector2.zero);
         m_Text.text = PutName(l_Number);
         m_Text.font = SearchFont();
         m_AS.clip = PutAudio(l_Number);
@@ -46,41 +46,60 @@ public class ImageControl : MonoBehaviour
 
     }
 
-    
+
     void Update()
     {
-        if(GameManager.Instance.InputRecieved() && m_0touch)
+        if (GameManager.Instance.InputRecieved() && m_0touch)
         {
-            m_Animation.clip = m_Slide;
-            m_Animation.Play();
-            m_0touch = false;
-            m_1touch = true;
-            print("0 done");
+            Vector3 positionInput;
+            if (Input.touchCount > 0)
+                positionInput = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+            else
+                positionInput = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            print((new Vector2(positionInput.x, positionInput.y) - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)).magnitude);
+            if ((new Vector2(positionInput.x, positionInput.y) - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)).magnitude < 3f)
+            {
+                m_Animation.clip = m_Slide;
+                m_Animation.Play();
+                m_0touch = false;
+                m_1touch = true;
+                print("0 done");
+            }
+
         }
 
         else if (GameManager.Instance.InputRecieved() && m_1touch && !m_Animation.isPlaying && !m_AS.isPlaying)
         {
-            m_Animation.clip = m_Spin;
-            m_Animation.Play();
-            m_1touch = false;
-            print("1done");
+            Vector3 positionInput;
+            if (Input.touchCount > 0)
+                positionInput = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+            else
+                positionInput = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            print((new Vector2(positionInput.x, positionInput.y) - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)).magnitude);
+            if ((new Vector2(positionInput.x, positionInput.y) - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)).magnitude <= 3f)
+            {
+                m_Animation.clip = m_Spin;
+                m_Animation.Play();
+                m_1touch = false;
+                print("1done");
 
-            StartCoroutine(WaitSeconds(3f));
-           
+                StartCoroutine(WaitSeconds(3f));
+            }
+
         }
 
-      IEnumerator WaitSeconds(float seconds)
+        IEnumerator WaitSeconds(float seconds)
         {
-            print(Time.time);
+            //print(Time.time);
             yield return new WaitForSeconds(seconds);
-            print(Time.time);
+            //print(Time.time);
             m_GMBit.ActivateButtons();
         }
     }
 
     private string PutName(int _alea)
     {
-        switch(SingletonLenguage.GetInstance().GetLenguage())
+        switch (SingletonLenguage.GetInstance().GetLenguage())
         {
             case SingletonLenguage.Lenguage.CASTELLANO:
                 return m_PalabrasCastellano[_alea];
@@ -106,12 +125,12 @@ public class ImageControl : MonoBehaviour
     }
 
 
-    private Font  SearchFont()
+    private Font SearchFont()
     {
         switch (SingletonLenguage.GetInstance().GetFont())
         {
             case SingletonLenguage.OurFont.IMPRENTA:
-                 return ourFonts[0];
+                return ourFonts[0];
             case SingletonLenguage.OurFont.MANUSCRITA:
                 return ourFonts[1];
             case SingletonLenguage.OurFont.MAYUSCULA:
