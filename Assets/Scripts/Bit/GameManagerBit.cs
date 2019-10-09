@@ -23,6 +23,8 @@ public class GameManagerBit : MonoBehaviour
 
     public GameObject m_Siguiente;
     public GameObject m_Repetir;
+    public bool repetir = false;
+    public int numLastImage = 0;
 
     public static int m_Alea = 0;
 
@@ -58,16 +60,22 @@ public class GameManagerBit : MonoBehaviour
         InicioBit();
     }
 
-    public void RepeatImage()
+    public void RepeatImage(bool _repetir)
     {
+        if (m_CurrentBit != null && _repetir)
+        {
+            numLastImage = m_CurrentBit.GetComponent<ImageControl>().l_Number;
+            repetir = true;
+        }
         Destroy(m_CurrentBit);
         m_CurrentBit = Instantiate(m_NewBit, m_NewBitPosition);
         m_CurrentNumRep++;
-        print("nextImage");
+        print("repeat");
     }
 
     public void NextBit()
     {
+        repetir = false;
         if (m_Alea == 0)
         {
             m_Alea = Random.Range(0, ImageControl.m_Length);
@@ -96,7 +104,7 @@ public class GameManagerBit : MonoBehaviour
             print("FinishRep");
             m_Points[GameManager.m_CurrentToMinigame[1]].GetComponent<Image>().sprite = m_CompletedPoint;
             m_CurrentNumRep = 0;
-            RepeatImage();
+            RepeatImage(false);
         }
     }
 
@@ -124,7 +132,7 @@ public class GameManagerBit : MonoBehaviour
         print("FinishRep");
         m_Points[GameManager.m_CurrentToMinigame[1]].GetComponent<Image>().sprite = m_CompletedPoint;
         m_CurrentNumRep = 0;
-        RepeatImage();
+        RepeatImage(false);
     }
 
     public void ActivateButtons()
