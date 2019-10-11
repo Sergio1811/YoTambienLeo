@@ -118,6 +118,7 @@ public class Pairs : MonoBehaviour
             this.transform.position = collision.gameObject.transform.position;
             m_GameManagerParejas.m_ImageZoomed.sprite= this.gameObject.GetComponent<Image>().sprite;
             m_GameManagerParejas.m_TextZoomed.text = nombre;
+            m_GameManagerParejas.m_TextZoomed.fontSize = SingletonLenguage.GetInstance().ConvertSizeDependWords(m_GameManagerParejas.m_TextZoomed.text);
             m_GameManagerParejas.m_TextZoomed.GetComponent<ConvertFont>().Convert();
             if (!audioSource.isPlaying)
             {
