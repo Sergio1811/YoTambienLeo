@@ -125,10 +125,6 @@ public class GameManagerParejas : MonoBehaviour
             l_Audios.Add(item);
         }
 
-        /* foreach (Texture2D item in m_ImagePairs)
-         {
-             l_Pairs.Add(item);
-         }*/
 
         List<Texture2D> l_SecondPair = new List<Texture2D>();
         List<Texture2D> l_ThirdPair = new List<Texture2D>();
@@ -151,8 +147,8 @@ public class GameManagerParejas : MonoBehaviour
 
         if (m_IsHorizontal)
         {
-            m_XPos = Screen.width / (m_NumPairs * 2.0f);
-            m_YPos = Screen.height / 4;
+            m_XPos = (Screen.width + l_Pairs[0].width * m_NumPairs * 1.02f) / 2 - (m_NumPairs / 2 * l_Pairs[0].width + l_Pairs[0].width * 0.2f);
+            m_YPos = Screen.height / 5 * 2;
 
             for (int i = 0; i < 2; i++)
             {
@@ -160,9 +156,9 @@ public class GameManagerParejas : MonoBehaviour
 
                 if (m_FirstPair)
                 {
-                    for (int j = 0; j < m_NumPairs; j++)
+                    for (int j = 1; j <= m_NumPairs; j++)
                     {
-                        Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
+                        Vector3 l_NewPosition = new Vector3(m_XPos + (l_Pairs[0].width * j * 1.05f), m_YPos, 0f);
                         int l_RandomPair = Random.Range(0, l_Pairs.Count);
                         GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
                         m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
@@ -187,9 +183,9 @@ public class GameManagerParejas : MonoBehaviour
                 }
                 else
                 {
-                    for (int j = 0; j < m_NumPairs; j++)
+                    for (int j = 1; j <= m_NumPairs; j++)
                     {
-                        Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
+                        Vector3 l_NewPosition = new Vector3(m_XPos + (l_Pairs[0].width * j * 1.05f), m_YPos * 2, 0f);
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
                         GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
                         m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
@@ -216,8 +212,8 @@ public class GameManagerParejas : MonoBehaviour
         }
         else
         {
-            m_XPos = Screen.width / 4;
-            m_YPos = Screen.height / (m_NumPairs * 2.0f);
+            m_XPos = Screen.width / 5 * 2;
+            m_YPos = (Screen.height + l_Pairs[0].height * m_NumPairs * 1.02f) / 2 - (m_NumPairs / 2 * l_Pairs[0].height + l_Pairs[0].height * 0.2f);
 
             for (int i = 0; i < 2; i++)
             {
@@ -225,9 +221,9 @@ public class GameManagerParejas : MonoBehaviour
 
                 if (m_FirstPair)
                 {
-                    for (int j = 0; j < m_NumPairs; j++)
+                    for (int j = 1; j <= m_NumPairs; j++)
                     {
-                        Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * (m_NumPairs * 2 - k), 0f);
+                        Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos + (l_Pairs[0].height * j * 1.05f), 0f);
                         int l_RandomPair = Random.Range(0, l_Pairs.Count);
                         GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
                         m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
@@ -259,9 +255,9 @@ public class GameManagerParejas : MonoBehaviour
                 }
                 else
                 {
-                    for (int j = 0; j < m_NumPairs; j++)
+                    for (int j = 1; j <= m_NumPairs; j++)
                     {
-                        Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * (m_NumPairs * 2 - k), 0f);
+                        Vector3 l_NewPosition = new Vector3(m_XPos * 2, m_YPos + (l_Pairs[0].height * j * 1.05f), 0f);
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
                         GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
                         m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
@@ -277,7 +273,7 @@ public class GameManagerParejas : MonoBehaviour
                     }
                 }
                 m_FirstPair = false;
-                m_XPos *= 3f;
+                //m_XPos *= 3f;
             }
         }
     }
@@ -334,8 +330,8 @@ public class GameManagerParejas : MonoBehaviour
 
             if (m_IsHorizontal)
             {
-                m_XPos = Screen.width / (m_NumPairs * 2.0f);
-                m_YPos = Screen.height / 4;
+                m_XPos = Screen.width / 2 - (m_NumPairs / 2 * l_Pairs[0].width + l_Pairs[0].width * 0.2f);
+                m_YPos = Screen.height / 5 * 2;
 
                 for (int i = 0; i < 2; i++)
                 {
@@ -343,9 +339,9 @@ public class GameManagerParejas : MonoBehaviour
 
                     if (m_FirstPair)
                     {
-                        for (int j = 0; j < m_NumPairs; j++)
+                        for (int j = 1; j <= m_NumPairs; j++)
                         {
-                            Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
+                            Vector3 l_NewPosition = new Vector3(m_XPos * (j * 1.05f), m_YPos, 0f);
                             int l_RandomPair = Random.Range(0, l_Pairs.Count);
                             GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
                             m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
@@ -370,9 +366,9 @@ public class GameManagerParejas : MonoBehaviour
                     }
                     else
                     {
-                        for (int j = 0; j < m_NumPairs; j++)
+                        for (int j = 1; j <= m_NumPairs; j++)
                         {
-                            Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
+                            Vector3 l_NewPosition = new Vector3(m_XPos * (j * 1.05f), m_YPos * 2, 0f);
                             int l_RandomPair = Random.Range(0, l_SecondPair.Count);
                             GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
                             m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
@@ -383,7 +379,6 @@ public class GameManagerParejas : MonoBehaviour
                             m_NewPair.GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
                             m_NewPair.GetComponent<Pairs>().numImage = currentNumOfPairs;
                             currentNumOfPairs++;
-
                             l_SecondPair.RemoveAt(l_RandomPair);
                             l_SecondPalabra.RemoveAt(l_RandomPair);
                             l_SecondAudio.RemoveAt(l_RandomPair);
@@ -400,8 +395,8 @@ public class GameManagerParejas : MonoBehaviour
             }
             else
             {
-                m_XPos = Screen.width / 4;
-                m_YPos = Screen.height / (m_NumPairs * 2.0f);
+                m_XPos = Screen.width / 5 * 2;
+                m_YPos = Screen.height / 2 - (m_NumPairs / 2 * l_Pairs[0].height + l_Pairs[0].height * 0.2f);
 
                 for (int i = 0; i < 2; i++)
                 {
@@ -409,9 +404,9 @@ public class GameManagerParejas : MonoBehaviour
 
                     if (m_FirstPair)
                     {
-                        for (int j = 0; j < m_NumPairs; j++)
+                        for (int j = 1; j <= m_NumPairs; j++)
                         {
-                            Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * (m_NumPairs * 2 - k), 0f);
+                            Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * (j * 1.05f), 0f);
                             int l_RandomPair = Random.Range(0, l_Pairs.Count);
                             GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
                             m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
@@ -435,6 +430,7 @@ public class GameManagerParejas : MonoBehaviour
                             l_ThirdAudio.Add(l_Audios[l_RandomPair]);
                             l_Audios.RemoveAt(l_RandomPair);
 
+
                             k++;
                             k++;
 
@@ -442,9 +438,9 @@ public class GameManagerParejas : MonoBehaviour
                     }
                     else
                     {
-                        for (int j = 0; j < m_NumPairs; j++)
+                        for (int j = 1; j <= m_NumPairs; j++)
                         {
-                            Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * (m_NumPairs * 2 - k), 0f);
+                            Vector3 l_NewPosition = new Vector3(m_XPos * 2, m_YPos * (j * 1.05f), 0f);
                             int l_RandomPair = Random.Range(0, l_SecondPair.Count);
                             GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
                             m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
@@ -460,7 +456,7 @@ public class GameManagerParejas : MonoBehaviour
                         }
                     }
                     m_FirstPair = false;
-                    m_XPos *= 3f;
+                    //m_XPos *= 3f;
                 }
             }
         }
