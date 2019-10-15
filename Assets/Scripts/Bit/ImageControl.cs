@@ -49,7 +49,7 @@ public class ImageControl : MonoBehaviour
         m_ImageBehind.sprite = Sprite.Create(m_ImagesPool2[l_Number], new Rect(0, 0, m_ImagesPool[l_Number].width / 1.02f, m_ImagesPool[l_Number].height / 1.02f), Vector2.zero);
         m_Text.text = PutName(l_Number);
         m_Text.font = SearchFont();
-        m_Text.fontSize = SingletonLenguage.GetInstance().ConvertSizeDependWords(m_Text.text);
+        //m_Text.fontSize = SingletonLenguage.GetInstance().ConvertSizeDependWords(m_Text.text);
         m_AS.clip = PutAudio(l_Number);
 
 

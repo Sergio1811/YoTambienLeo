@@ -88,7 +88,7 @@ public class SceneManagement : MonoBehaviour
 
     public void WebButton()
     {
-        Application.OpenURL("www.yotambienleo.com/recomendaciones");
+        Application.OpenURL("http://yotambienleo.com/recomendaciones/");
     }
 
     public void Quit()
