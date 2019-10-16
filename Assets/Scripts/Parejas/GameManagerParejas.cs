@@ -76,6 +76,23 @@ public class GameManagerParejas : MonoBehaviour
 
     private bool m_FirstPair;
 
+    #region Asignación de imagenes
+    public List<GameObject> horizontal4Arriba = new List<GameObject>();
+    public List<GameObject> horizontal4Abajo = new List<GameObject>();
+
+    public List<GameObject> horizontal3Arriba = new List<GameObject>();
+    public List<GameObject> horizontal3Abajo = new List<GameObject>();
+
+
+
+    public List<GameObject> vertical4Left = new List<GameObject>();
+    public List<GameObject> vertical4Right = new List<GameObject>();
+
+    public List<GameObject> vertical3Left = new List<GameObject>();
+    public List<GameObject> vertical3Right = new List<GameObject>();
+
+    #endregion
+
 
 
     #region Points
@@ -110,7 +127,7 @@ public class GameManagerParejas : MonoBehaviour
 
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
 
-        m_NumPairs = Random.Range(3, 5);
+        m_NumPairs = Random.Range(3, 4);
 
         if (l_NumReps % 2 == 0)
 
@@ -304,9 +321,9 @@ public class GameManagerParejas : MonoBehaviour
 
         {
 
-            m_XPos = Screen.width / (m_NumPairs * 2.0f);
+            m_XPos = Screen.width / (m_NumPairs * 2.235f);
 
-            m_YPos = Screen.height / 4;
+            m_YPos = Screen.height / 5;
 
 
 
@@ -326,17 +343,10 @@ public class GameManagerParejas : MonoBehaviour
 
                     {
 
-                        Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
-
                         int l_RandomPair = Random.Range(0, l_Pairs.Count);
 
-                        GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
+                        InstiantateCopy(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
 
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
-
-                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
-
-                        m_NewPair.name = j.ToString();
 
 
 
@@ -380,25 +390,10 @@ public class GameManagerParejas : MonoBehaviour
 
                     {
 
-                        Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
-
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
 
-                        GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
+                        InstiantatePair(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
 
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
-
-                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
-
-                        m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
-
-                        m_NewPair.GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
-
-                        m_NewPair.GetComponent<Pairs>().audioClip = l_SecondAudio[l_RandomPair];
-
-                        m_NewPair.GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
-
-                        m_NewPair.GetComponent<Pairs>().numImage = currentNumOfPairs;
 
                         currentNumOfPairs++;
 
@@ -434,9 +429,9 @@ public class GameManagerParejas : MonoBehaviour
 
         {
 
-            m_XPos = Screen.width / 4;
+            m_XPos = Screen.width / 4.515f;
 
-            m_YPos = Screen.height / (m_NumPairs * 2.0f);
+            m_YPos = Screen.height / (m_NumPairs * 2.3f);
 
 
 
@@ -456,25 +451,11 @@ public class GameManagerParejas : MonoBehaviour
 
                     {
 
-                        Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * (m_NumPairs * 2 - k), 0f);
 
                         int l_RandomPair = Random.Range(0, l_Pairs.Count);
 
-                        GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
+                        InstiantatePair(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
 
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
-
-                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
-
-                        m_NewPair.name = j.ToString();
-
-                        m_NewPair.GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
-
-                        m_NewPair.GetComponent<Pairs>().audioClip = l_Audios[l_RandomPair];
-
-                        m_NewPair.GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
-
-                        m_NewPair.GetComponent<Pairs>().numImage = currentNumOfPairs;
 
                         currentNumOfPairs++;
 
@@ -524,19 +505,10 @@ public class GameManagerParejas : MonoBehaviour
 
                     {
 
-                        Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * (m_NumPairs * 2 - k), 0f);
-
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
 
-                        GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
+                        InstiantateCopy(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
 
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
-
-                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
-
-
-
-                        m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
 
                         l_SecondPair.RemoveAt(l_RandomPair);
 
@@ -692,17 +664,10 @@ public class GameManagerParejas : MonoBehaviour
 
                         {
 
-                            Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
-
                             int l_RandomPair = Random.Range(0, l_Pairs.Count);
 
-                            GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
+                            InstiantateCopy(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
 
-                            m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
-
-                            m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
-
-                            m_NewPair.name = j.ToString();
 
 
 
@@ -746,25 +711,9 @@ public class GameManagerParejas : MonoBehaviour
 
                         {
 
-                            Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
-
                             int l_RandomPair = Random.Range(0, l_SecondPair.Count);
 
-                            GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
-
-                            m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
-
-                            m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
-
-                            m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
-
-                            m_NewPair.GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
-
-                            m_NewPair.GetComponent<Pairs>().audioClip = l_SecondAudio[l_RandomPair];
-
-                            m_NewPair.GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
-
-                            m_NewPair.GetComponent<Pairs>().numImage = currentNumOfPairs;
+                            InstiantatePair(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
 
                             currentNumOfPairs++;
 
@@ -824,25 +773,10 @@ public class GameManagerParejas : MonoBehaviour
 
                         {
 
-                            Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * (m_NumPairs * 2 - k), 0f);
-
                             int l_RandomPair = Random.Range(0, l_Pairs.Count);
 
-                            GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
+                            InstiantatePair(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
 
-                            m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
-
-                            m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
-
-                            m_NewPair.name = j.ToString();
-
-                            m_NewPair.GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
-
-                            m_NewPair.GetComponent<Pairs>().audioClip = l_Audios[l_RandomPair];
-
-                            m_NewPair.GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
-
-                            m_NewPair.GetComponent<Pairs>().numImage = currentNumOfPairs;
 
                             currentNumOfPairs++;
 
@@ -890,19 +824,11 @@ public class GameManagerParejas : MonoBehaviour
 
                         {
 
-                            Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * (m_NumPairs * 2 - k), 0f);
 
                             int l_RandomPair = Random.Range(0, l_SecondPair.Count);
 
-                            GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
+                            InstiantateCopy(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
 
-                            m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
-
-                            m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
-
-
-
-                            m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
 
                             l_SecondPair.RemoveAt(l_RandomPair);
 
@@ -1042,17 +968,9 @@ public class GameManagerParejas : MonoBehaviour
 
                     {
 
-                        Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
-
                         int l_RandomPair = Random.Range(0, l_Pairs.Count);
 
-                        GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
-
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
-
-                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
-
-                        m_NewPair.name = j.ToString();
+                        InstiantateCopy(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
 
 
 
@@ -1096,25 +1014,10 @@ public class GameManagerParejas : MonoBehaviour
 
                     {
 
-                        Vector3 l_NewPosition = new Vector3(m_XPos * k, m_YPos, 0f);
-
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
 
-                        GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
+                        InstiantatePair(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
 
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
-
-                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
-
-                        m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
-
-                        m_NewPair.GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
-
-                        m_NewPair.GetComponent<Pairs>().audioClip = l_SecondAudio[l_RandomPair];
-
-                        m_NewPair.GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
-
-                        m_NewPair.GetComponent<Pairs>().numImage = currentNumOfPairs;
 
                         currentNumOfPairs++;
 
@@ -1174,25 +1077,10 @@ public class GameManagerParejas : MonoBehaviour
 
                     {
 
-                        Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * (m_NumPairs * 2 - k), 0f);
-
                         int l_RandomPair = Random.Range(0, l_Pairs.Count);
 
-                        GameObject m_NewPair = Instantiate(m_Plantilla, m_Canvas.transform);
+                        InstiantatePair(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
 
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
-
-                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
-
-                        m_NewPair.name = j.ToString();
-
-                        m_NewPair.GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
-
-                        m_NewPair.GetComponent<Pairs>().audioClip = l_Audios[l_RandomPair];
-
-                        m_NewPair.GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
-
-                        m_NewPair.GetComponent<Pairs>().numImage = currentNumOfPairs;
 
                         currentNumOfPairs++;
 
@@ -1240,19 +1128,9 @@ public class GameManagerParejas : MonoBehaviour
 
                     {
 
-                        Vector3 l_NewPosition = new Vector3(m_XPos, m_YPos * (m_NumPairs * 2 - k), 0f);
-
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
 
-                        GameObject m_NewPair = Instantiate(m_PlantillaPareja, m_Canvas.transform);
-
-                        m_NewPair.GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
-
-                        m_NewPair.GetComponent<RectTransform>().anchoredPosition = l_NewPosition;
-
-
-
-                        m_NewPair.name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
+                        InstiantateCopy(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
 
                         l_SecondPair.RemoveAt(l_RandomPair);
 
@@ -1321,6 +1199,262 @@ public class GameManagerParejas : MonoBehaviour
         planeImageWhenPair.gameObject.SetActive(true);
 
         m_Animation.Play();
+
+    }
+
+    private void InstiantatePair(bool _firstTime, bool _horizontal, int l_RandomPair, List<Texture2D> l_Pairs, List<Texture2D> l_SecondPair, List<Texture2D> l_ThirdPair, List<string> l_Palabras, List<string> l_SecondPalabra, List<AudioClip> l_Audios, List<AudioClip> l_SecondAudio, int _numofPairs, int _currentPair, int numJ)
+    {
+        if (_horizontal)
+        {
+            switch (_numofPairs)
+            {
+                case 3:
+                    if (_firstTime)
+                    {
+
+                        horizontal3Arriba[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+
+                        horizontal3Arriba[_currentPair].name = numJ.ToString();
+
+                        horizontal3Arriba[_currentPair].GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
+
+                        horizontal3Arriba[_currentPair].GetComponent<Pairs>().audioClip = l_Audios[l_RandomPair];
+
+                        horizontal3Arriba[_currentPair].GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
+
+                        horizontal3Arriba[_currentPair].SetActive(true);
+
+                    }
+                    else
+                    {
+                        horizontal3Arriba[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+
+                        horizontal3Arriba[_currentPair].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
+
+                        horizontal3Arriba[_currentPair].GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
+
+                        horizontal3Arriba[_currentPair].GetComponent<Pairs>().audioClip = l_SecondAudio[l_RandomPair];
+
+                        horizontal3Arriba[_currentPair].GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
+
+                        horizontal3Arriba[_currentPair].SetActive(true);
+
+                    }
+                    break;
+                case 4:
+                    if (_firstTime)
+                    {
+
+                        horizontal4Arriba[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+
+                        horizontal4Arriba[_currentPair].name = numJ.ToString();
+
+                        horizontal4Arriba[_currentPair].GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
+
+                        horizontal4Arriba[_currentPair].GetComponent<Pairs>().audioClip = l_Audios[l_RandomPair];
+
+                        horizontal4Arriba[_currentPair].GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
+
+                        horizontal4Arriba[_currentPair].SetActive(true);
+
+                    }
+                    else
+                    {
+                        horizontal4Arriba[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+
+                        horizontal4Arriba[_currentPair].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
+
+                        horizontal4Arriba[_currentPair].GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
+
+                        horizontal4Arriba[_currentPair].GetComponent<Pairs>().audioClip = l_SecondAudio[l_RandomPair];
+
+                        horizontal4Arriba[_currentPair].GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
+
+                        horizontal4Arriba[_currentPair].SetActive(true);
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            switch (_numofPairs)
+            {
+                case 3:
+                    if (_firstTime)
+                    {
+
+                        vertical3Left[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+
+                        vertical3Left[_currentPair].name = numJ.ToString();
+
+                        vertical3Left[_currentPair].GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
+
+                        vertical3Left[_currentPair].GetComponent<Pairs>().audioClip = l_Audios[l_RandomPair];
+
+                        vertical3Left[_currentPair].GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
+
+                        vertical3Left[_currentPair].SetActive(true);
+
+                    }
+                    else
+                    {
+                        vertical3Left[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+
+                        vertical3Left[_currentPair].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
+
+                        vertical3Left[_currentPair].GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
+
+                        vertical3Left[_currentPair].GetComponent<Pairs>().audioClip = l_SecondAudio[l_RandomPair];
+
+                        vertical3Left[_currentPair].GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
+
+                        vertical3Left[_currentPair].SetActive(true);
+
+                    }
+                    break;
+                case 4:
+                    if (_firstTime)
+                    {
+
+                        vertical4Left[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+
+                        vertical4Left[_currentPair].name = numJ.ToString();
+
+                        vertical4Left[_currentPair].GetComponent<Pairs>().nombre = l_Palabras[l_RandomPair];
+
+                        vertical4Left[_currentPair].GetComponent<Pairs>().audioClip = l_Audios[l_RandomPair];
+
+                        vertical4Left[_currentPair].GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
+
+                        vertical4Left[_currentPair].SetActive(true);
+
+                    }
+                    else
+                    {
+                        vertical4Left[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+
+                        vertical4Left[_currentPair].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
+
+                        vertical4Left[_currentPair].GetComponent<Pairs>().nombre = l_SecondPalabra[l_RandomPair];
+
+                        vertical4Left[_currentPair].GetComponent<Pairs>().audioClip = l_SecondAudio[l_RandomPair];
+
+                        vertical4Left[_currentPair].GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
+
+                        vertical4Left[_currentPair].SetActive(true);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void InstiantateCopy(bool _firstTime, bool _horizontal, int l_RandomPair, List<Texture2D> l_Pairs, List<Texture2D> l_SecondPair, List<Texture2D> l_ThirdPair, List<string> l_Palabras, List<string> l_SecondPalabra, List<AudioClip> l_Audios, List<AudioClip> l_SecondAudio, int _numofPairs, int _currentPair, int numJ)
+    {
+        if (_horizontal)
+        {
+            switch (_numofPairs)
+            {
+                case 3:
+                    if (_firstTime)
+                    {
+                        horizontal3Abajo[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        horizontal3Abajo[numJ].name = numJ.ToString();
+                        horizontal3Abajo[numJ].SetActive(true);
+                    }
+                    else
+                    {
+                        horizontal3Abajo[numJ].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+                        horizontal3Abajo[numJ].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
+                        horizontal3Abajo[numJ].SetActive(true);
+                    }
+                    break;
+                case 4:
+                    if (_firstTime)
+                    {
+                        horizontal4Abajo[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        horizontal4Abajo[numJ].name = numJ.ToString();
+                        horizontal4Abajo[numJ].SetActive(true);
+                    }
+                    else
+                    {
+                        horizontal4Abajo[numJ].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+                        horizontal4Abajo[numJ].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
+                        horizontal4Abajo[numJ].SetActive(true);
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            switch (_numofPairs)
+            {
+                case 3:
+                    if (_firstTime)
+                    {
+                        vertical3Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical3Right[numJ].name = numJ.ToString();
+                        vertical3Right[numJ].SetActive(true);
+                    }
+                    else
+                    {
+                        vertical3Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical3Right[numJ].name = numJ.ToString();
+                        vertical3Right[numJ].SetActive(true);
+                    }
+                    break;
+                case 4:
+                    if (_firstTime)
+                    {
+                        vertical4Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical4Right[numJ].name = numJ.ToString();
+                        vertical4Right[numJ].SetActive(true);
+                    }
+                    else
+                    {
+                        vertical4Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical4Right[numJ].name = numJ.ToString();
+                        vertical4Right[numJ].SetActive(true);
+                    }
+                    break;
+            }
+        }
+    }
+
+
+    public void Clear()
+    {
+        foreach (var item in horizontal4Arriba)
+        {
+            item.SetActive(false);
+        }
+        foreach (var item in horizontal4Abajo)
+        {
+            item.SetActive(false);
+        }
+        foreach (var item in horizontal3Arriba)
+        {
+            item.SetActive(false);
+        }
+        foreach (var item in horizontal3Abajo)
+        {
+            item.SetActive(false);
+        }
+        foreach (var item in vertical4Left)
+        {
+            item.SetActive(false);
+        }
+        foreach (var item in vertical4Right)
+        {
+            item.SetActive(false);
+        }
+        foreach (var item in vertical3Left)
+        {
+            item.SetActive(false);
+        }
+        foreach (var item in vertical3Right)
+        {
+            item.SetActive(false);
+        }
 
     }
 

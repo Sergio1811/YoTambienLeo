@@ -127,8 +127,9 @@ public class Pairs : MonoBehaviour
                 audioSource.Play();
             }
             m_GameManagerParejas.PairDone();
-            Destroy(collision.gameObject);
-            Destroy(this.gameObject);
+            collision.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+            gameObject.transform.position = m_ClickedPiecePosition;
 
         }
     }
