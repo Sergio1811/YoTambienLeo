@@ -130,6 +130,8 @@ public class Pairs : MonoBehaviour
             collision.gameObject.SetActive(false);
             gameObject.SetActive(false);
             gameObject.transform.position = m_ClickedPiecePosition;
+            m_PieceClicked = false;
+            managerOnlyOne.Catch(false, null);
 
         }
     }

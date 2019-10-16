@@ -125,9 +125,9 @@ public class GameManagerParejas : MonoBehaviour
 
     {
 
-        Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
-
-        m_NumPairs = Random.Range(3, 4);
+        Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute + Random.seed + 1);
+        m_NumPairs = Random.Range(3, 5);
+        Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute + Random.seed + 1);
 
         if (l_NumReps % 2 == 0)
 
@@ -1397,8 +1397,8 @@ public class GameManagerParejas : MonoBehaviour
                     }
                     else
                     {
-                        vertical3Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
-                        vertical3Right[numJ].name = numJ.ToString();
+                        vertical3Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical3Right[numJ].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                         vertical3Right[numJ].SetActive(true);
                     }
                     break;
@@ -1411,8 +1411,8 @@ public class GameManagerParejas : MonoBehaviour
                     }
                     else
                     {
-                        vertical4Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
-                        vertical4Right[numJ].name = numJ.ToString();
+                        vertical4Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical4Right[numJ].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                         vertical4Right[numJ].SetActive(true);
                     }
                     break;
