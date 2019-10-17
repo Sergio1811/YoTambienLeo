@@ -411,11 +411,11 @@ public class GameManagerPuzzle : MonoBehaviour
         GameObject l_UnseenWord = Instantiate(m_UnseenWord, m_UnseenWordTransform.transform);
         l_Word.GetComponentInChildren<Text>().text = PutName();
         l_Word.GetComponentInChildren<ConvertFont>().Convert();
-        l_Word.GetComponentInChildren<Text>().fontSize = SingletonLenguage.GetInstance().ConvertSizeDependWords(l_Word.GetComponentInChildren<Text>().text);
+       // l_Word.GetComponentInChildren<Text>().fontSize = SingletonLenguage.GetInstance().ConvertSizeDependWords(l_Word.GetComponentInChildren<Text>().text);
         l_Word.name = "Word";
         l_UnseenWord.GetComponentInChildren<Text>().text = PutName();
         l_UnseenWord.GetComponentInChildren<ConvertFont>().Convert();
-        l_UnseenWord.GetComponentInChildren<Text>().fontSize = SingletonLenguage.GetInstance().ConvertSizeDependWords(l_Word.GetComponentInChildren<Text>().text);
+       // l_UnseenWord.GetComponentInChildren<Text>().fontSize = SingletonLenguage.GetInstance().ConvertSizeDependWords(l_Word.GetComponentInChildren<Text>().text);
         l_UnseenWord.name = "Word";
         m_Words.Add(l_Word);
         m_Words[m_Words.Count - 1].GetComponent<MoveTouch>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
