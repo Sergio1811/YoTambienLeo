@@ -6638,7 +6638,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -885, y: 465}
+  m_AnchoredPosition: {x: -857, y: 433}
   m_SizeDelta: {x: 125, y: 128}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &592734748
@@ -6685,7 +6685,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1657563399}
-        m_MethodName: ConfScene
+        m_MethodName: InicioScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6728,7 +6728,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9459cd0b4daf00c449a0e9331bcd9781, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 765f6c3f5854e2244bafe27115b4f106, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -23049,7 +23049,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -885, y: 465}
+  m_AnchoredPosition: {x: -857, y: 433.00003}
   m_SizeDelta: {x: 125, y: 128}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1974128354
@@ -23096,7 +23096,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1657563399}
-        m_MethodName: ConfScene
+        m_MethodName: InicioScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23139,7 +23139,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9459cd0b4daf00c449a0e9331bcd9781, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 765f6c3f5854e2244bafe27115b4f106, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -24565,7 +24565,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -885, y: 465}
+  m_AnchoredPosition: {x: -857, y: 433.00003}
   m_SizeDelta: {x: 125, y: 128}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2081836102
@@ -24612,7 +24612,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1657563399}
-        m_MethodName: ConfScene
+        m_MethodName: InicioScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24655,7 +24655,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 9459cd0b4daf00c449a0e9331bcd9781, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 765f6c3f5854e2244bafe27115b4f106, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
