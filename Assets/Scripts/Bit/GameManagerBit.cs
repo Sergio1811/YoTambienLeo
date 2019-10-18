@@ -18,7 +18,7 @@ public class GameManagerBit : MonoBehaviour
     public Transform m_SpawnPar;
     Transform m_CurrentSpawn;
     public GameObject m_Point;
-    static int l_NumReps = GameManager.Instance.m_NeededToMinigame - 1;
+    static int l_NumReps = 6;//-1 aplicado
     GameObject[] m_Points = new GameObject[l_NumReps];
 
     public GameObject m_Siguiente;
@@ -97,7 +97,7 @@ public class GameManagerBit : MonoBehaviour
         }
         GameManager.m_CurrentToMinigame[1]++;
 
-        if (GameManager.m_CurrentToMinigame[1] >= GameManager.Instance.m_NeededToMinigame)
+        if (GameManager.m_CurrentToMinigame[1] >= 7)
             m_Scener.RandomMinigame();
         else
         {
@@ -141,7 +141,7 @@ public class GameManagerBit : MonoBehaviour
     public void ActivateButtons()
     {
         m_Siguiente.SetActive(true);
-        if (m_CurrentNumRep <= GameManager.Instance.Repeticiones)
+        if (m_CurrentNumRep <= GameManager.Repeticiones)
             m_Repetir.SetActive(true);
     }
 }

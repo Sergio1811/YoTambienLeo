@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool Mayus = true, Ayuda = true, Dumi = true, Articulo = false;
     [HideInInspector]
-    public int Repeticiones =2, Packs = 0;
+    public static int Repeticiones =2, Packs = 0;
     #endregion
 
     #region ScenesIndex
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     public static List<int> m_CurrentToMinigame = new List<int>();//0 Parejas, 1 Bit, 2 Puzzle
 
-    public int m_NeededToMinigame = 6;//Siempre añadir un +1 a lo que necesitan
+    public int m_NeededToMinigame = 5;//Siempre añadir un +1 a lo que necesitan
     [HideInInspector]
     public int m_BitLevel = 1;
 

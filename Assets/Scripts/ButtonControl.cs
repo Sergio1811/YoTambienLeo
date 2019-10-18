@@ -70,12 +70,12 @@ public class ButtonControl : MonoBehaviour
 
     public void Repeticiones(int l_Repeticiones)
     {
-        GameManager.Instance.Repeticiones = l_Repeticiones;
+        GameManager.Repeticiones = l_Repeticiones;
     }
    
     public void Pack(int l_Packs)
     {
-        GameManager.Instance.Packs = l_Packs;
+        GameManager.Packs = l_Packs;
     }
 
     public void Dificultad(string Dificultad)

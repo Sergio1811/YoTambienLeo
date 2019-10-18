@@ -45,7 +45,7 @@ public class GameManagerPuzzle : MonoBehaviour
     public Transform m_SpawnPar;
     Transform m_CurrentSpawn;
     public GameObject m_Point;
-    static int l_NumReps = GameManager.Instance.m_NeededToMinigame - 1;
+    static int l_NumReps = 2;//-1
     GameObject[] m_Points = new GameObject[l_NumReps];
 
     List<GameObject> m_Images = new List<GameObject>();
@@ -326,7 +326,7 @@ public class GameManagerPuzzle : MonoBehaviour
         m_Completed = false;
         GameManager.m_CurrentToMinigame[2]++;
 
-        if (GameManager.m_CurrentToMinigame[2] >= GameManager.Instance.m_NeededToMinigame)
+        if (GameManager.m_CurrentToMinigame[2] >= 3)
             m_Scener.RandomMinigame();
 
 
@@ -396,7 +396,7 @@ public class GameManagerPuzzle : MonoBehaviour
     public void ActivateButtons()
     {
         m_Siguiente.SetActive(true);
-        if (m_CurrentNumRep < GameManager.Instance.Repeticiones)
+        if (m_CurrentNumRep < GameManager.Repeticiones)
             m_Repetir.SetActive(true);
     }
 

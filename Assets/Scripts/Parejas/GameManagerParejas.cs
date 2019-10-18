@@ -551,7 +551,7 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-        if (GameManager.m_CurrentToMinigame[0] >= GameManager.Instance.m_NeededToMinigame - 1)
+        if (GameManager.m_CurrentToMinigame[0] >= GameManager.Instance.m_NeededToMinigame)
         {
             m_Scener.RandomMinigame();
         }
@@ -1163,7 +1163,7 @@ public class GameManagerParejas : MonoBehaviour
 
         m_Siguiente.SetActive(true);
 
-        if (m_CurrentNumRep < GameManager.Instance.Repeticiones)
+        if (m_CurrentNumRep < GameManager.Repeticiones)
         {
             m_Repetir.SetActive(true);
         }
