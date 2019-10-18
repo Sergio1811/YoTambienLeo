@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameManagerBit : MonoBehaviour
 {
     public SceneManagement m_Scener;
-    int m_CurrentNumRep = 0;
+    int m_CurrentNumRep = 1;
     public GameObject m_NewBit;
     public Transform m_NewBitPosition;
     public Sprite m_CompletedPoint;
@@ -103,7 +103,7 @@ public class GameManagerBit : MonoBehaviour
             Destroy(m_CurrentBit);
             print("FinishRep");
             m_Points[GameManager.m_CurrentToMinigame[1]].GetComponent<Image>().sprite = m_CompletedPoint;
-            m_CurrentNumRep = 0;
+            m_CurrentNumRep = 1;
             RepeatImage(false);
         }
     }
@@ -131,7 +131,7 @@ public class GameManagerBit : MonoBehaviour
         Destroy(m_CurrentBit);
         print("FinishRep");
         m_Points[GameManager.m_CurrentToMinigame[1]].GetComponent<Image>().sprite = m_CompletedPoint;
-        m_CurrentNumRep = 0;
+        m_CurrentNumRep = 1;
         RepeatImage(false);
     }
 

@@ -46,7 +46,7 @@ public class GameManagerParejas : MonoBehaviour
 
     List<AudioClip> repeatListAudios = new List<AudioClip>();
 
-    int m_CurrentNumRep = 0;
+    int m_CurrentNumRep = 1;
 
     public int m_CurrentPairs;
 
@@ -225,7 +225,7 @@ public class GameManagerParejas : MonoBehaviour
 
         m_Points[GameManager.m_CurrentToMinigame[0]].GetComponent<Image>().sprite = m_CompletedPoint;
 
-        m_CurrentNumRep = 0;
+        m_CurrentNumRep = 1;
 
         currentNumOfPairs = 0;
 
@@ -250,7 +250,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
         foreach (string item in ObtainListOfPalabras())
-
         {
 
             l_Palabras.Add(item);
@@ -304,14 +303,13 @@ public class GameManagerParejas : MonoBehaviour
 
 
         if (Random.Range(0, 2) == 1)
-
+        {
             m_IsHorizontal = true;
-
+        }
         else
-
+        {
             m_IsHorizontal = false;
-
-
+        }
 
         m_FirstPair = true;
 
@@ -548,14 +546,14 @@ public class GameManagerParejas : MonoBehaviour
 
         GameManager.m_CurrentToMinigame[0]++;
 
-        m_CurrentNumRep = 0;
+        m_CurrentNumRep = 1;
 
 
 
         if (GameManager.m_CurrentToMinigame[0] >= GameManager.Instance.m_NeededToMinigame)
-
+        {
             m_Scener.RandomMinigame();
-
+        }
         else
 
         {
@@ -625,14 +623,13 @@ public class GameManagerParejas : MonoBehaviour
 
 
             if (Random.Range(0, 2) == 1)
-
+            {
                 m_IsHorizontal = true;
-
+            }
             else
-
+            {
                 m_IsHorizontal = false;
-
-
+            }
 
             m_FirstPair = true;
 
@@ -929,14 +926,13 @@ public class GameManagerParejas : MonoBehaviour
 
 
         if (Random.Range(0, 2) == 1)
-
+        {
             m_IsHorizontal = true;
-
+        }
         else
-
+        {
             m_IsHorizontal = false;
-
-
+        }
 
         m_FirstPair = true;
 
@@ -1166,10 +1162,10 @@ public class GameManagerParejas : MonoBehaviour
 
         m_Siguiente.SetActive(true);
 
-        if (m_CurrentNumRep <= GameManager.Instance.Repeticiones)
-
+        if (m_CurrentNumRep < GameManager.Instance.Repeticiones)
+        {
             m_Repetir.SetActive(true);
-
+        }
     }
 
 

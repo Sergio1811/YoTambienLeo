@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool Mayus = true, Ayuda = true, Dumi = true, Articulo = false;
     [HideInInspector]
-    public int Repeticiones =3, Packs = 0;
+    public int Repeticiones =2, Packs = 0;
     #endregion
 
     #region ScenesIndex

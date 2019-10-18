@@ -19,7 +19,7 @@ public class GameManagerPuzzle : MonoBehaviour
 
     List<GameObject> m_Words = new List<GameObject>();
     public SceneManagement m_Scener;
-    int m_CurrentNumRep = 0;
+    int m_CurrentNumRep = 1;
     public GameObject m_ImageTemplate;
     public GameObject m_ColliderTemplate;
     public GameObject m_CollidersSpawns;
@@ -366,7 +366,7 @@ public class GameManagerPuzzle : MonoBehaviour
             m_Canvas.SetActive(false);
             ImagesCollsInstantiation();
             m_Points[m_CurrentNumRep].GetComponent<Image>().sprite = m_CompletedPoint;
-            m_CurrentNumRep = 0;
+            m_CurrentNumRep = 1;
 
         }
 
@@ -401,7 +401,7 @@ public class GameManagerPuzzle : MonoBehaviour
     public void ActivateButtons()
     {
         m_Siguiente.SetActive(true);
-        if (m_CurrentNumRep <= GameManager.Instance.Repeticiones)
+        if (m_CurrentNumRep < GameManager.Instance.Repeticiones)
             m_Repetir.SetActive(true);
     }
 
@@ -495,7 +495,7 @@ public class GameManagerPuzzle : MonoBehaviour
         m_Canvas.SetActive(false);
         ImagesCollsInstantiation();
         m_Points[m_CurrentNumRep].GetComponent<Image>().sprite = m_CompletedPoint;
-        m_CurrentNumRep = 0;
+        m_CurrentNumRep = 1;
 
 
 
