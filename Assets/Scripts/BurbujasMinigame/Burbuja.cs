@@ -11,6 +11,8 @@ public class Burbuja : MonoBehaviour
     private float l_StopGrowing;
     private Vector3 l_Direction;
 
+    public GameObject m_BubblePS;
+    public AudioSource m_AS;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +44,10 @@ public class Burbuja : MonoBehaviour
                 if (l_Hit.collider.tag == "Burbuja")
                 {
                     Debug.Log("TAPPED");
+                    Vector3 actualPos = gameObject.transform.position;
+                    GameObject l_Ball = Instantiate(m_BubblePS, this.gameObject.transform.localPosition, Quaternion.identity);
+                    l_Ball.transform.position = actualPos;
+                    m_AS.Play();
                     Destroy(l_Hit.collider.gameObject);
                 }
             }
@@ -56,6 +62,10 @@ public class Burbuja : MonoBehaviour
                 if (l_Hit.collider.tag == "Burbuja")
                 {
                     Debug.Log("PUM");
+                    Vector3 actualPos = gameObject.transform.position;
+                    GameObject l_Ball = Instantiate(m_BubblePS, this.gameObject.transform.localPosition, Quaternion.identity);
+                    l_Ball.transform.position = actualPos;
+                    m_AS.Play();
                     Destroy(l_Hit.collider.gameObject);
                 }
             }
