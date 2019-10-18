@@ -8,7 +8,6 @@ public class Pairs : MonoBehaviour
     [HideInInspector]
     bool m_PieceClicked = false;
     public OnlyOneManager managerOnlyOne;
-    private Vector3 m_ClickedPiecePosition;
     public string nombre = "";
     public AudioClip audioClip;
     private Image myImage;
@@ -18,17 +17,68 @@ public class Pairs : MonoBehaviour
     private float timer = 0;
     public int numImage;
 
+    private RectTransform rectTransform;
+    private float currentTimerAnim = 0;
+    private float maxTimerAnim = 1;
+    private bool animIsplaying;
+    private Vector3 lastSize;
+    private Vector3 lastPosition;
 
     private void Start()
     {
         m_GameManagerParejas = GameObject.FindGameObjectWithTag("GMParejas").GetComponent<GameManagerParejas>();
         audioSource = m_GameManagerParejas.GetComponent<AudioSource>();
         myImage = gameObject.GetComponent<Image>();
+
+        rectTransform = GetComponent<RectTransform>();
+        lastPosition = gameObject.transform.position;
+        lastSize = rectTransform.localScale;
+        Random.InitState(Random.seed + 1);
+        maxTimerAnim = Random.Range(3.5f, 8);
+        if (numImage == 0)
+            maxTimerAnim = 1;
     }
     private void Update()
     {
         if (managerOnlyOne != null)
         {
+
+            #region animación
+            if (m_GameManagerParejas.m_CurrentPairs == numImage)
+            {
+                currentTimerAnim += Time.deltaTime;
+                if (currentTimerAnim >= maxTimerAnim && !m_PieceClicked && !animIsplaying)
+                {
+                    currentTimerAnim = 0;
+                    animIsplaying = true;
+                    maxTimerAnim = Random.Range(3.5f, 8);
+                }
+
+                if(animIsplaying && !m_PieceClicked)
+                {
+                    if(currentTimerAnim < 0.5f)
+                    {
+                        gameObject.transform.position += new Vector3(-0.5f * Time.deltaTime, -0.5f * Time.deltaTime, 0);
+                        rectTransform.localScale += new Vector3(0.5f * Time.deltaTime, 0.5f * Time.deltaTime, 0);
+                    }
+                    else if(currentTimerAnim < 1f)
+                    {
+                        gameObject.transform.position += new Vector3(0.5f * Time.deltaTime, 0.5f * Time.deltaTime, 0);
+                        rectTransform.localScale += new Vector3(-0.5f * Time.deltaTime, -0.5f * Time.deltaTime, 0);
+                    }
+                    else
+                    {
+                        currentTimerAnim = 0;
+                        animIsplaying = false;
+                        rectTransform.localScale = lastSize;
+                        gameObject.transform.position = lastPosition;
+                    }
+                }
+            }
+
+            #endregion
+
+
             if (!m_PieceClicked && m_GameManagerParejas.m_CurrentPairs == numImage)
             {
                 if (Input.touchCount > 0 && managerOnlyOne.go == null && !m_GameManagerParejas.m_Animation.isPlaying)
@@ -42,9 +92,12 @@ public class Pairs : MonoBehaviour
                     {
                         if (l_RaycastHit.collider.gameObject == this.gameObject)
                         {
+                            currentTimerAnim = 0;
+                            animIsplaying = false;
+                            rectTransform.localScale = lastSize;
+
                             m_PieceClicked = true;
                             this.gameObject.transform.SetAsLastSibling();
-                            m_ClickedPiecePosition = this.gameObject.transform.position;
                             managerOnlyOne.Catch(true, gameObject);
                         }
                     }
@@ -61,9 +114,9 @@ public class Pairs : MonoBehaviour
                     {
                         if (l_RaycastHit.collider.gameObject == this.gameObject)
                         {
+                            rectTransform.localScale = lastSize;
                             m_PieceClicked = true;
                             this.gameObject.transform.SetAsLastSibling();
-                            m_ClickedPiecePosition = this.gameObject.transform.position;
                             managerOnlyOne.Catch(true, gameObject);
 
                         }
@@ -95,7 +148,7 @@ public class Pairs : MonoBehaviour
                 if (timer <= 0)
                 {
                     timer = 0;
-                    this.transform.position = m_ClickedPiecePosition;
+                    this.transform.position = lastPosition;
                     m_PieceClicked = false;
                     managerOnlyOne.Catch(false, null);
                 }
@@ -129,7 +182,7 @@ public class Pairs : MonoBehaviour
             m_GameManagerParejas.PairDone();
             collision.gameObject.SetActive(false);
             gameObject.SetActive(false);
-            gameObject.transform.position = m_ClickedPiecePosition;
+            gameObject.transform.position = lastPosition;
             m_PieceClicked = false;
             managerOnlyOne.Catch(false, null);
 
