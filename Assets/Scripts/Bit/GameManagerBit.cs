@@ -18,7 +18,7 @@ public class GameManagerBit : MonoBehaviour
     public Transform m_SpawnPar;
     Transform m_CurrentSpawn;
     public GameObject m_Point;
-    static int l_NumReps = GameManager.Instance.m_NeededToMinigame;
+    static int l_NumReps = GameManager.Instance.m_NeededToMinigame - 1;
     GameObject[] m_Points = new GameObject[l_NumReps];
 
     public GameObject m_Siguiente;
@@ -54,7 +54,8 @@ public class GameManagerBit : MonoBehaviour
 
         for (int i = 0; i <= GameManager.m_CurrentToMinigame[1]; i++)
         {
-            m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
+            if(i > 0)
+                m_Points[i - 1].GetComponent<Image>().sprite = m_CompletedPoint;
         }
 
         InicioBit();
@@ -102,7 +103,8 @@ public class GameManagerBit : MonoBehaviour
         {
             Destroy(m_CurrentBit);
             print("FinishRep");
-            m_Points[GameManager.m_CurrentToMinigame[1]].GetComponent<Image>().sprite = m_CompletedPoint;
+            if(GameManager.m_CurrentToMinigame[1] > 0)
+                m_Points[GameManager.m_CurrentToMinigame[1] - 1].GetComponent<Image>().sprite = m_CompletedPoint;
             m_CurrentNumRep = 1;
             RepeatImage(false);
         }
@@ -130,7 +132,8 @@ public class GameManagerBit : MonoBehaviour
         }
         Destroy(m_CurrentBit);
         print("FinishRep");
-        m_Points[GameManager.m_CurrentToMinigame[1]].GetComponent<Image>().sprite = m_CompletedPoint;
+        if(GameManager.m_CurrentToMinigame[1] > 0)
+            m_Points[GameManager.m_CurrentToMinigame[1] - 1].GetComponent<Image>().sprite = m_CompletedPoint;
         m_CurrentNumRep = 1;
         RepeatImage(false);
     }

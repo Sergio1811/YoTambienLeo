@@ -45,7 +45,7 @@ public class GameManagerPuzzle : MonoBehaviour
     public Transform m_SpawnPar;
     Transform m_CurrentSpawn;
     public GameObject m_Point;
-    static int l_NumReps = GameManager.Instance.m_NeededToMinigame;
+    static int l_NumReps = GameManager.Instance.m_NeededToMinigame - 1;
     GameObject[] m_Points = new GameObject[l_NumReps];
 
     List<GameObject> m_Images = new List<GameObject>();
@@ -79,7 +79,8 @@ public class GameManagerPuzzle : MonoBehaviour
 
         for (int i = 0; i <= GameManager.m_CurrentToMinigame[2]; i++)
         {
-            m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
+            if(i > 0)
+                m_Points[i - 1].GetComponent<Image>().sprite = m_CompletedPoint;
         }
 
         InicioPuzzle();
@@ -333,7 +334,8 @@ public class GameManagerPuzzle : MonoBehaviour
         {
             for (int i = 0; i <= GameManager.m_CurrentToMinigame[2]; i++)
             {
-                m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
+                if(i > 0)
+                    m_Points[i - 1].GetComponent<Image>().sprite = m_CompletedPoint;
             }
 
             foreach (GameObject item in m_Images)
@@ -358,7 +360,7 @@ public class GameManagerPuzzle : MonoBehaviour
             m_Canvas.SetActive(false);
             HowManyPieces(PuzzlePiecesPossibilities[Random.Range(0, 2)]);
             ImagesCollsInstantiation();
-            m_Points[m_CurrentNumRep].GetComponent<Image>().sprite = m_CompletedPoint;
+
             m_CurrentNumRep = 1;
 
         }
@@ -463,7 +465,8 @@ public class GameManagerPuzzle : MonoBehaviour
         m_Completed = false;
         for (int i = 0; i <= GameManager.m_CurrentToMinigame[2]; i++)
         {
-            m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
+            if(i > 0)
+                m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
         }
 
         foreach (GameObject item in m_Images)
@@ -487,7 +490,6 @@ public class GameManagerPuzzle : MonoBehaviour
         m_Puntuacion = 0;
         m_Canvas.SetActive(false);
         ImagesCollsInstantiation();
-        m_Points[m_CurrentNumRep].GetComponent<Image>().sprite = m_CompletedPoint;
         m_CurrentNumRep = 1;
     }
 
