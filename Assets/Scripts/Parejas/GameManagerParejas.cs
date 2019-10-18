@@ -109,7 +109,7 @@ public class GameManagerParejas : MonoBehaviour
 
     public GameObject m_Point;
 
-    static int l_NumReps = GameManager.Instance.m_NeededToMinigame;
+    static int l_NumReps = GameManager.Instance.m_NeededToMinigame - 1;
 
     GameObject[] m_Points = new GameObject[l_NumReps];
 
@@ -166,8 +166,8 @@ public class GameManagerParejas : MonoBehaviour
         for (int i = 0; i <= GameManager.m_CurrentToMinigame[0]; i++)
 
         {
-
-            m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
+            if(i > 0)
+                m_Points[i - 1].GetComponent<Image>().sprite = m_CompletedPoint;
 
         }
 
@@ -223,7 +223,8 @@ public class GameManagerParejas : MonoBehaviour
 
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
 
-        m_Points[GameManager.m_CurrentToMinigame[0]].GetComponent<Image>().sprite = m_CompletedPoint;
+        if(GameManager.m_CurrentToMinigame[0] > 0)
+            m_Points[GameManager.m_CurrentToMinigame[0] - 1].GetComponent<Image>().sprite = m_CompletedPoint;
 
         m_CurrentNumRep = 1;
 
@@ -536,7 +537,7 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-    public void NextPairs()
+    public void NextPairs(bool next = false)
 
     {
 
@@ -550,15 +551,15 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-        if (GameManager.m_CurrentToMinigame[0] >= GameManager.Instance.m_NeededToMinigame)
+        if (GameManager.m_CurrentToMinigame[0] >= GameManager.Instance.m_NeededToMinigame - 1)
         {
             m_Scener.RandomMinigame();
         }
         else
 
         {
-
-            m_Points[GameManager.m_CurrentToMinigame[0]].GetComponent<Image>().sprite = m_CompletedPoint;
+            if(GameManager.m_CurrentToMinigame[0] > 0)
+                m_Points[GameManager.m_CurrentToMinigame[0] - 1].GetComponent<Image>().sprite = m_CompletedPoint;
 
             List<Texture2D> l_Pairs = new List<Texture2D>();
 
