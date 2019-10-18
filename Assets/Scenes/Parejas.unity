@@ -566,10 +566,13 @@ MonoBehaviour:
   - {fileID: 2800000, guid: dec6ae8f50c5b3548bad2efc53146e2c, type: 3}
   - {fileID: 2800000, guid: 43e845ec2b2dddd46a35a3ec92497f75, type: 3}
   - {fileID: 2800000, guid: 46ad360d424fb4748a9783d4880a485f, type: 3}
-  - {fileID: 2800000, guid: 0a78c058ccbed9549a44c2e5eb1df25f, type: 3}
-  - {fileID: 2800000, guid: ee1d8c74b7bb20d4090ff327bf05faea, type: 3}
   - {fileID: 2800000, guid: 029c5cf2106a42145b4c043191fb589e, type: 3}
   - {fileID: 2800000, guid: 013cb12824b8e574ea7233d94eea44dd, type: 3}
+  - {fileID: 2800000, guid: bcc30543f785fb042866a27f16ffa5d9, type: 3}
+  - {fileID: 2800000, guid: 363505d43f6442d49aec760e812c7588, type: 3}
+  - {fileID: 2800000, guid: c5a9e5ca502d12049887c3522662196b, type: 3}
+  - {fileID: 2800000, guid: ae0f63eabce26c44e93db25f4501b7dd, type: 3}
+  - {fileID: 2800000, guid: c5edf4b07704e4643b78ff70d93364bc, type: 3}
   palabrasCastellano:
   - Boca
   - Casa
@@ -580,10 +583,13 @@ MonoBehaviour:
   - Moto
   - Pan
   - Pera
-  - Pintar
-  - Saltar
   - Sol
   - Sopa
+  - Agua
+  - "Ni\xF1a"
+  - Pelota
+  - Pie
+  - Vaso
   palabrasCatalan:
   - Boca
   - Casa
@@ -594,10 +600,13 @@ MonoBehaviour:
   - Moto
   - Pa
   - Pera
-  - Pintar
-  - Saltar
   - Sol
   - Sopa
+  - Aigua
+  - Nena
+  - Pilota
+  - Peu
+  - Got
   audiosCastellano:
   - {fileID: 8300000, guid: b31ee96241164014d8361da0c0f8d5b8, type: 3}
   - {fileID: 8300000, guid: 8b5b533b6d839fb4887425572730cadd, type: 3}
@@ -608,10 +617,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: aaf21771501b7884cbe2647716d0188b, type: 3}
   - {fileID: 8300000, guid: 7cfff9b2e4d7bed4b9d23edb4d49cd2b, type: 3}
   - {fileID: 8300000, guid: 8c8963dfff746b641ade7ad79318ad6b, type: 3}
-  - {fileID: 8300000, guid: bdf5c99ec5faad449976b9d0de23fc06, type: 3}
-  - {fileID: 8300000, guid: 2550e686008320842b30d58ee6a1dc74, type: 3}
   - {fileID: 8300000, guid: f7f4fadce0f51ad459bf1711e4b9e3e0, type: 3}
   - {fileID: 8300000, guid: 0ba52460c1014c049ab22040f4bf0b56, type: 3}
+  - {fileID: 8300000, guid: 7d88e698c05662c46b07e628ab730229, type: 3}
+  - {fileID: 8300000, guid: a6933c87085999243ac88e83bb507ff2, type: 3}
+  - {fileID: 8300000, guid: 175a14d9b34f94d41bfee8888ffc909d, type: 3}
+  - {fileID: 8300000, guid: ffdf64795afbcba47bc218c244870869, type: 3}
+  - {fileID: 8300000, guid: 2becb559abe7d4f48983ba484cf0caed, type: 3}
   audiosCatalan:
   - {fileID: 8300000, guid: 94e6865b4bb970249a5df63702b8ad0e, type: 3}
   - {fileID: 8300000, guid: 98b9fa58ff50b2346af3e4fc9b57cb73, type: 3}
@@ -622,10 +634,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 46524ca04ef68ea459425632141e06fe, type: 3}
   - {fileID: 8300000, guid: 08689ee91dfae1f499c4fc0bd44fdbdb, type: 3}
   - {fileID: 8300000, guid: dc65d692f98d2ff4ea7ace61c64b8441, type: 3}
-  - {fileID: 8300000, guid: 545280c6d40b0d948afdc656ac2497f3, type: 3}
-  - {fileID: 8300000, guid: 9aac1da9c2c8c5f42a5d31d6262255ff, type: 3}
   - {fileID: 8300000, guid: 84cf6f0cce297524ebea3d47392464ed, type: 3}
   - {fileID: 8300000, guid: eece25da7901bba4a9caa63cdc46b8e2, type: 3}
+  - {fileID: 8300000, guid: c2e18db04f0c1cd4ca4f8a95dc4739a1, type: 3}
+  - {fileID: 8300000, guid: 4b345ed665545374989dd7385f91b1df, type: 3}
+  - {fileID: 8300000, guid: 0dce98e09908b0a4590df1b6e316e512, type: 3}
+  - {fileID: 8300000, guid: a2cf49a7c5c21714ea7e1ce174282158, type: 3}
+  - {fileID: 8300000, guid: 8b6fcb9fc340a0142b21a60c5269952a, type: 3}
   m_CurrentPairs: 0
   m_Plantilla: {fileID: 3216352808238781115, guid: 7ca532a8a06e87b47946fc365f469936,
     type: 3}
@@ -3027,6 +3042,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LineaArriba
       objectReference: {fileID: 0}
+    - target: {fileID: 7617506766310047005, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7617506764771967304, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
       propertyPath: m_IsActive
@@ -3166,11 +3186,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: NextPairs
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617506766310047005, guid: c97aaca75cec1de418a27440bfd0ea07,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7617506764771967307, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
