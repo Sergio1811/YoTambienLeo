@@ -44,9 +44,9 @@ public class Burbuja : MonoBehaviour
                 if (l_Hit.collider.tag == "Burbuja")
                 {
                     Debug.Log("TAPPED");
-                    Vector3 actualPos = gameObject.transform.position;
-                    GameObject l_Ball = Instantiate(m_BubblePS, this.gameObject.transform.localPosition, Quaternion.identity);
-                    l_Ball.transform.position = actualPos;
+                    //Vector3 actualPos = gameObject.transform.position;
+                    GameObject l_Ball = Instantiate(m_BubblePS, l_Hit.collider.transform.position, m_BubblePS.transform.rotation);
+                    //l_Ball.transform.position = actualPos;
                     m_AS.Play();
                     Destroy(l_Hit.collider.gameObject);
                 }
@@ -62,9 +62,9 @@ public class Burbuja : MonoBehaviour
                 if (l_Hit.collider.tag == "Burbuja")
                 {
                     Debug.Log("PUM");
-                    Vector3 actualPos = gameObject.transform.position;
-                    GameObject l_Ball = Instantiate(m_BubblePS, this.gameObject.transform.localPosition, Quaternion.identity);
-                    l_Ball.transform.position = actualPos;
+                    //Vector3 actualPos = gameObject.transform.position;
+                    GameObject l_Ball = Instantiate(m_BubblePS, l_Hit.collider.transform.position, m_BubblePS.transform.rotation);
+                    //l_Ball.transform.position = actualPos;
                     m_AS.Play();
                     Destroy(l_Hit.collider.gameObject);
                 }
