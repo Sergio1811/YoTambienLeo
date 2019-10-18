@@ -54,6 +54,8 @@ public class GameManagerPuzzle : MonoBehaviour
     public GameObject m_Siguiente;
     public GameObject m_Repetir;
 
+    public int[] PuzzlePiecesPossibilities;
+
     private void Start()
     {
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
@@ -73,17 +75,7 @@ public class GameManagerPuzzle : MonoBehaviour
             m_Points[i] = Instantiate(m_Point, m_CurrentSpawn.transform);
             m_Points[i].GetComponent<RectTransform>().anchoredPosition += new Vector2(m_Points[i].transform.position.x + (i * 75), 0);
         }
-
-        if (Mathf.Sqrt(m_NumPieces) / (int)Mathf.Sqrt(m_NumPieces) == 1)
-        {
-            m_NumPiecesX = (int)Mathf.Sqrt(m_NumPieces);
-            m_NumPiecesY = (int)Mathf.Sqrt(m_NumPieces);
-        }
-        else
-        {
-            m_NumPiecesX = (int)Mathf.Sqrt(m_NumPieces);
-            m_NumPiecesY = (int)Mathf.Sqrt(m_NumPieces) + 1;
-        }
+        HowManyPieces(m_NumPieces);
 
         for (int i = 0; i <= GameManager.m_CurrentToMinigame[2]; i++)
         {
@@ -364,6 +356,7 @@ public class GameManagerPuzzle : MonoBehaviour
             m_Colliders.Clear();
             m_Puntuacion = 0;
             m_Canvas.SetActive(false);
+            HowManyPieces(PuzzlePiecesPossibilities[Random.Range(0, 2)]);
             ImagesCollsInstantiation();
             m_Points[m_CurrentNumRep].GetComponent<Image>().sprite = m_CompletedPoint;
             m_CurrentNumRep = 1;
@@ -496,9 +489,20 @@ public class GameManagerPuzzle : MonoBehaviour
         ImagesCollsInstantiation();
         m_Points[m_CurrentNumRep].GetComponent<Image>().sprite = m_CompletedPoint;
         m_CurrentNumRep = 1;
-
-
-
     }
 
+    public void HowManyPieces(int l_NumPieces)
+    {
+        m_NumPieces = l_NumPieces;
+        if (Mathf.Sqrt(l_NumPieces) / (int)Mathf.Sqrt(l_NumPieces) == 1)
+        {
+            m_NumPiecesX = (int)Mathf.Sqrt(l_NumPieces);
+            m_NumPiecesY = (int)Mathf.Sqrt(l_NumPieces);
+        }
+        else
+        {
+            m_NumPiecesX = (int)Mathf.Sqrt(l_NumPieces);
+            m_NumPiecesY = (int)Mathf.Sqrt(l_NumPieces) + 1;
+        }
+    }
 }

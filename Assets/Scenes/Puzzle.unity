@@ -794,6 +794,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LineaArriba
       objectReference: {fileID: 0}
+    - target: {fileID: 7617506766310047005, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7617506764771967304, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
       propertyPath: m_IsActive
@@ -933,11 +938,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: PassPuzzle
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617506766310047005, guid: c97aaca75cec1de418a27440bfd0ea07,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7617506764771967307, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
@@ -1463,6 +1463,7 @@ MonoBehaviour:
   m_Point: {fileID: 5527405633754878209, guid: e70aa73ef57d71743839ec36e1090dfc, type: 3}
   m_Siguiente: {fileID: 466239159}
   m_Repetir: {fileID: 2080649291}
+  PuzzlePiecesPossibilities: 040000000600000009000000
 --- !u!4 &1618241202
 Transform:
   m_ObjectHideFlags: 0
