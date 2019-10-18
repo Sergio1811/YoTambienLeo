@@ -20,6 +20,7 @@ public class Pairs : MonoBehaviour
     private RectTransform rectTransform;
     private float currentTimerAnim = 0;
     private float maxTimerAnim = 1;
+    private bool firstTime = true;
     private bool animIsplaying;
     private Vector3 lastSize;
     private Vector3 lastPosition;
@@ -44,7 +45,13 @@ public class Pairs : MonoBehaviour
         {
 
             #region animación
-            if (m_GameManagerParejas.m_CurrentPairs == numImage)
+            if (numImage == 0 && firstTime)
+            {
+                firstTime = false;
+                maxTimerAnim = 1;
+            }
+
+            if (m_GameManagerParejas.m_CurrentPairs == numImage && !m_PieceClicked)
             {
                 currentTimerAnim += Time.deltaTime;
                 if (currentTimerAnim >= maxTimerAnim && !m_PieceClicked && !animIsplaying)
@@ -74,6 +81,7 @@ public class Pairs : MonoBehaviour
                         gameObject.transform.position = lastPosition;
                     }
                 }
+                
             }
 
             #endregion
@@ -114,7 +122,10 @@ public class Pairs : MonoBehaviour
                     {
                         if (l_RaycastHit.collider.gameObject == this.gameObject)
                         {
+                            currentTimerAnim = 0;
+                            animIsplaying = false;
                             rectTransform.localScale = lastSize;
+
                             m_PieceClicked = true;
                             this.gameObject.transform.SetAsLastSibling();
                             managerOnlyOne.Catch(true, gameObject);
@@ -149,6 +160,9 @@ public class Pairs : MonoBehaviour
                 {
                     timer = 0;
                     this.transform.position = lastPosition;
+                    currentTimerAnim = 0;
+                    animIsplaying = false;
+                    rectTransform.localScale = lastSize;
                     m_PieceClicked = false;
                     managerOnlyOne.Catch(false, null);
                 }
@@ -183,6 +197,10 @@ public class Pairs : MonoBehaviour
             collision.gameObject.SetActive(false);
             gameObject.SetActive(false);
             gameObject.transform.position = lastPosition;
+            rectTransform.localScale = lastSize;
+            currentTimerAnim = 0;
+            firstTime = true;
+            animIsplaying = false;
             m_PieceClicked = false;
             managerOnlyOne.Catch(false, null);
 
