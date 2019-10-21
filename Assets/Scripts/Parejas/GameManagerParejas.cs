@@ -122,7 +122,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
     void Start()
-
     {
 
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute + Random.seed + 1);
@@ -130,7 +129,6 @@ public class GameManagerParejas : MonoBehaviour
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute + Random.seed + 1);
 
         if (l_NumReps % 2 == 0)
-
         {
 
             m_CurrentSpawn = m_SpawnPar;
@@ -140,7 +138,6 @@ public class GameManagerParejas : MonoBehaviour
         }
 
         else
-
         {
 
             m_CurrentSpawn = m_SpawnImpar;
@@ -152,7 +149,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
         for (int i = 0; i < l_NumReps; i++)
-
         {
 
             m_Points[i] = Instantiate(m_Point, m_CurrentSpawn.transform);
@@ -164,13 +160,11 @@ public class GameManagerParejas : MonoBehaviour
 
 
         for (int i = 0; i <= GameManager.m_CurrentToMinigame[0]; i++)
-
         {
             if(i > 0)
                 m_Points[i - 1].GetComponent<Image>().sprite = m_CompletedPoint;
 
         }
-
 
 
         InstantiatePairs();
@@ -182,15 +176,9 @@ public class GameManagerParejas : MonoBehaviour
 
 
     private void Update()
-
     {
 
-        //print(m_CurrentPairs);
-
-        //print(m_NumPairs);
-
         if (m_CurrentPairs == m_NumPairs)
-
         {
 
             StartCoroutine(WaitSeconds(3));
@@ -202,7 +190,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
         if (m_ImageZoom.activeSelf && GameManager.Instance.InputRecieved() && !m_RealCanvas.GetComponent<Animation>().isPlaying)
-
         {
 
             m_ImageZoom.SetActive(false);
@@ -218,7 +205,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
     public void InstantiatePairs()
-
     {
 
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
@@ -241,7 +227,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
         foreach (Texture2D item in m_ImagePairs)
-
         {
 
             l_Pairs.Add(item);
@@ -260,13 +245,11 @@ public class GameManagerParejas : MonoBehaviour
 
 
         foreach (AudioClip item in ObtainListOfAudios())
-
         {
 
             l_Audios.Add(item);
 
         }
-
 
 
         /* foreach (Texture2D item in m_ImagePairs)
@@ -302,7 +285,6 @@ public class GameManagerParejas : MonoBehaviour
         repeatListAudios = l_ThirdAudio;
 
 
-
         if (Random.Range(0, 2) == 1)
         {
             m_IsHorizontal = true;
@@ -315,31 +297,21 @@ public class GameManagerParejas : MonoBehaviour
         m_FirstPair = true;
 
 
-
         if (m_IsHorizontal)
-
         {
 
             m_XPos = Screen.width / (m_NumPairs * 2.235f);
-
             m_YPos = Screen.height / 5;
 
-
-
             for (int i = 0; i < 2; i++)
-
             {
 
-                int k = 1;
-
-
+                int k = 1;      
 
                 if (m_FirstPair)
-
                 {
 
                     for (int j = 0; j < m_NumPairs; j++)
-
                     {
 
                         int l_RandomPair = Random.Range(0, l_Pairs.Count);
@@ -371,22 +343,16 @@ public class GameManagerParejas : MonoBehaviour
 
                         l_Audios.RemoveAt(l_RandomPair);
 
-
-
                         k++;
-
                         k++;
-
                     }
 
                 }
 
                 else
-
                 {
 
                     for (int j = 0; j < m_NumPairs; j++)
-
                     {
 
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
@@ -402,52 +368,33 @@ public class GameManagerParejas : MonoBehaviour
 
                         l_SecondAudio.RemoveAt(l_RandomPair);
 
-
-
+                        k++;                
                         k++;
-
-                        k++;
-
                     }
 
                 }
 
-
-
                 m_FirstPair = false;
-
                 m_YPos *= 3f;
 
             }
-
-
-
         }
 
         else
-
         {
-
             m_XPos = Screen.width / 4.515f;
 
             m_YPos = Screen.height / (m_NumPairs * 2.3f);
 
-
-
             for (int i = 0; i < 2; i++)
-
             {
 
                 int k = 1;
 
-
-
                 if (m_FirstPair)
-
                 {
 
                     for (int j = 0; j < m_NumPairs; j++)
-
                     {
 
 
@@ -481,27 +428,17 @@ public class GameManagerParejas : MonoBehaviour
                         l_ThirdAudio.Add(l_Audios[l_RandomPair]);
 
                         l_Audios.RemoveAt(l_RandomPair);
-
-
-
-
-
+                
                         k++;
-
                         k++;
-
-
-
                     }
 
                 }
 
                 else
-
                 {
 
                     for (int j = 0; j < m_NumPairs; j++)
-
                     {
 
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
@@ -515,18 +452,13 @@ public class GameManagerParejas : MonoBehaviour
 
                         l_SecondAudio.RemoveAt(l_RandomPair);
 
-
-
                         k++;
-
                         k++;
 
                     }
 
                 }
-
-                m_FirstPair = false;
-
+                m_FirstPair = false;          
                 m_XPos *= 3f;
 
             }
@@ -538,7 +470,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
     public void NextPairs(bool next = false)
-
     {
 
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
@@ -570,7 +501,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
             foreach (Texture2D item in m_ImagePairs)
-
             {
 
                 l_Pairs.Add(item);
@@ -580,7 +510,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
             foreach (string item in ObtainListOfPalabras())
-
             {
 
                 l_Palabras.Add(item);
@@ -590,7 +519,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
             foreach (AudioClip item in ObtainListOfAudios())
-
             {
 
                 l_Audios.Add(item);
@@ -637,29 +565,21 @@ public class GameManagerParejas : MonoBehaviour
 
 
             if (m_IsHorizontal)
-
             {
 
                 m_XPos = Screen.width / (m_NumPairs * 2.0f);
 
-                m_YPos = Screen.height / 4;
-
-
+                m_YPos = Screen.height / 4;         
 
                 for (int i = 0; i < 2; i++)
-
                 {
 
                     int k = 1;
 
-
-
                     if (m_FirstPair)
-
                     {
 
                         for (int j = 0; j < m_NumPairs; j++)
-
                         {
 
                             int l_RandomPair = Random.Range(0, l_Pairs.Count);
@@ -691,22 +611,16 @@ public class GameManagerParejas : MonoBehaviour
 
                             l_Audios.RemoveAt(l_RandomPair);
 
-
-
                             k++;
-
                             k++;
-
                         }
 
                     }
 
                     else
-
                     {
 
                         for (int j = 0; j < m_NumPairs; j++)
-
                         {
 
                             int l_RandomPair = Random.Range(0, l_SecondPair.Count);
@@ -723,52 +637,33 @@ public class GameManagerParejas : MonoBehaviour
 
                             l_SecondAudio.RemoveAt(l_RandomPair);
 
-
-
                             k++;
-
                             k++;
-
                         }
 
                     }
 
-
-
                     m_FirstPair = false;
-
                     m_YPos *= 3f;
 
                 }
 
-
-
             }
 
-            else
-
+            else     
             {
-
                 m_XPos = Screen.width / 4;
-
                 m_YPos = Screen.height / (m_NumPairs * 2.0f);
 
-
-
                 for (int i = 0; i < 2; i++)
-
                 {
 
                     int k = 1;
 
-
-
                     if (m_FirstPair)
-
                     {
 
                         for (int j = 0; j < m_NumPairs; j++)
-
                         {
 
                             int l_RandomPair = Random.Range(0, l_Pairs.Count);
@@ -802,24 +697,16 @@ public class GameManagerParejas : MonoBehaviour
 
                             l_Audios.RemoveAt(l_RandomPair);
 
-
-
                             k++;
-
                             k++;
-
-
-
                         }
 
                     }
 
                     else
-
                     {
 
                         for (int j = 0; j < m_NumPairs; j++)
-
                         {
 
 
@@ -834,18 +721,12 @@ public class GameManagerParejas : MonoBehaviour
 
                             l_SecondAudio.RemoveAt(l_RandomPair);
 
-
-
+                            k++;                   
                             k++;
-
-                            k++;
-
                         }
 
                     }
-
                     m_FirstPair = false;
-
                     m_XPos *= 3f;
 
                 }
@@ -859,7 +740,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
     public void RepeatPairs()
-
     {
 
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
@@ -879,7 +759,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
         foreach (Texture2D item in RepeatList)
-
         {
 
             l_Pairs.Add(item);
@@ -889,7 +768,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
         foreach (string item in repeatListPalabras)
-
         {
 
             l_Palabras.Add(item);
@@ -899,14 +777,11 @@ public class GameManagerParejas : MonoBehaviour
 
 
         foreach (AudioClip item in repeatListAudios)
-
         {
 
             l_Audios.Add(item);
 
         }
-
-
 
         List<Texture2D> l_SecondPair = new List<Texture2D>();
 
@@ -925,7 +800,6 @@ public class GameManagerParejas : MonoBehaviour
         List<AudioClip> l_ThirdAudio = new List<AudioClip>();
 
 
-
         if (Random.Range(0, 2) == 1)
         {
             m_IsHorizontal = true;
@@ -937,32 +811,19 @@ public class GameManagerParejas : MonoBehaviour
 
         m_FirstPair = true;
 
-
-
         if (m_IsHorizontal)
-
         {
-
             m_XPos = Screen.width / (m_NumPairs * 2.0f);
-
             m_YPos = Screen.height / 4;
 
-
-
             for (int i = 0; i < 2; i++)
-
             {
-
                 int k = 1;
 
-
-
                 if (m_FirstPair)
-
                 {
 
                     for (int j = 0; j < m_NumPairs; j++)
-
                     {
 
                         int l_RandomPair = Random.Range(0, l_Pairs.Count);
@@ -984,7 +845,7 @@ public class GameManagerParejas : MonoBehaviour
                         l_ThirdPalabra.Add(l_Palabras[l_RandomPair]);
 
                         l_Palabras.RemoveAt(l_RandomPair);
-
+                  
 
 
                         l_SecondAudio.Add(l_Audios[l_RandomPair]);
@@ -993,24 +854,16 @@ public class GameManagerParejas : MonoBehaviour
 
                         l_Audios.RemoveAt(l_RandomPair);
 
-
-
                         k++;
-
                         k++;
-
                     }
-
                 }
 
                 else
-
                 {
 
                     for (int j = 0; j < m_NumPairs; j++)
-
                     {
-
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
 
                         InstiantatePair(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
@@ -1026,52 +879,33 @@ public class GameManagerParejas : MonoBehaviour
 
                         l_SecondAudio.RemoveAt(l_RandomPair);
 
-
-
                         k++;
-
                         k++;
-
                     }
 
                 }
 
-
-
                 m_FirstPair = false;
-
                 m_YPos *= 3f;
 
             }
 
-
-
         }
 
         else
-
         {
 
             m_XPos = Screen.width / 4;
-
             m_YPos = Screen.height / (m_NumPairs * 2.0f);
 
-
-
             for (int i = 0; i < 2; i++)
-
             {
-
                 int k = 1;
 
-
-
                 if (m_FirstPair)
-
                 {
 
                     for (int j = 0; j < m_NumPairs; j++)
-
                     {
 
                         int l_RandomPair = Random.Range(0, l_Pairs.Count);
@@ -1105,26 +939,16 @@ public class GameManagerParejas : MonoBehaviour
 
                         l_Audios.RemoveAt(l_RandomPair);
 
-
-
+                        k++;                  
                         k++;
-
-                        k++;
-
-
-
                     }
-
                 }
 
                 else
-
                 {
 
                     for (int j = 0; j < m_NumPairs; j++)
-
                     {
-
                         int l_RandomPair = Random.Range(0, l_SecondPair.Count);
 
                         InstiantateCopy(m_FirstPair, m_IsHorizontal, l_RandomPair, l_Pairs, l_SecondPair, l_ThirdPair, l_Palabras, l_SecondPalabra, l_Audios, l_SecondAudio, m_NumPairs, currentNumOfPairs, j);
@@ -1135,14 +959,9 @@ public class GameManagerParejas : MonoBehaviour
 
                         l_SecondAudio.RemoveAt(l_RandomPair);
 
-
-
                         k++;
-
                         k++;
-
                     }
-
                 }
 
                 m_FirstPair = false;
@@ -1158,7 +977,6 @@ public class GameManagerParejas : MonoBehaviour
 
 
     public void ActivateButtons()
-
     {
 
         m_Siguiente.SetActive(true);
@@ -1172,31 +990,18 @@ public class GameManagerParejas : MonoBehaviour
 
 
     IEnumerator WaitSeconds(float seconds)
-
     {
-
-        //print(Time.time);
-
         yield return new WaitForSeconds(seconds);
-
-        //print(Time.time);
-
         ActivateButtons();
-
     }
 
 
 
     public void PairDone()
-
     {
-
         m_CurrentPairs++;
-
         planeImageWhenPair.gameObject.SetActive(true);
-
         m_Animation.Play();
-
     }
 
     private void InstiantatePair(bool _firstTime, bool _horizontal, int l_RandomPair, List<Texture2D> l_Pairs, List<Texture2D> l_SecondPair, List<Texture2D> l_ThirdPair, List<string> l_Palabras, List<string> l_SecondPalabra, List<AudioClip> l_Audios, List<AudioClip> l_SecondAudio, int _numofPairs, int _currentPair, int numJ)
@@ -1208,7 +1013,6 @@ public class GameManagerParejas : MonoBehaviour
                 case 3:
                     if (_firstTime)
                     {
-
                         horizontal3Arriba[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
 
                         horizontal3Arriba[_currentPair].name = numJ.ToString();
@@ -1220,8 +1024,8 @@ public class GameManagerParejas : MonoBehaviour
                         horizontal3Arriba[_currentPair].GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
 
                         horizontal3Arriba[_currentPair].SetActive(true);
-
                     }
+
                     else
                     {
                         horizontal3Arriba[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
@@ -1235,9 +1039,9 @@ public class GameManagerParejas : MonoBehaviour
                         horizontal3Arriba[_currentPair].GetComponent<Pairs>().managerOnlyOne = gameObject.GetComponent<OnlyOneManager>();
 
                         horizontal3Arriba[_currentPair].SetActive(true);
-
                     }
                     break;
+
                 case 4:
                     if (_firstTime)
                     {
@@ -1381,11 +1185,13 @@ public class GameManagerParejas : MonoBehaviour
                     break;
             }
         }
+
         else
         {
             switch (_numofPairs)
             {
                 case 3:
+
                     if (_firstTime)
                     {
                         vertical3Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
@@ -1400,6 +1206,7 @@ public class GameManagerParejas : MonoBehaviour
                     }
                     break;
                 case 4:
+
                     if (_firstTime)
                     {
                         vertical4Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
@@ -1456,55 +1263,35 @@ public class GameManagerParejas : MonoBehaviour
     }
 
 
-
     private List<string> ObtainListOfPalabras()
-
     {
 
         switch (SingletonLenguage.GetInstance().GetLenguage())
-
         {
-
             case SingletonLenguage.Lenguage.CASTELLANO:
-
                 return palabrasCastellano;
 
             case SingletonLenguage.Lenguage.CATALAN:
-
                 return palabrasCatalan;
 
             default:
-
                 return palabrasCastellano;
-
         }
 
     }
 
-
-
     private List<AudioClip> ObtainListOfAudios()
-
     {
-
         switch (SingletonLenguage.GetInstance().GetLenguage())
-
         {
-
             case SingletonLenguage.Lenguage.CASTELLANO:
-
                 return audiosCastellano;
 
             case SingletonLenguage.Lenguage.CATALAN:
-
                 return audiosCatalan;
 
             default:
-
                 return audiosCastellano;
-
         }
-
     }
-
 }
