@@ -56,6 +56,9 @@ public class GameManagerPuzzle : MonoBehaviour
 
     public int[] PuzzlePiecesPossibilities;
 
+
+    public GameObject m_Saver;
+
     private void Start()
     {
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
@@ -121,6 +124,10 @@ public class GameManagerPuzzle : MonoBehaviour
             m_AnimationCenter.Play();
             m_ImagesSpawn.SetActive(false);
             m_CollidersSpawns.SetActive(false);
+            foreach (Transform child in m_Saver.transform)
+            {
+                Destroy(child.gameObject);
+            }
             Debug.Log("AnimPlayed");
 
             StartCoroutine(WaitSeconds(3));

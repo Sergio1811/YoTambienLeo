@@ -2125,7 +2125,7 @@ PrefabInstance:
     - target: {fileID: 805412784198702521, guid: 87e14e4824a8c5e4d8d4bbbd81cef681,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.69
+      value: -7.96
       objectReference: {fileID: 0}
     - target: {fileID: 805412784198702521, guid: 87e14e4824a8c5e4d8d4bbbd81cef681,
         type: 3}
@@ -4298,7 +4298,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: c7669e95e6bfabb4c84691c3ec231713, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

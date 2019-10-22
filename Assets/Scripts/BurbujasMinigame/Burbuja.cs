@@ -48,12 +48,13 @@ public class Burbuja : MonoBehaviour
                     GameObject l_Ball = Instantiate(m_BubblePS, l_Hit.collider.transform.position, m_BubblePS.transform.rotation);
                     //l_Ball.transform.position = actualPos;
                     m_AS.Play();
-                    Destroy(l_Hit.collider.gameObject);
+                    GetComponent<SpriteRenderer>().enabled = false;
+                    Destroy(l_Hit.collider.gameObject, 1f);
                 }
             }
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Vector3 l_Ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D l_Hit = Physics2D.Raycast(l_Ray, Vector2.zero);
@@ -66,39 +67,12 @@ public class Burbuja : MonoBehaviour
                     GameObject l_Ball = Instantiate(m_BubblePS, l_Hit.collider.transform.position, m_BubblePS.transform.rotation);
                     //l_Ball.transform.position = actualPos;
                     m_AS.Play();
-                    Destroy(l_Hit.collider.gameObject);
+                    l_Hit.collider.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    Destroy(l_Hit.collider.gameObject,1f);
                 }
             }
         }
 
-        //if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
-        //{
-        //    Ray l_Ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-        //    RaycastHit l_Hit;
-        //    if (Physics.Raycast(l_Ray, out l_Hit))
-        //    {
-        //        if (l_Hit.collider.tag == "Burbuja")
-        //        {
-        //            Debug.Log("TAPPED");
-        //            Destroy(l_Hit.collider.gameObject);
-        //        }
-        //    }
-        //}
-
-        //if (Input.GetMouseButton(0))
-        //{
-        //    Ray l_Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //    RaycastHit l_Hit;
-
-        //    if (Physics.Raycast(l_Ray, out l_Hit))
-        //    {
-        //        if (l_Hit.collider.tag == "Burbuja")
-        //        {
-        //            Debug.Log("PUM");
-        //            Destroy(l_Hit.collider.gameObject);
-        //        }
-        //    }
-        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

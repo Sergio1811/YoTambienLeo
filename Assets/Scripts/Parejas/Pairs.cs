@@ -105,7 +105,7 @@ public class Pairs : MonoBehaviour
                             rectTransform.localScale = lastSize;
 
                             m_PieceClicked = true;
-                            this.gameObject.transform.SetAsLastSibling();
+                            this.gameObject.transform.parent.transform.parent.transform.SetAsLastSibling();
                             managerOnlyOne.Catch(true, gameObject);
                         }
                     }
@@ -127,7 +127,8 @@ public class Pairs : MonoBehaviour
                             rectTransform.localScale = lastSize;
 
                             m_PieceClicked = true;
-                            this.gameObject.transform.SetAsLastSibling();
+                            Transform grandpa = this.gameObject.transform.parent;
+                            grandpa.SetAsLastSibling();
                             managerOnlyOne.Catch(true, gameObject);
 
                         }

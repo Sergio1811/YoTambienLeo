@@ -16,6 +16,7 @@ public class MoveTouch : MonoBehaviour
     public bool canMove = false;
     private float timer = 0;
 
+    
     void Start()
     {
         myImage = gameObject.GetComponent<Image>();
@@ -124,6 +125,7 @@ public class MoveTouch : MonoBehaviour
         {
             this.transform.position = collision.gameObject.transform.position;
             m_PieceLocked = true;
+            this.transform.SetParent(GameObject.FindGameObjectWithTag("GameManagerPuzzle").GetComponent<GameManagerPuzzle>().m_Saver.transform);
             if (SceneManager.GetActiveScene().name == "Puzzle")
                 GameObject.FindGameObjectWithTag("GameManagerPuzzle").GetComponent<GameManagerPuzzle>().m_Puntuacion++;
         }
