@@ -39,20 +39,84 @@ public class ManagementBD : MonoBehaviour
         //imagen.sprite = Resources.Load<Sprite>("images/activitats-ja");//para cargar imagenes
 
         //ObtainFrase("Manzana Pera Melocoton");
+    }
+
+    private void Start()
+    {
+        StartCoroutine(RunDbCode("BaseDeDatosYoTambienLeo"));
         ReadSQlitePalabra();
+
+    }
+
+    IEnumerator RunDbCode(string fileName)
+    {
+        //Where to copy the db to
+        string dbDestination = Path.Combine(Application.persistentDataPath, "data");
+        dbDestination = Path.Combine(dbDestination, fileName);
+
+        //Check if the File do not exist then copy it
+        if (!File.Exists(dbDestination))
+        {
+            //Where the db file is at
+            string dbStreamingAsset = Path.Combine(Application.streamingAssetsPath, fileName);
+
+            byte[] result;
+
+            //Read the File from streamingAssets. Use WWW for Android
+            if (dbStreamingAsset.Contains("://") || dbStreamingAsset.Contains(":///"))
+            {
+                WWW www = new WWW(dbStreamingAsset);
+                yield return www;
+                result = www.bytes;
+            }
+            else
+            {
+                result = File.ReadAllBytes(dbStreamingAsset);
+            }
+            Debug.Log("Loaded db file");
+
+            //Create Directory if it does not exist
+            if (!Directory.Exists(Path.GetDirectoryName(dbDestination)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(dbDestination));
+            }
+
+            //Copy the data to the persistentDataPath where the database API can freely access the file
+            File.WriteAllBytes(dbDestination, result);
+            Debug.Log("Copied db file");
+        }
+
+        try
+        {
+            //Tell the db final location for debugging
+            Debug.Log("DB Path: " + dbDestination.Replace("/", "\\"));
+            //Add "URI=file:" to the front of the url beore using it with the Sqlite API
+            dbDestination = "URI=file:" + dbDestination;
+
+            //Now you can do the database operation below
+            //open db connection
+            var connection = new SqliteConnection(dbDestination);
+            connection.Open();
+
+            var command = connection.CreateCommand();
+            Debug.Log("Success!");
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Failed: " + e.Message);
+        }
     }
 
     private void Conection()
     {
         if (Application.platform != RuntimePlatform.Android)
         {
-            prueba.text = Application.dataPath;
-            connectionString = Application.dataPath + "/Plugins/SQLite/BaseDeDatosYoTambienLeo.db";
+            connectionString = Application.persistentDataPath + "/data/BaseDeDatosYoTambienLeo";
         }
         else
         {
 
-            connectionString = Application.persistentDataPath + "/Plugins/SQLite/BaseDeDatosYoTambienLeo.bd";
+            connectionString = Application.persistentDataPath + "/data/BaseDeDatosYoTambienLeo";
             /* if (!File.Exists(connectionString))
              {
                  WWW load = new WWW("jar:file://" + Application.dataPath + "!/assets/Plugins/SQLite/" + "BaseDeDatosYoTambienLeo.bd");
@@ -73,9 +137,10 @@ public class ManagementBD : MonoBehaviour
         prueba.text = "Entra??";
         */
         Conection();
-        using (IDbConnection dbConection = (IDbConnection) new SqliteConnection("URI=file:" + connectionString))
-
+        using (IDbConnection dbConection = new SqliteConnection("URI=file:" + connectionString))
         {
+            prueba.text = File.Exists(connectionString).ToString();
+
             dbConection.Open();
             prueba.text = "Entra";
 
@@ -97,7 +162,7 @@ public class ManagementBD : MonoBehaviour
                     {
                         currentObjectBD.Add(new PalabraBD());
                         currentObjectBD[currentObjectBD.Count - 1].id = reader.GetInt32(0);
-                        currentObjectBD[currentObjectBD.Count - 1].color = reader.GetString(1);
+                       /* currentObjectBD[currentObjectBD.Count - 1].color = reader.GetString(1);
                         currentObjectBD[currentObjectBD.Count - 1].image1 = reader.GetString(2);
                         currentObjectBD[currentObjectBD.Count - 1].image2 = reader.GetString(3);
                         currentObjectBD[currentObjectBD.Count - 1].image3 = reader.GetString(4);
@@ -110,13 +175,13 @@ public class ManagementBD : MonoBehaviour
                         currentObjectBD[currentObjectBD.Count - 1].dificultCatalan = reader.GetInt32(11);
                         currentObjectBD[currentObjectBD.Count - 1].nameCatalan = reader.GetString(12);
                         currentObjectBD[currentObjectBD.Count - 1].silabasCatalan = reader.GetString(13);
-                        currentObjectBD[currentObjectBD.Count - 1].paquet = reader.GetInt32(14);
+                        currentObjectBD[currentObjectBD.Count - 1].paquet = reader.GetInt32(14);*/
                         // Debug.Log("Id = " + id + "  Nombre 1 =" + nombre1 + "  imagen 1 =" + imagen1 + " imagen 2 =" + imagen2);
                         imagen.sprite = Resources.Load<Sprite>("images/Lite/boca_01");
 
                     }
 
-
+                    /*
                     if (currentObjectBD.Count > 0)
                     {
                         foreach (PalabraBD p in currentObjectBD)
@@ -128,7 +193,7 @@ public class ManagementBD : MonoBehaviour
                     }
                     else prueba.text = "No existe";
 
-
+    */
 
                     reader.Close();
                     dbConection.Close();
