@@ -48,6 +48,7 @@ public class ManagementBD : MonoBehaviour
 
     }
 
+
     IEnumerator RunDbCode(string fileName)
     {
         //Where to copy the db to
@@ -161,23 +162,22 @@ public class ManagementBD : MonoBehaviour
                     {
                         currentObjectBD.Add(new PalabraBD());
                         currentObjectBD[currentObjectBD.Count - 1].id = reader.GetInt32(0);
-                       /* currentObjectBD[currentObjectBD.Count - 1].color = reader.GetString(1);
-                        currentObjectBD[currentObjectBD.Count - 1].image1 = reader.GetString(2);
-                        currentObjectBD[currentObjectBD.Count - 1].image2 = reader.GetString(3);
-                        currentObjectBD[currentObjectBD.Count - 1].image3 = reader.GetString(4);
-                        currentObjectBD[currentObjectBD.Count - 1].audio = reader.GetString(5);
-                        currentObjectBD[currentObjectBD.Count - 1].piecesPuzzle = reader.GetInt32(6);
-                        currentObjectBD[currentObjectBD.Count - 1].imagePuzzle = reader.GetInt32(7);
-                        currentObjectBD[currentObjectBD.Count - 1].dificultSpanish = reader.GetInt32(8);
-                        currentObjectBD[currentObjectBD.Count - 1].nameSpanish = reader.GetString(9);
-                        currentObjectBD[currentObjectBD.Count - 1].silabasSpanish = reader.GetString(10);
-                        currentObjectBD[currentObjectBD.Count - 1].dificultCatalan = reader.GetInt32(11);
-                        currentObjectBD[currentObjectBD.Count - 1].nameCatalan = reader.GetString(12);
-                        currentObjectBD[currentObjectBD.Count - 1].silabasCatalan = reader.GetString(13);
-                        currentObjectBD[currentObjectBD.Count - 1].paquet = reader.GetInt32(14);*/
+                        /* currentObjectBD[currentObjectBD.Count - 1].color = reader.GetString(1);
+                         currentObjectBD[currentObjectBD.Count - 1].image1 = reader.GetString(2);
+                         currentObjectBD[currentObjectBD.Count - 1].image2 = reader.GetString(3);
+                         currentObjectBD[currentObjectBD.Count - 1].image3 = reader.GetString(4);
+                         currentObjectBD[currentObjectBD.Count - 1].audio = reader.GetString(5);
+                         currentObjectBD[currentObjectBD.Count - 1].piecesPuzzle = reader.GetInt32(6);
+                         currentObjectBD[currentObjectBD.Count - 1].imagePuzzle = reader.GetInt32(7);
+                         currentObjectBD[currentObjectBD.Count - 1].dificultSpanish = reader.GetInt32(8);
+                         currentObjectBD[currentObjectBD.Count - 1].nameSpanish = reader.GetString(9);
+                         currentObjectBD[currentObjectBD.Count - 1].silabasSpanish = reader.GetString(10);
+                         currentObjectBD[currentObjectBD.Count - 1].dificultCatalan = reader.GetInt32(11);
+                         currentObjectBD[currentObjectBD.Count - 1].nameCatalan = reader.GetString(12);
+                         currentObjectBD[currentObjectBD.Count - 1].silabasCatalan = reader.GetString(13);
+                         currentObjectBD[currentObjectBD.Count - 1].paquet = reader.GetInt32(14);*/
                         // Debug.Log("Id = " + id + "  Nombre 1 =" + nombre1 + "  imagen 1 =" + imagen1 + " imagen 2 =" + imagen2);
-                        imagen.sprite = Resources.Load<Sprite>("images/Lite/boca_01");
-
+                        InsertImage(imagen, reader.GetString(1));
                     }
 
                     /*
@@ -386,6 +386,11 @@ public class ManagementBD : MonoBehaviour
         imagen = _image;
         string completeRute = ruteFolderImage + _rute;
         StartCoroutine(ConvertURLToTexture(completeRute));
+    }
+
+    public void InsertImage(Image _image, string _name)
+    {
+        _image.sprite = Resources.Load<Sprite>("images/Lite/" + _name); //CAMBIAR RUTA DE IMAGEN CUANDO NO SEA LITE
     }
 
 
