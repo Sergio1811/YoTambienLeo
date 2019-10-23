@@ -140,7 +140,7 @@ public class ManagementBD : MonoBehaviour
         using (IDbConnection dbConection = new SqliteConnection("URI=file:" + connectionString))
         {
             prueba.text = File.Exists(connectionString).ToString();
-
+            prueba.text = dbConection.Database;
             dbConection.Open();
             prueba.text = "Entra";
 
