@@ -43,7 +43,7 @@ public class ManagementBD : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(RunDbCode("BaseDeDatosYoTambienLeo"));
+        StartCoroutine(RunDbCode("BaseDeDatosYoTambienLeo.bd"));
         ReadSQlitePalabra();
 
     }
@@ -111,12 +111,12 @@ public class ManagementBD : MonoBehaviour
     {
         if (Application.platform != RuntimePlatform.Android)
         {
-            connectionString = Application.persistentDataPath + "/data/BaseDeDatosYoTambienLeo";
+            connectionString = Application.persistentDataPath + "/data/BaseDeDatosYoTambienLeo.bd";
         }
         else
         {
 
-            connectionString = Application.persistentDataPath + "/data/BaseDeDatosYoTambienLeo";
+            connectionString = Application.persistentDataPath + "/data/BaseDeDatosYoTambienLeo.bd";
             /* if (!File.Exists(connectionString))
              {
                  WWW load = new WWW("jar:file://" + Application.dataPath + "!/assets/Plugins/SQLite/" + "BaseDeDatosYoTambienLeo.bd");
@@ -137,69 +137,68 @@ public class ManagementBD : MonoBehaviour
         prueba.text = "Entra??";
         */
         Conection();
-        IDbConnection dbConection = new SqliteConnection("URI=file:" + connectionString);
-
-
-        prueba.text = "URI=file:" + connectionString;
-        dbConection.Open();
-        prueba.text = "Entra";
-
-        using (IDbCommand dbCmd = dbConection.CreateCommand())
+        using (IDbConnection dbConection = new SqliteConnection("URI=file:" + connectionString))
         {
-            string sqlQuery = SearchInBDContenido("Contenido");
-            prueba.text = "Entra1";
-            //string sqlQuery = "SELECT id, nombre, imagen, imagen2 FROM Contenido";  //en el from tiene que poner el nombre de la tabla y antes lo que se tiene que seleccionar en sql. Al buscar algun string hay que ponerle las comillas estas '  ' osino no lo reconoce
-            dbCmd.CommandText = sqlQuery;
-            prueba.text = "Entra2";
-            using (IDataReader reader = dbCmd.ExecuteReader())
+            prueba.text = File.Exists(connectionString).ToString();
+            dbConection.Open();
+            prueba.text = "Entra";
+
+            using (IDbCommand dbCmd = dbConection.CreateCommand())
             {
-                prueba.text = "Entra3";
-
-
-                List<PalabraBD> currentObjectBD = new List<PalabraBD>();
-
-                while (reader.Read())
+                string sqlQuery = SearchInBDContenido("Contenido");
+                prueba.text = "Entra1";
+                //string sqlQuery = "SELECT id, nombre, imagen, imagen2 FROM Contenido";  //en el from tiene que poner el nombre de la tabla y antes lo que se tiene que seleccionar en sql. Al buscar algun string hay que ponerle las comillas estas '  ' osino no lo reconoce
+                dbCmd.CommandText = sqlQuery;
+                prueba.text = "Entra2";
+                using (IDataReader reader = dbCmd.ExecuteReader())
                 {
-                    currentObjectBD.Add(new PalabraBD());
-                    currentObjectBD[currentObjectBD.Count - 1].id = reader.GetInt32(0);
-                    /* currentObjectBD[currentObjectBD.Count - 1].color = reader.GetString(1);
-                     currentObjectBD[currentObjectBD.Count - 1].image1 = reader.GetString(2);
-                     currentObjectBD[currentObjectBD.Count - 1].image2 = reader.GetString(3);
-                     currentObjectBD[currentObjectBD.Count - 1].image3 = reader.GetString(4);
-                     currentObjectBD[currentObjectBD.Count - 1].audio = reader.GetString(5);
-                     currentObjectBD[currentObjectBD.Count - 1].piecesPuzzle = reader.GetInt32(6);
-                     currentObjectBD[currentObjectBD.Count - 1].imagePuzzle = reader.GetInt32(7);
-                     currentObjectBD[currentObjectBD.Count - 1].dificultSpanish = reader.GetInt32(8);
-                     currentObjectBD[currentObjectBD.Count - 1].nameSpanish = reader.GetString(9);
-                     currentObjectBD[currentObjectBD.Count - 1].silabasSpanish = reader.GetString(10);
-                     currentObjectBD[currentObjectBD.Count - 1].dificultCatalan = reader.GetInt32(11);
-                     currentObjectBD[currentObjectBD.Count - 1].nameCatalan = reader.GetString(12);
-                     currentObjectBD[currentObjectBD.Count - 1].silabasCatalan = reader.GetString(13);
-                     currentObjectBD[currentObjectBD.Count - 1].paquet = reader.GetInt32(14);*/
-                    // Debug.Log("Id = " + id + "  Nombre 1 =" + nombre1 + "  imagen 1 =" + imagen1 + " imagen 2 =" + imagen2);
-                    imagen.sprite = Resources.Load<Sprite>("images/Lite/boca_01");
+                    prueba.text = "Entra3";
 
-                }
 
-                /*
-                if (currentObjectBD.Count > 0)
-                {
-                    foreach (PalabraBD p in currentObjectBD)
+                    List<PalabraBD> currentObjectBD = new List<PalabraBD>();
+
+                    while (reader.Read())
                     {
-                        p.SeparateSilabas(SingletonLenguage.GetInstance().GetLenguage());
+                        currentObjectBD.Add(new PalabraBD());
+                        currentObjectBD[currentObjectBD.Count - 1].id = reader.GetInt32(0);
+                       /* currentObjectBD[currentObjectBD.Count - 1].color = reader.GetString(1);
+                        currentObjectBD[currentObjectBD.Count - 1].image1 = reader.GetString(2);
+                        currentObjectBD[currentObjectBD.Count - 1].image2 = reader.GetString(3);
+                        currentObjectBD[currentObjectBD.Count - 1].image3 = reader.GetString(4);
+                        currentObjectBD[currentObjectBD.Count - 1].audio = reader.GetString(5);
+                        currentObjectBD[currentObjectBD.Count - 1].piecesPuzzle = reader.GetInt32(6);
+                        currentObjectBD[currentObjectBD.Count - 1].imagePuzzle = reader.GetInt32(7);
+                        currentObjectBD[currentObjectBD.Count - 1].dificultSpanish = reader.GetInt32(8);
+                        currentObjectBD[currentObjectBD.Count - 1].nameSpanish = reader.GetString(9);
+                        currentObjectBD[currentObjectBD.Count - 1].silabasSpanish = reader.GetString(10);
+                        currentObjectBD[currentObjectBD.Count - 1].dificultCatalan = reader.GetInt32(11);
+                        currentObjectBD[currentObjectBD.Count - 1].nameCatalan = reader.GetString(12);
+                        currentObjectBD[currentObjectBD.Count - 1].silabasCatalan = reader.GetString(13);
+                        currentObjectBD[currentObjectBD.Count - 1].paquet = reader.GetInt32(14);*/
+                        // Debug.Log("Id = " + id + "  Nombre 1 =" + nombre1 + "  imagen 1 =" + imagen1 + " imagen 2 =" + imagen2);
+                        imagen.sprite = Resources.Load<Sprite>("images/Lite/boca_01");
+
                     }
-                    //SearchSpriteInRuteFolders(currentObjectBD[0].image1, imagen);
-                    prueba.text = "existe";
+
+                    /*
+                    if (currentObjectBD.Count > 0)
+                    {
+                        foreach (PalabraBD p in currentObjectBD)
+                        {
+                            p.SeparateSilabas(SingletonLenguage.GetInstance().GetLenguage());
+                        }
+                        //SearchSpriteInRuteFolders(currentObjectBD[0].image1, imagen);
+                        prueba.text = "existe";
+                    }
+                    else prueba.text = "No existe";
+
+    */
+
+                    reader.Close();
+                    dbConection.Close();
+                    return currentObjectBD;
                 }
-                else prueba.text = "No existe";
-
-*/
-
-                reader.Close();
-                dbConection.Close();
-                return currentObjectBD;
             }
-
         }
     }
 
