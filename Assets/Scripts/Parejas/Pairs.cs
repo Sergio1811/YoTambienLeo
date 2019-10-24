@@ -35,7 +35,7 @@ public class Pairs : MonoBehaviour
         lastPosition = gameObject.transform.position;
         lastSize = rectTransform.localScale;
         Random.InitState(Random.seed + 1);
-        maxTimerAnim = Random.Range(3.5f, 8);
+        maxTimerAnim = Random.Range(2.5f, 4);
         if (numImage == 0)
             maxTimerAnim = 1;
     }
@@ -58,7 +58,7 @@ public class Pairs : MonoBehaviour
                 {
                     currentTimerAnim = 0;
                     animIsplaying = true;
-                    maxTimerAnim = Random.Range(3.5f, 8);
+                    maxTimerAnim = Random.Range(2.5f, 4);
                 }
 
                 if(animIsplaying && !m_PieceClicked)
