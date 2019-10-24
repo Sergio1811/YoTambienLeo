@@ -30,6 +30,11 @@ public class GameManagerBit : MonoBehaviour
 
     private void Start()
     {
+       /* GameObject management = GameObject.FindGameObjectWithTag("BD");
+        if (management != null)
+        {
+            management.GetComponent<ManagementBD>().ReadSQlitePalabra();
+        }*/
         //GameManager.Instance.m_CurrentToMinigame;
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
         m_Alea = Random.Range(0, ImageControl.m_Length);
@@ -54,7 +59,7 @@ public class GameManagerBit : MonoBehaviour
 
         for (int i = 0; i <= GameManager.m_CurrentToMinigame[1]; i++)
         {
-            if(i > 0)
+            if (i > 0)
                 m_Points[i - 1].GetComponent<Image>().sprite = m_CompletedPoint;
         }
 
@@ -103,7 +108,7 @@ public class GameManagerBit : MonoBehaviour
         {
             Destroy(m_CurrentBit);
             print("FinishRep");
-            if(GameManager.m_CurrentToMinigame[1] > 0)
+            if (GameManager.m_CurrentToMinigame[1] > 0)
                 m_Points[GameManager.m_CurrentToMinigame[1] - 1].GetComponent<Image>().sprite = m_CompletedPoint;
             m_CurrentNumRep = 1;
             RepeatImage(false);
@@ -132,7 +137,7 @@ public class GameManagerBit : MonoBehaviour
         }
         Destroy(m_CurrentBit);
         print("FinishRep");
-        if(GameManager.m_CurrentToMinigame[1] > 0)
+        if (GameManager.m_CurrentToMinigame[1] > 0)
             m_Points[GameManager.m_CurrentToMinigame[1] - 1].GetComponent<Image>().sprite = m_CompletedPoint;
         m_CurrentNumRep = 1;
         RepeatImage(false);

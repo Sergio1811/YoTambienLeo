@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 using System;
 using System.Data;
 using Mono.Data.Sqlite;
@@ -33,7 +34,7 @@ public class ManagementBD : MonoBehaviour
     void Awake()
     {
         ruteFolderImage = Application.streamingAssetsPath + "/";//cambiar la dirección cuando se tenga la definitiva    //////   file://" + Application.dataPath + "/Resources/Images/BurbujasMinigame/
-        ruteFolderAudio = Application.streamingAssetsPath + "/Resources/Audios/";
+        ruteFolderAudio = Application.streamingAssetsPath + "Audios/";
         //prueba.text = Application.streamingAssetsPath + "\n" + ruteFolderImage;
         //SearchSpriteInRuteFolders("Runtime/Export/Resources/Resources.bindings.h/images/activitats-ja", imagen);
         //imagen.sprite = Resources.Load<Sprite>("images/activitats-ja");//para cargar imagenes
@@ -43,13 +44,31 @@ public class ManagementBD : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(RunDbCode("BaseDeDatosYoTambienLeo.bd"));
-        ReadSQlitePalabra();
+        //DeleteLastBD("BaseDeDatosYoTambienLeo.bd");
+        //StartCoroutine(RunDbCode("BaseDeDatosYoTambienLeo.bd"));
+        //ReadSQlitePalabra();
 
     }
 
+    IEnumerator WaitSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+    }
 
-    IEnumerator RunDbCode(string fileName)
+        private void DeleteLastBD(string fileName)
+    {
+        string dbDestination = Path.Combine(Application.persistentDataPath, "data");
+        dbDestination = Path.Combine(dbDestination, fileName);
+
+        if (File.Exists(dbDestination))
+        {
+            File.Delete(dbDestination);
+            //Application.Quit();
+        }
+    }
+
+
+    public IEnumerator RunDbCode(string fileName)
     {
         //Where to copy the db to
         string dbDestination = Path.Combine(Application.persistentDataPath, "data");
@@ -58,6 +77,7 @@ public class ManagementBD : MonoBehaviour
         //Check if the File do not exist then copy it
         if (!File.Exists(dbDestination))
         {
+           
             //Where the db file is at
             string dbStreamingAsset = Path.Combine(Application.streamingAssetsPath, fileName);
 
@@ -86,8 +106,14 @@ public class ManagementBD : MonoBehaviour
             File.WriteAllBytes(dbDestination, result);
             Debug.Log("Copied db file");
         }
+       /* else if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            
+            DeleteLastBD(fileName);
+            StartCoroutine(RunDbCode(fileName));
+        }*/
 
-        try
+       /* try
         {
             //Tell the db final location for debugging
             Debug.Log("DB Path: " + dbDestination.Replace("/", "\\"));
@@ -99,13 +125,13 @@ public class ManagementBD : MonoBehaviour
             var connection = new SqliteConnection(dbDestination);
             connection.Open();
 
-            var command = connection.CreateCommand();
             Debug.Log("Success!");
+            connection.Close();
         }
         catch (Exception e)
         {
             Debug.Log("Failed: " + e.Message);
-        }
+        }*/
     }
 
     private void Conection()
@@ -162,38 +188,39 @@ public class ManagementBD : MonoBehaviour
                     {
                         currentObjectBD.Add(new PalabraBD());
                         currentObjectBD[currentObjectBD.Count - 1].id = reader.GetInt32(0);
-                        /* currentObjectBD[currentObjectBD.Count - 1].color = reader.GetString(1);
-                         currentObjectBD[currentObjectBD.Count - 1].image1 = reader.GetString(2);
-                         currentObjectBD[currentObjectBD.Count - 1].image2 = reader.GetString(3);
-                         currentObjectBD[currentObjectBD.Count - 1].image3 = reader.GetString(4);
-                         currentObjectBD[currentObjectBD.Count - 1].audio = reader.GetString(5);
-                         currentObjectBD[currentObjectBD.Count - 1].piecesPuzzle = reader.GetInt32(6);
-                         currentObjectBD[currentObjectBD.Count - 1].imagePuzzle = reader.GetInt32(7);
-                         currentObjectBD[currentObjectBD.Count - 1].dificultSpanish = reader.GetInt32(8);
-                         currentObjectBD[currentObjectBD.Count - 1].nameSpanish = reader.GetString(9);
-                         currentObjectBD[currentObjectBD.Count - 1].silabasSpanish = reader.GetString(10);
-                         currentObjectBD[currentObjectBD.Count - 1].dificultCatalan = reader.GetInt32(11);
-                         currentObjectBD[currentObjectBD.Count - 1].nameCatalan = reader.GetString(12);
-                         currentObjectBD[currentObjectBD.Count - 1].silabasCatalan = reader.GetString(13);
-                         currentObjectBD[currentObjectBD.Count - 1].paquet = reader.GetInt32(14);*/
+                        currentObjectBD[currentObjectBD.Count - 1].color = reader.GetString(1);
+                        currentObjectBD[currentObjectBD.Count - 1].image1 = reader.GetString(2);
+                        currentObjectBD[currentObjectBD.Count - 1].image2 = reader.GetString(3);
+                        currentObjectBD[currentObjectBD.Count - 1].image3 = reader.GetString(4);
+                        currentObjectBD[currentObjectBD.Count - 1].audio = reader.GetString(5);
+                        currentObjectBD[currentObjectBD.Count - 1].piecesPuzzle = reader.GetInt32(6);
+                        currentObjectBD[currentObjectBD.Count - 1].imagePuzzle = reader.GetInt32(7);
+                        currentObjectBD[currentObjectBD.Count - 1].dificultSpanish = reader.GetInt32(8);
+                        currentObjectBD[currentObjectBD.Count - 1].nameSpanish = reader.GetString(9);
+                        currentObjectBD[currentObjectBD.Count - 1].silabasSpanish = reader.GetString(10);
+                        currentObjectBD[currentObjectBD.Count - 1].dificultCatalan = reader.GetInt32(11);
+                        currentObjectBD[currentObjectBD.Count - 1].nameCatalan = reader.GetString(12);
+                        currentObjectBD[currentObjectBD.Count - 1].silabasCatalan = reader.GetString(13);
+                        currentObjectBD[currentObjectBD.Count - 1].paquet = reader.GetInt32(14);
                         // Debug.Log("Id = " + id + "  Nombre 1 =" + nombre1 + "  imagen 1 =" + imagen1 + " imagen 2 =" + imagen2);
-                        InsertImage(imagen, reader.GetString(1));
+                        InsertImage(imagen, currentObjectBD[currentObjectBD.Count - 1].image1);
+                        SearchAudioClip(currentObjectBD[currentObjectBD.Count - 1].audio, audioSource);
                     }
 
-                    /*
+
                     if (currentObjectBD.Count > 0)
                     {
                         foreach (PalabraBD p in currentObjectBD)
                         {
                             p.SeparateSilabas(SingletonLenguage.GetInstance().GetLenguage());
+                            p.SetPalabraActual(SingletonLenguage.GetInstance().GetLenguage());
                         }
                         //SearchSpriteInRuteFolders(currentObjectBD[0].image1, imagen);
                         prueba.text = "existe";
                     }
                     else prueba.text = "No existe";
 
-    */
-
+                    prueba.text = currentObjectBD[currentObjectBD.Count - 1].nameSpanish + "  Silabas  " + currentObjectBD[currentObjectBD.Count - 1].silabasActuales[0] + "  " + currentObjectBD[currentObjectBD.Count - 1].silabasActuales[1];
                     reader.Close();
                     dbConection.Close();
                     return currentObjectBD;
@@ -416,23 +443,26 @@ public class ManagementBD : MonoBehaviour
     public void SearchAudioClip(string _audio, AudioSource _audioSource)
     {
         audioSource = _audioSource;
-        string completeRute = ruteFolderAudio;
+        string completeRute = "";
         switch (SingletonLenguage.GetInstance().GetLenguage())
         {
             case SingletonLenguage.Lenguage.CASTELLANO:
-                completeRute += "Castellano/" + _audio;
+                completeRute = "Audios/Castellano/Lite/" + _audio + "_esp";  //CAMBIAR EN UN FUTURO LA RUTA
                 break;
             case SingletonLenguage.Lenguage.CATALAN:
-                completeRute += "Catalan/" + _audio;
+                completeRute = "Audios/Catalan/Lite/" + _audio + "_cat"; //LOMISMO
                 break;
             case SingletonLenguage.Lenguage.INGLES:
                 break;
             case SingletonLenguage.Lenguage.FRANCES:
                 break;
         }
-
+        audioSource.clip = Resources.Load<AudioClip>(completeRute);
+        audioSource.Play();
+        print(audioSource.isPlaying);
+        /*
         WWW www = new WWW(completeRute);
-        StartCoroutine(LoadAudio(www));
+        StartCoroutine(LoadAudio(www));*/
     }
 
     private IEnumerator LoadAudio(WWW _www)

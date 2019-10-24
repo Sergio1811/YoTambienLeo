@@ -20,6 +20,7 @@ public class PalabraBD
     public string silabasCatalan;
     public int paquet;
     public List<string> silabasActuales = new List<string>();
+    public string palabraActual;
 
     //eliminar en un futuro y cambiarlo por el original
     //
@@ -62,6 +63,23 @@ public class PalabraBD
                 //Debug.Log(silabasActuales[silabasActuales.Count - 1]);
                 currentSilaba = "";
             }
+        }
+    }
+
+    public void SetPalabraActual(SingletonLenguage.Lenguage currentLenguage)
+    {
+        switch (currentLenguage)
+        {
+            case SingletonLenguage.Lenguage.CASTELLANO:
+                palabraActual = nameSpanish;
+                break;
+            case SingletonLenguage.Lenguage.CATALAN:
+                palabraActual = nameCatalan;
+                break;
+            case SingletonLenguage.Lenguage.INGLES:
+                break;
+            case SingletonLenguage.Lenguage.FRANCES:
+                break;
         }
     }
 
