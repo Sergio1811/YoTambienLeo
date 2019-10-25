@@ -80,7 +80,6 @@ public class ImageControl : MonoBehaviour
         }
 
         m_Animation = GetComponent<Animation>();
-        print("number  " + l_Number);
         m_Image.sprite = m_ImagesPool[l_Number];
         m_ImageBehind.sprite = m_ImagesPool2[l_Number];
         m_Text.text = m_palabras[l_Number];
@@ -101,7 +100,6 @@ public class ImageControl : MonoBehaviour
                 positionInput = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
             else
                 positionInput = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            print((new Vector2(positionInput.x, positionInput.y) - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)).magnitude);
             if ((new Vector2(positionInput.x, positionInput.y) - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)).magnitude < 3f)
             {
                 m_Animation.clip = m_Slide;
@@ -120,7 +118,6 @@ public class ImageControl : MonoBehaviour
                 positionInput = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
             else
                 positionInput = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            print((new Vector2(positionInput.x, positionInput.y) - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)).magnitude);
             if ((new Vector2(positionInput.x, positionInput.y) - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)).magnitude <= 3f)
             {
                 m_Animation.clip = m_Spin;
