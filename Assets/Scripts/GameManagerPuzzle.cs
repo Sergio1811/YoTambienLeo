@@ -11,11 +11,9 @@ public class GameManagerPuzzle : MonoBehaviour
     public Animation m_AnimationCenter;
     public Image m_ImageAnim;
     public Text m_TextAnim;
-    public List<Texture2D> m_ImagesPool = new List<Texture2D>();
-    public List<string> palabrasCastellano = new List<string>();
-    public List<string> palabrasCatalan = new List<string>();
-    public List<AudioClip> audiosCastellano = new List<AudioClip>();
-    public List<AudioClip> audiosCatalan = new List<AudioClip>();
+    private List<Texture2D> m_ImagesPool = new List<Texture2D>();
+    private List<string> m_palabras = new List<string>();
+    private List<AudioClip> m_audios = new List<AudioClip>();
 
     List<GameObject> m_Words = new List<GameObject>();
     public SceneManagement m_Scener;
@@ -54,6 +52,9 @@ public class GameManagerPuzzle : MonoBehaviour
     public GameObject m_Siguiente;
     public GameObject m_Repetir;
 
+    public ManagementBD managementBD;
+    public List<PalabraBD> conjuntoDePalabras = new List<PalabraBD>();
+
     public int[] PuzzlePiecesPossibilities;
 
 
@@ -61,6 +62,36 @@ public class GameManagerPuzzle : MonoBehaviour
 
     private void Start()
     {
+        if(managementBD == null)
+        {
+            managementBD = GameObject.FindGameObjectWithTag("BD").GetComponent<ManagementBD>();
+        }
+        //Hacer la busqueda de lo que se quiera
+        conjuntoDePalabras = managementBD.ReadSQlitePalabra();
+
+        foreach (PalabraBD p in conjuntoDePalabras)
+        {
+            switch(p.imagePuzzle)
+            {
+                case 0:
+                    m_ImagesPool.Add(p.GetTexture2D(p.image1));
+                    break;
+                case 1:
+                    m_ImagesPool.Add(p.GetTexture2D(p.image2));
+                    break;
+                case 2:
+                    m_ImagesPool.Add(p.GetTexture2D(p.image3));
+                    break;
+                default:
+                    m_ImagesPool.Add(p.GetTexture2D(p.image1));
+                    break;
+            }
+            m_palabras.Add(p.palabraActual);
+            m_audios.Add(p.GetAudioClip(p.audio));
+        }
+
+
+
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
         if (l_NumReps % 2 == 0)
         {
@@ -116,7 +147,7 @@ public class GameManagerPuzzle : MonoBehaviour
         else if (m_Puntuacion == m_NumPieces + 1)
         {
             AudioSource l_AS = GetComponent<AudioSource>();
-            l_AS.clip = PutAudio();
+            l_AS.clip = m_audios[numRandom];
             l_AS.Play();
 
             m_Completed = true;
@@ -167,7 +198,7 @@ public class GameManagerPuzzle : MonoBehaviour
         }
         m_ImagePuzzle = m_ImagesPool[numRandom];
         WordInstantiation(m_ImagePuzzle);
-        m_TextAnim.text = PutName();
+        m_TextAnim.text = m_palabras[numRandom];
         m_TextAnim.GetComponent<ConvertFont>().Convert();
 
         Sprite l_SpriteImage;
@@ -411,11 +442,11 @@ public class GameManagerPuzzle : MonoBehaviour
     {
         GameObject l_Word = Instantiate(m_Word, m_WordTransform.transform);
         GameObject l_UnseenWord = Instantiate(m_UnseenWord, m_UnseenWordTransform.transform);
-        l_Word.GetComponentInChildren<Text>().text = PutName();
+        l_Word.GetComponentInChildren<Text>().text = m_palabras[numRandom];
         l_Word.GetComponentInChildren<ConvertFont>().Convert();
        // l_Word.GetComponentInChildren<Text>().fontSize = SingletonLenguage.GetInstance().ConvertSizeDependWords(l_Word.GetComponentInChildren<Text>().text);
         l_Word.name = "Word";
-        l_UnseenWord.GetComponentInChildren<Text>().text = PutName();
+        l_UnseenWord.GetComponentInChildren<Text>().text = m_palabras[numRandom];
         l_UnseenWord.GetComponentInChildren<ConvertFont>().Convert();
        // l_UnseenWord.GetComponentInChildren<Text>().fontSize = SingletonLenguage.GetInstance().ConvertSizeDependWords(l_Word.GetComponentInChildren<Text>().text);
         l_UnseenWord.name = "Word";
@@ -425,36 +456,6 @@ public class GameManagerPuzzle : MonoBehaviour
         m_Words.Add(l_UnseenWord);
     }
 
-    private string PutName()
-    {
-        string name = "";
-
-        switch (SingletonLenguage.GetInstance().GetLenguage())
-        {
-            case SingletonLenguage.Lenguage.CASTELLANO:
-                name = palabrasCastellano[numRandom];
-                break;
-            case SingletonLenguage.Lenguage.CATALAN:
-                name = palabrasCatalan[numRandom];
-                break;
-        }
-
-        return name;
-    }
-
-    private AudioClip PutAudio()
-    {
-        switch (SingletonLenguage.GetInstance().GetLenguage())
-        {
-            case SingletonLenguage.Lenguage.CASTELLANO:
-                return audiosCastellano[numRandom];
-            case SingletonLenguage.Lenguage.CATALAN:
-                return audiosCatalan[numRandom];
-            default:
-                return audiosCastellano[numRandom];
-
-        }
-    }
 
     IEnumerator WaitSeconds(float seconds)
     {

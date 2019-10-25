@@ -22,8 +22,6 @@ public class ManagementBD : MonoBehaviour
     private NumOfSearch currentSearch = NumOfSearch.NONE;
     public enum NumofSearchFrase { NONE, NAME, DIFICULT };
     private NumofSearchFrase currentSearchFrase = NumofSearchFrase.NONE;
-    public Image imagen;
-    public AudioSource audioSource;
     private string ruteFolderImage;
     private string ruteFolderAudio;
 
@@ -417,12 +415,11 @@ public class ManagementBD : MonoBehaviour
         currentSearchFrase = NumofSearchFrase.DIFICULT;
     }
 
-    public void SearchSpriteInRuteFolders(string _rute, Image _image)
+   /* public void SearchSpriteInRuteFolders(string _rute)
     {
-        imagen = _image;
         string completeRute = ruteFolderImage + _rute;
         StartCoroutine(ConvertURLToTexture(completeRute));
-    }
+    }*/
 
     public Texture2D InsertImage(string _name)
     {
@@ -431,7 +428,7 @@ public class ManagementBD : MonoBehaviour
 
 
     //PARA PASAR DE UNA IMAGEN WEB A UN SPRITE, LLAMANDO CON UNA CORUTINE A ESTO
-
+    /*
     IEnumerator ConvertURLToTexture(string _rute)
     {
         WWW www = new WWW(_rute); //Cargando la imagen
@@ -441,8 +438,8 @@ public class ManagementBD : MonoBehaviour
         if (texture != null)
             PassTexture2DToSprite();
     }
-
-
+    */
+    /*
     private void PassTexture2DToSprite()
     {
         Rect rect = new Rect(new Vector2(0, 0), new Vector2(texture.width, texture.height));
@@ -471,9 +468,9 @@ public class ManagementBD : MonoBehaviour
         print(audioSource.isPlaying);
         /*
         WWW www = new WWW(completeRute);
-        StartCoroutine(LoadAudio(www));*/
+        StartCoroutine(LoadAudio(www));
     }
-
+    
     private IEnumerator LoadAudio(WWW _www)
     {
         WWW request = _www;
@@ -488,7 +485,7 @@ public class ManagementBD : MonoBehaviour
     {
         imagen = _image;
         audioSource = _audio;
-    }
+    }*/
 
     public List<PalabraBD> ObtainFrase(string _frase)
     {

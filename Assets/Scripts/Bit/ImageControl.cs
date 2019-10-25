@@ -11,10 +11,10 @@ public class ImageControl : MonoBehaviour
     GameManagerBit m_GMBit;
     public AnimationClip m_Spin;
     public AnimationClip m_Slide;
-    public List<Sprite> m_ImagesPool = new List<Sprite>();
-    public List<Sprite> m_ImagesPool2 = new List<Sprite>();
-    public List<string> m_palabras = new List<string>();
-    public List<AudioClip> m_audios = new List<AudioClip>();
+    private List<Sprite> m_ImagesPool = new List<Sprite>();
+    private List<Sprite> m_ImagesPool2 = new List<Sprite>();
+    private List<string> m_palabras = new List<string>();
+    private List<AudioClip> m_audios = new List<AudioClip>();
 
     public static int m_Length;
     public Image m_Image;
@@ -42,10 +42,7 @@ public class ImageControl : MonoBehaviour
             managementBD = management.GetComponent<ManagementBD>();
             //aqui modificar depende de lo que quieras
             conjuntoDePalabrasBD = managementBD.ReadSQlitePalabra();
-            m_ImagesPool.Clear();
-            m_ImagesPool2.Clear();
-            m_palabras.Clear();
-            m_audios.Clear();
+
             foreach (PalabraBD p in conjuntoDePalabrasBD)
             {
                 m_ImagesPool.Add(p.GetSprite(p.image1));

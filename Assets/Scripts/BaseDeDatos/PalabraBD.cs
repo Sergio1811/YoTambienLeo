@@ -88,6 +88,11 @@ public class PalabraBD
         return Resources.Load<Sprite>("images/Lite/" + _name); //CAMBIAR RUTA DE IMAGEN CUANDO NO SEA LITE
     }
 
+    public Texture2D GetTexture2D(string _name)
+    {
+        return Resources.Load<Texture2D>("images/Lite/" + _name);
+    }
+
     public AudioClip GetAudioClip(string _audio)
     {
         string completeRute = "";
