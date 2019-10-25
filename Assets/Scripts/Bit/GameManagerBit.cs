@@ -30,11 +30,6 @@ public class GameManagerBit : MonoBehaviour
 
     private void Start()
     {
-       /* GameObject management = GameObject.FindGameObjectWithTag("BD");
-        if (management != null)
-        {
-            management.GetComponent<ManagementBD>().ReadSQlitePalabra();
-        }*/
         //GameManager.Instance.m_CurrentToMinigame;
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
         m_Alea = Random.Range(0, ImageControl.m_Length);

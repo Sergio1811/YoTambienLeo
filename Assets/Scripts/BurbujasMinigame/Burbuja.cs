@@ -73,6 +73,7 @@ public class Burbuja : MonoBehaviour
                         l_Hit.collider.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                         l_Hit.collider.gameObject.GetComponent<Burbuja>().explotada = true;
                         l_Hit.collider.tag = "Untagged";
+                        l_Hit.collider.gameObject.GetComponent<CircleCollider2D>().enabled = false;
                         Destroy(l_Hit.collider.gameObject, 1f);
                     }
                 }

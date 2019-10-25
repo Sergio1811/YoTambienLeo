@@ -24,7 +24,6 @@ public class ManagementBD : MonoBehaviour
     private NumofSearchFrase currentSearchFrase = NumofSearchFrase.NONE;
     public Image imagen;
     public AudioSource audioSource;
-    public Text prueba;
     private string ruteFolderImage;
     private string ruteFolderAudio;
 
@@ -55,19 +54,6 @@ public class ManagementBD : MonoBehaviour
         yield return new WaitForSeconds(seconds);
     }
 
-        private void DeleteLastBD(string fileName)
-    {
-        string dbDestination = Path.Combine(Application.persistentDataPath, "data");
-        dbDestination = Path.Combine(dbDestination, fileName);
-
-        if (File.Exists(dbDestination))
-        {
-            File.Delete(dbDestination);
-            //Application.Quit();
-        }
-    }
-
-
     public IEnumerator RunDbCode(string fileName)
     {
         //Where to copy the db to
@@ -75,63 +61,93 @@ public class ManagementBD : MonoBehaviour
         dbDestination = Path.Combine(dbDestination, fileName);
 
         //Check if the File do not exist then copy it
+
+        //Where the db file is at
+        string dbStreamingAsset = Path.Combine(Application.streamingAssetsPath, fileName);
+
+        byte[] result;
+        byte[] existentBD;
+
+        //Read the File from streamingAssets. Use WWW for Android
+        if (dbStreamingAsset.Contains("://") || dbStreamingAsset.Contains(":///"))
+        {
+            WWW www = new WWW(dbStreamingAsset);
+            yield return www;
+            result = www.bytes;
+        }
+        else
+        {
+            result = File.ReadAllBytes(dbStreamingAsset);
+        }
+        Debug.Log("Loaded db file");
+
+        //Create Directory if it does not exist
+        if (!Directory.Exists(Path.GetDirectoryName(dbDestination)))
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(dbDestination));
+        }
         if (!File.Exists(dbDestination))
         {
-           
-            //Where the db file is at
-            string dbStreamingAsset = Path.Combine(Application.streamingAssetsPath, fileName);
-
-            byte[] result;
-
-            //Read the File from streamingAssets. Use WWW for Android
-            if (dbStreamingAsset.Contains("://") || dbStreamingAsset.Contains(":///"))
-            {
-                WWW www = new WWW(dbStreamingAsset);
-                yield return www;
-                result = www.bytes;
-            }
-            else
-            {
-                result = File.ReadAllBytes(dbStreamingAsset);
-            }
-            Debug.Log("Loaded db file");
-
-            //Create Directory if it does not exist
-            if (!Directory.Exists(Path.GetDirectoryName(dbDestination)))
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(dbDestination));
-            }
-
             //Copy the data to the persistentDataPath where the database API can freely access the file
             File.WriteAllBytes(dbDestination, result);
             Debug.Log("Copied db file");
+
         }
-       /* else if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        else
         {
-            
-            DeleteLastBD(fileName);
-            StartCoroutine(RunDbCode(fileName));
-        }*/
+            if (dbDestination.Contains("://") || dbDestination.Contains(":///"))
+            {
+                WWW www = new WWW(dbDestination);
+                yield return www;
+                existentBD = www.bytes;
+            }
+            else
+            {
+                existentBD = File.ReadAllBytes(dbDestination);
+            }
+            bool igual = true;
+            for (int i = 0; i < result.Length; i++)
+            {
+                if (existentBD[i] != result[i])
+                {
+                    igual = false;
+                }
+            }
 
-       /* try
-        {
-            //Tell the db final location for debugging
-            Debug.Log("DB Path: " + dbDestination.Replace("/", "\\"));
-            //Add "URI=file:" to the front of the url beore using it with the Sqlite API
-            dbDestination = "URI=file:" + dbDestination;
-
-            //Now you can do the database operation below
-            //open db connection
-            var connection = new SqliteConnection(dbDestination);
-            connection.Open();
-
-            Debug.Log("Success!");
-            connection.Close();
+            if (!igual)
+            {
+                File.Delete(dbDestination);
+                File.WriteAllBytes(dbDestination, result);
+                Debug.Log("Base de datos remplazada");
+            }
         }
-        catch (Exception e)
-        {
-            Debug.Log("Failed: " + e.Message);
-        }*/
+
+        /* else if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+         {
+
+             DeleteLastBD(fileName);
+             StartCoroutine(RunDbCode(fileName));
+         }*/
+
+        /* try
+         {
+             //Tell the db final location for debugging
+             Debug.Log("DB Path: " + dbDestination.Replace("/", "\\"));
+             //Add "URI=file:" to the front of the url beore using it with the Sqlite API
+             dbDestination = "URI=file:" + dbDestination;
+
+             //Now you can do the database operation below
+             //open db connection
+             var connection = new SqliteConnection(dbDestination);
+             connection.Open();
+
+             Debug.Log("Success!");
+             connection.Close();
+         }
+         catch (Exception e)
+         {
+             Debug.Log("Failed: " + e.Message);
+         }*/
     }
 
     private void Conection()
@@ -164,69 +180,62 @@ public class ManagementBD : MonoBehaviour
         prueba.text = "Entra??";
         */
         Conection();
-        using (IDbConnection dbConection = new SqliteConnection("URI=file:" + connectionString))
+        IDbConnection dbConection = new SqliteConnection("URI=file:" + connectionString);
+
+        dbConection.Open();
+
+        IDbCommand dbCmd = dbConection.CreateCommand();
+
+        string sqlQuery = SearchInBDContenido("Contenido");
+        //string sqlQuery = "SELECT id, nombre, imagen, imagen2 FROM Contenido";  //en el from tiene que poner el nombre de la tabla y antes lo que se tiene que seleccionar en sql. Al buscar algun string hay que ponerle las comillas estas '  ' osino no lo reconoce
+        dbCmd.CommandText = sqlQuery;
+        IDataReader reader = dbCmd.ExecuteReader();
+
+        List<PalabraBD> currentObjectBD = new List<PalabraBD>();
+
+        while (reader.Read())
         {
-            prueba.text = File.Exists(connectionString).ToString();
-            dbConection.Open();
-            prueba.text = "Entra";
-
-            using (IDbCommand dbCmd = dbConection.CreateCommand())
-            {
-                string sqlQuery = SearchInBDContenido("Contenido");
-                prueba.text = "Entra1";
-                //string sqlQuery = "SELECT id, nombre, imagen, imagen2 FROM Contenido";  //en el from tiene que poner el nombre de la tabla y antes lo que se tiene que seleccionar en sql. Al buscar algun string hay que ponerle las comillas estas '  ' osino no lo reconoce
-                dbCmd.CommandText = sqlQuery;
-                prueba.text = "Entra2";
-                using (IDataReader reader = dbCmd.ExecuteReader())
-                {
-                    prueba.text = "Entra3";
-
-
-                    List<PalabraBD> currentObjectBD = new List<PalabraBD>();
-
-                    while (reader.Read())
-                    {
-                        currentObjectBD.Add(new PalabraBD());
-                        currentObjectBD[currentObjectBD.Count - 1].id = reader.GetInt32(0);
-                        currentObjectBD[currentObjectBD.Count - 1].color = reader.GetString(1);
-                        currentObjectBD[currentObjectBD.Count - 1].image1 = reader.GetString(2);
-                        currentObjectBD[currentObjectBD.Count - 1].image2 = reader.GetString(3);
-                        currentObjectBD[currentObjectBD.Count - 1].image3 = reader.GetString(4);
-                        currentObjectBD[currentObjectBD.Count - 1].audio = reader.GetString(5);
-                        currentObjectBD[currentObjectBD.Count - 1].piecesPuzzle = reader.GetInt32(6);
-                        currentObjectBD[currentObjectBD.Count - 1].imagePuzzle = reader.GetInt32(7);
-                        currentObjectBD[currentObjectBD.Count - 1].dificultSpanish = reader.GetInt32(8);
-                        currentObjectBD[currentObjectBD.Count - 1].nameSpanish = reader.GetString(9);
-                        currentObjectBD[currentObjectBD.Count - 1].silabasSpanish = reader.GetString(10);
-                        currentObjectBD[currentObjectBD.Count - 1].dificultCatalan = reader.GetInt32(11);
-                        currentObjectBD[currentObjectBD.Count - 1].nameCatalan = reader.GetString(12);
-                        currentObjectBD[currentObjectBD.Count - 1].silabasCatalan = reader.GetString(13);
-                        currentObjectBD[currentObjectBD.Count - 1].paquet = reader.GetInt32(14);
-                        // Debug.Log("Id = " + id + "  Nombre 1 =" + nombre1 + "  imagen 1 =" + imagen1 + " imagen 2 =" + imagen2);
-                        InsertImage(imagen, currentObjectBD[currentObjectBD.Count - 1].image1);
-                        SearchAudioClip(currentObjectBD[currentObjectBD.Count - 1].audio, audioSource);
-                    }
-
-
-                    if (currentObjectBD.Count > 0)
-                    {
-                        foreach (PalabraBD p in currentObjectBD)
-                        {
-                            p.SeparateSilabas(SingletonLenguage.GetInstance().GetLenguage());
-                            p.SetPalabraActual(SingletonLenguage.GetInstance().GetLenguage());
-                        }
-                        //SearchSpriteInRuteFolders(currentObjectBD[0].image1, imagen);
-                        prueba.text = "existe";
-                    }
-                    else prueba.text = "No existe";
-
-                    prueba.text = currentObjectBD[currentObjectBD.Count - 1].nameSpanish + "  Silabas  " + currentObjectBD[currentObjectBD.Count - 1].silabasActuales[0] + "  " + currentObjectBD[currentObjectBD.Count - 1].silabasActuales[1];
-                    reader.Close();
-                    dbConection.Close();
-                    return currentObjectBD;
-                }
-            }
+            currentObjectBD.Add(new PalabraBD());
+            currentObjectBD[currentObjectBD.Count - 1].id = reader.GetInt32(0);
+            currentObjectBD[currentObjectBD.Count - 1].color = reader.GetString(1);
+            currentObjectBD[currentObjectBD.Count - 1].image1 = reader.GetString(2);
+            currentObjectBD[currentObjectBD.Count - 1].image2 = reader.GetString(3);
+            currentObjectBD[currentObjectBD.Count - 1].image3 = reader.GetString(4);
+            currentObjectBD[currentObjectBD.Count - 1].audio = reader.GetString(5);
+            currentObjectBD[currentObjectBD.Count - 1].piecesPuzzle = reader.GetInt32(6);
+            currentObjectBD[currentObjectBD.Count - 1].imagePuzzle = reader.GetInt32(7);
+            currentObjectBD[currentObjectBD.Count - 1].dificultSpanish = reader.GetInt32(8);
+            currentObjectBD[currentObjectBD.Count - 1].nameSpanish = reader.GetString(9);
+            currentObjectBD[currentObjectBD.Count - 1].silabasSpanish = reader.GetString(10);
+            currentObjectBD[currentObjectBD.Count - 1].dificultCatalan = reader.GetInt32(11);
+            currentObjectBD[currentObjectBD.Count - 1].nameCatalan = reader.GetString(12);
+            currentObjectBD[currentObjectBD.Count - 1].silabasCatalan = reader.GetString(13);
+            currentObjectBD[currentObjectBD.Count - 1].paquet = reader.GetInt32(14);
+            // Debug.Log("Id = " + id + "  Nombre 1 =" + nombre1 + "  imagen 1 =" + imagen1 + " imagen 2 =" + imagen2);
+            // InsertImage(imagen, currentObjectBD[currentObjectBD.Count - 1].image1);
+            //SearchAudioClip(currentObjectBD[currentObjectBD.Count - 1].audio, audioSource);
         }
+
+
+        if (currentObjectBD.Count > 0)
+        {
+            foreach (PalabraBD p in currentObjectBD)
+            {
+                p.SeparateSilabas(SingletonLenguage.GetInstance().GetLenguage());
+                p.SetPalabraActual(SingletonLenguage.GetInstance().GetLenguage());
+            }
+            //SearchSpriteInRuteFolders(currentObjectBD[0].image1, imagen);
+        }
+
+        reader.Close();
+        reader = null;
+
+        dbCmd.Dispose();
+        dbCmd = null;
+
+        dbConection.Close();
+        dbConection = null;
+        return currentObjectBD;
     }
 
     public List<FraseBD> ReadSQliteFrase()
@@ -415,9 +424,9 @@ public class ManagementBD : MonoBehaviour
         StartCoroutine(ConvertURLToTexture(completeRute));
     }
 
-    public void InsertImage(Image _image, string _name)
+    public Texture2D InsertImage(string _name)
     {
-        _image.sprite = Resources.Load<Sprite>("images/Lite/" + _name); //CAMBIAR RUTA DE IMAGEN CUANDO NO SEA LITE
+        return Resources.Load<Texture2D>("images/Lite/" + _name); //CAMBIAR RUTA DE IMAGEN CUANDO NO SEA LITE
     }
 
 

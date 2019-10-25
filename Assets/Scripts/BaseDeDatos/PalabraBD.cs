@@ -83,4 +83,29 @@ public class PalabraBD
         }
     }
 
+    public Sprite GetSprite(string _name)
+    {
+        return Resources.Load<Sprite>("images/Lite/" + _name); //CAMBIAR RUTA DE IMAGEN CUANDO NO SEA LITE
+    }
+
+    public AudioClip GetAudioClip(string _audio)
+    {
+        string completeRute = "";
+        switch (SingletonLenguage.GetInstance().GetLenguage())
+        {
+            case SingletonLenguage.Lenguage.CASTELLANO:
+                completeRute = "Audios/Castellano/Lite/" + _audio + "_esp";  //CAMBIAR EN UN FUTURO LA RUTA
+                break;
+            case SingletonLenguage.Lenguage.CATALAN:
+                completeRute = "Audios/Catalan/Lite/" + _audio + "_cat"; //LOMISMO
+                break;
+            case SingletonLenguage.Lenguage.INGLES:
+                break;
+            case SingletonLenguage.Lenguage.FRANCES:
+                break;
+        }
+
+        return Resources.Load<AudioClip>(completeRute);
+    }
+
 }

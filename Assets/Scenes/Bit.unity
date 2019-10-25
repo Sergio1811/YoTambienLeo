@@ -569,7 +569,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagen: {fileID: 0}
   audioSource: {fileID: 0}
-  prueba: {fileID: 0}
 --- !u!4 &1220389422
 Transform:
   m_ObjectHideFlags: 0
