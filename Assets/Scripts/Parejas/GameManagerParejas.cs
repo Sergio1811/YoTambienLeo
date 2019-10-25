@@ -30,17 +30,13 @@ public class GameManagerParejas : MonoBehaviour
 
     public Text m_TextZoomed;
 
-    public List<Texture2D> m_ImagePairs = new List<Texture2D>();
+    private List<Sprite> m_ImagePairs = new List<Sprite>();
 
-    public List<string> palabrasCastellano = new List<string>();
+    private List<string> m_palabras = new List<string>();
 
-    public List<string> palabrasCatalan = new List<string>();
+    private List<AudioClip> m_audios = new List<AudioClip>();
 
-    public List<AudioClip> audiosCastellano = new List<AudioClip>();
-
-    public List<AudioClip> audiosCatalan = new List<AudioClip>();
-
-    List<Texture2D> RepeatList = new List<Texture2D>();
+    List<Sprite> RepeatList = new List<Sprite>();
 
     List<string> repeatListPalabras = new List<string>();
 
@@ -49,6 +45,9 @@ public class GameManagerParejas : MonoBehaviour
     int m_CurrentNumRep = 1;
 
     public int m_CurrentPairs;
+
+    public ManagementBD managementBD;
+    private List<PalabraBD> conjuntoDePalabrasBD = new List<PalabraBD>();
 
 
 
@@ -123,6 +122,21 @@ public class GameManagerParejas : MonoBehaviour
 
     void Start()
     {
+
+        GameObject management = GameObject.FindGameObjectWithTag("BD");
+        if (management != null)
+        {
+            managementBD = management.GetComponent<ManagementBD>();
+            //aqui modificar depende de lo que quieras
+            conjuntoDePalabrasBD = managementBD.ReadSQlitePalabra();
+
+            foreach (PalabraBD p in conjuntoDePalabrasBD)
+            {
+                m_ImagePairs.Add(p.GetSprite(p.image1));
+                m_palabras.Add(p.palabraActual);
+                m_audios.Add(p.GetAudioClip(p.audio));
+            }
+        }
 
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute + Random.seed + 1);
         m_NumPairs = Random.Range(3, 5);
@@ -218,7 +232,7 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-        List<Texture2D> l_Pairs = new List<Texture2D>();
+        List<Sprite> l_Pairs = new List<Sprite>();
 
         List<string> l_Palabras = new List<string>();
 
@@ -226,7 +240,7 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-        foreach (Texture2D item in m_ImagePairs)
+        foreach (Sprite item in m_ImagePairs)
         {
 
             l_Pairs.Add(item);
@@ -235,7 +249,7 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-        foreach (string item in ObtainListOfPalabras())
+        foreach (string item in m_palabras)
         {
 
             l_Palabras.Add(item);
@@ -244,7 +258,7 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-        foreach (AudioClip item in ObtainListOfAudios())
+        foreach (AudioClip item in m_audios)
         {
 
             l_Audios.Add(item);
@@ -262,9 +276,8 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-        List<Texture2D> l_SecondPair = new List<Texture2D>();
-
-        List<Texture2D> l_ThirdPair = new List<Texture2D>();
+        List<Sprite> l_SecondPair = new List<Sprite>();
+        List<Sprite> l_ThirdPair = new List<Sprite>();
 
         RepeatList = l_ThirdPair;
 
@@ -492,7 +505,7 @@ public class GameManagerParejas : MonoBehaviour
             if(GameManager.m_CurrentToMinigame[0] > 0)
                 m_Points[GameManager.m_CurrentToMinigame[0] - 1].GetComponent<Image>().sprite = m_CompletedPoint;
 
-            List<Texture2D> l_Pairs = new List<Texture2D>();
+            List<Sprite> l_Pairs = new List<Sprite>();
 
             List<string> l_Palabras = new List<string>();
 
@@ -500,7 +513,7 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-            foreach (Texture2D item in m_ImagePairs)
+            foreach (Sprite item in m_ImagePairs)
             {
 
                 l_Pairs.Add(item);
@@ -509,7 +522,7 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-            foreach (string item in ObtainListOfPalabras())
+            foreach (string item in m_palabras)
             {
 
                 l_Palabras.Add(item);
@@ -518,7 +531,7 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-            foreach (AudioClip item in ObtainListOfAudios())
+            foreach (AudioClip item in m_audios)
             {
 
                 l_Audios.Add(item);
@@ -527,9 +540,9 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-            List<Texture2D> l_SecondPair = new List<Texture2D>();
+            List<Sprite> l_SecondPair = new List<Sprite>();
 
-            List<Texture2D> l_ThirdPair = new List<Texture2D>();
+            List<Sprite> l_ThirdPair = new List<Sprite>();
 
             RepeatList = l_ThirdPair;
 
@@ -750,7 +763,7 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-        List<Texture2D> l_Pairs = new List<Texture2D>();
+        List<Sprite> l_Pairs = new List<Sprite>();
 
         List<string> l_Palabras = new List<string>();
 
@@ -758,7 +771,7 @@ public class GameManagerParejas : MonoBehaviour
 
 
 
-        foreach (Texture2D item in RepeatList)
+        foreach (Sprite item in RepeatList)
         {
 
             l_Pairs.Add(item);
@@ -783,9 +796,9 @@ public class GameManagerParejas : MonoBehaviour
 
         }
 
-        List<Texture2D> l_SecondPair = new List<Texture2D>();
+        List<Sprite> l_SecondPair = new List<Sprite>();
 
-        List<Texture2D> l_ThirdPair = new List<Texture2D>();
+        List<Sprite> l_ThirdPair = new List<Sprite>();
 
 
 
@@ -1004,7 +1017,7 @@ public class GameManagerParejas : MonoBehaviour
         m_Animation.Play();
     }
 
-    private void InstiantatePair(bool _firstTime, bool _horizontal, int l_RandomPair, List<Texture2D> l_Pairs, List<Texture2D> l_SecondPair, List<Texture2D> l_ThirdPair, List<string> l_Palabras, List<string> l_SecondPalabra, List<AudioClip> l_Audios, List<AudioClip> l_SecondAudio, int _numofPairs, int _currentPair, int numJ)
+    private void InstiantatePair(bool _firstTime, bool _horizontal, int l_RandomPair, List<Sprite> l_Pairs, List<Sprite> l_SecondPair, List<Sprite> l_ThirdPair, List<string> l_Palabras, List<string> l_SecondPalabra, List<AudioClip> l_Audios, List<AudioClip> l_SecondAudio, int _numofPairs, int _currentPair, int numJ)
     {
         if (_horizontal)
         {
@@ -1013,7 +1026,7 @@ public class GameManagerParejas : MonoBehaviour
                 case 3:
                     if (_firstTime)
                     {
-                        horizontal3Arriba[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        horizontal3Arriba[_currentPair].GetComponent<Image>().sprite = l_Pairs[l_RandomPair];
 
                         horizontal3Arriba[_currentPair].name = numJ.ToString();
 
@@ -1028,7 +1041,7 @@ public class GameManagerParejas : MonoBehaviour
 
                     else
                     {
-                        horizontal3Arriba[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+                        horizontal3Arriba[_currentPair].GetComponent<Image>().sprite = l_SecondPair[l_RandomPair];
 
                         horizontal3Arriba[_currentPair].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
 
@@ -1046,7 +1059,7 @@ public class GameManagerParejas : MonoBehaviour
                     if (_firstTime)
                     {
 
-                        horizontal4Arriba[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        horizontal4Arriba[_currentPair].GetComponent<Image>().sprite = l_Pairs[l_RandomPair];
 
                         horizontal4Arriba[_currentPair].name = numJ.ToString();
 
@@ -1061,7 +1074,7 @@ public class GameManagerParejas : MonoBehaviour
                     }
                     else
                     {
-                        horizontal4Arriba[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+                        horizontal4Arriba[_currentPair].GetComponent<Image>().sprite = l_SecondPair[l_RandomPair];
 
                         horizontal4Arriba[_currentPair].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
 
@@ -1084,7 +1097,7 @@ public class GameManagerParejas : MonoBehaviour
                     if (_firstTime)
                     {
 
-                        vertical3Left[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical3Left[_currentPair].GetComponent<Image>().sprite = l_Pairs[l_RandomPair];
 
                         vertical3Left[_currentPair].name = numJ.ToString();
 
@@ -1099,7 +1112,7 @@ public class GameManagerParejas : MonoBehaviour
                     }
                     else
                     {
-                        vertical3Left[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical3Left[_currentPair].GetComponent<Image>().sprite = l_SecondPair[l_RandomPair];
 
                         vertical3Left[_currentPair].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
 
@@ -1117,7 +1130,7 @@ public class GameManagerParejas : MonoBehaviour
                     if (_firstTime)
                     {
 
-                        vertical4Left[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical4Left[_currentPair].GetComponent<Image>().sprite = l_Pairs[l_RandomPair];
 
                         vertical4Left[_currentPair].name = numJ.ToString();
 
@@ -1132,7 +1145,7 @@ public class GameManagerParejas : MonoBehaviour
                     }
                     else
                     {
-                        vertical4Left[_currentPair].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical4Left[_currentPair].GetComponent<Image>().sprite = l_SecondPair[l_RandomPair];
 
                         vertical4Left[_currentPair].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
 
@@ -1149,7 +1162,7 @@ public class GameManagerParejas : MonoBehaviour
         }
     }
 
-    private void InstiantateCopy(bool _firstTime, bool _horizontal, int l_RandomPair, List<Texture2D> l_Pairs, List<Texture2D> l_SecondPair, List<Texture2D> l_ThirdPair, List<string> l_Palabras, List<string> l_SecondPalabra, List<AudioClip> l_Audios, List<AudioClip> l_SecondAudio, int _numofPairs, int _currentPair, int numJ)
+    private void InstiantateCopy(bool _firstTime, bool _horizontal, int l_RandomPair, List<Sprite> l_Pairs, List<Sprite> l_SecondPair, List<Sprite> l_ThirdPair, List<string> l_Palabras, List<string> l_SecondPalabra, List<AudioClip> l_Audios, List<AudioClip> l_SecondAudio, int _numofPairs, int _currentPair, int numJ)
     {
         if (_horizontal)
         {
@@ -1158,13 +1171,13 @@ public class GameManagerParejas : MonoBehaviour
                 case 3:
                     if (_firstTime)
                     {
-                        horizontal3Abajo[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        horizontal3Abajo[numJ].GetComponent<Image>().sprite = l_Pairs[l_RandomPair];
                         horizontal3Abajo[numJ].name = numJ.ToString();
                         horizontal3Abajo[numJ].SetActive(true);
                     }
                     else
                     {
-                        horizontal3Abajo[numJ].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+                        horizontal3Abajo[numJ].GetComponent<Image>().sprite = l_SecondPair[l_RandomPair];
                         horizontal3Abajo[numJ].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                         horizontal3Abajo[numJ].SetActive(true);
                     }
@@ -1172,13 +1185,13 @@ public class GameManagerParejas : MonoBehaviour
                 case 4:
                     if (_firstTime)
                     {
-                        horizontal4Abajo[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        horizontal4Abajo[numJ].GetComponent<Image>().sprite = l_Pairs[l_RandomPair];
                         horizontal4Abajo[numJ].name = numJ.ToString();
                         horizontal4Abajo[numJ].SetActive(true);
                     }
                     else
                     {
-                        horizontal4Abajo[numJ].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+                        horizontal4Abajo[numJ].GetComponent<Image>().sprite = l_SecondPair[l_RandomPair];
                         horizontal4Abajo[numJ].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                         horizontal4Abajo[numJ].SetActive(true);
                     }
@@ -1194,13 +1207,13 @@ public class GameManagerParejas : MonoBehaviour
 
                     if (_firstTime)
                     {
-                        vertical3Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical3Right[numJ].GetComponent<Image>().sprite = l_Pairs[l_RandomPair];
                         vertical3Right[numJ].name = numJ.ToString();
                         vertical3Right[numJ].SetActive(true);
                     }
                     else
                     {
-                        vertical3Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical3Right[numJ].GetComponent<Image>().sprite = l_SecondPair[l_RandomPair];
                         vertical3Right[numJ].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                         vertical3Right[numJ].SetActive(true);
                     }
@@ -1209,13 +1222,13 @@ public class GameManagerParejas : MonoBehaviour
 
                     if (_firstTime)
                     {
-                        vertical4Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_Pairs[l_RandomPair], new Rect(0, 0, l_Pairs[l_RandomPair].width / 1.02f, l_Pairs[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical4Right[numJ].GetComponent<Image>().sprite = l_Pairs[l_RandomPair];
                         vertical4Right[numJ].name = numJ.ToString();
                         vertical4Right[numJ].SetActive(true);
                     }
                     else
                     {
-                        vertical4Right[numJ].GetComponent<Image>().sprite = Sprite.Create(l_SecondPair[l_RandomPair], new Rect(0, 0, l_SecondPair[l_RandomPair].width / 1.02f, l_SecondPair[l_RandomPair].height / 1.02f), Vector2.zero);
+                        vertical4Right[numJ].GetComponent<Image>().sprite = l_SecondPair[l_RandomPair];
                         vertical4Right[numJ].name = l_ThirdPair.IndexOf(l_SecondPair[l_RandomPair]).ToString();
                         vertical4Right[numJ].SetActive(true);
                     }
@@ -1260,38 +1273,5 @@ public class GameManagerParejas : MonoBehaviour
             item.SetActive(false);
         }
 
-    }
-
-
-    private List<string> ObtainListOfPalabras()
-    {
-
-        switch (SingletonLenguage.GetInstance().GetLenguage())
-        {
-            case SingletonLenguage.Lenguage.CASTELLANO:
-                return palabrasCastellano;
-
-            case SingletonLenguage.Lenguage.CATALAN:
-                return palabrasCatalan;
-
-            default:
-                return palabrasCastellano;
-        }
-
-    }
-
-    private List<AudioClip> ObtainListOfAudios()
-    {
-        switch (SingletonLenguage.GetInstance().GetLenguage())
-        {
-            case SingletonLenguage.Lenguage.CASTELLANO:
-                return audiosCastellano;
-
-            case SingletonLenguage.Lenguage.CATALAN:
-                return audiosCatalan;
-
-            default:
-                return audiosCastellano;
-        }
     }
 }
