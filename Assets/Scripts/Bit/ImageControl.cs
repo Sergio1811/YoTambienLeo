@@ -56,7 +56,6 @@ public class ImageControl : MonoBehaviour
             }
         }
         m_Length = m_audios.Count;
-        GameManagerBit.m_Alea = Random.Range(0, m_Length);
 
         if (m_GMBit.repetir)
         {
@@ -64,7 +63,21 @@ public class ImageControl : MonoBehaviour
             m_GMBit.repetir = false;
         }
         else
-            l_Number = GameManagerBit.m_Alea;
+        {
+            bool same = true;
+            while (same)
+            {
+                int random = Random.Range(0, m_Length);
+
+                if (random != m_GMBit.numLastImage)
+                {
+                    GameManagerBit.m_Alea = random;
+                    l_Number = GameManagerBit.m_Alea;
+                    same = false;
+                    m_GMBit.numLastImage = l_Number;    
+                }
+            }
+        }
 
         m_Animation = GetComponent<Animation>();
         print("number  " + l_Number);
