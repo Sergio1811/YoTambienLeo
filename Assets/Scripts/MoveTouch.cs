@@ -15,8 +15,10 @@ public class MoveTouch : MonoBehaviour
     public bool Word = false;
     public bool canMove = false;
     private float timer = 0;
+    public Image mainImage;
+    public Text text;
 
-    
+
     void Start()
     {
         myImage = gameObject.GetComponent<Image>();
@@ -24,10 +26,15 @@ public class MoveTouch : MonoBehaviour
 
     void Update()
     {
-        if (managerOnlyOne != null )
+        if (managerOnlyOne != null)
         {
             if (!m_PieceLocked && !m_PieceClicked && ((!Word) || (Word && canMove)))
             {
+                if (Word)
+                {
+                    mainImage.color = mainImage.color + new Color(0, 0, 0, 255);
+                    text.color = text.color + new Color(0, 0, 0, 255);
+                }
                 if (Input.touchCount > 0 && managerOnlyOne.go == null)
                 {
                     Touch touch = Input.GetTouch(0);

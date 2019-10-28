@@ -36,6 +36,7 @@ public class GameManagerPuzzle : MonoBehaviour
     int m_NumPiecesX;
     int m_NumPiecesY;
     bool m_Completed;
+    private bool repeating;
     int numRandom = 0;
 
     public Sprite m_CompletedPoint;
@@ -43,7 +44,7 @@ public class GameManagerPuzzle : MonoBehaviour
     public Transform m_SpawnPar;
     Transform m_CurrentSpawn;
     public GameObject m_Point;
-    static int l_NumReps = 2;//-1
+    static int l_NumReps = 3;
     GameObject[] m_Points = new GameObject[l_NumReps];
 
     List<GameObject> m_Images = new List<GameObject>();
@@ -86,6 +87,7 @@ public class GameManagerPuzzle : MonoBehaviour
                     m_ImagesPool.Add(p.GetTexture2D(p.image1));
                     break;
             }
+            repeating = false;
             m_palabras.Add(p.palabraActual);
             m_audios.Add(p.GetAudioClip(p.audio));
         }
@@ -144,7 +146,7 @@ public class GameManagerPuzzle : MonoBehaviour
         {
             m_Words[m_Words.Count - 2].GetComponent<MoveTouch>().canMove = true;
         }
-        else if (m_Puntuacion == m_NumPieces + 1)
+        else if (m_Puntuacion == m_NumPieces + 1 && !m_Completed)
         {
             AudioSource l_AS = GetComponent<AudioSource>();
             l_AS.clip = m_audios[numRandom];
@@ -161,7 +163,7 @@ public class GameManagerPuzzle : MonoBehaviour
             }
             Debug.Log("AnimPlayed");
 
-            StartCoroutine(WaitSeconds(3));
+            StartCoroutine(WaitSeconds(2));
 
         }
     }
@@ -358,11 +360,12 @@ public class GameManagerPuzzle : MonoBehaviour
 
     public void PassPuzzle()
     {
+        repeating = false;
         m_ImagesSpawn.SetActive(true);
         m_CollidersSpawns.SetActive(true);
         m_ImageAnim.gameObject.SetActive(false);
         m_Completed = false;
-        GameManager.m_CurrentToMinigame[2]++;
+        
 
         if (GameManager.m_CurrentToMinigame[2] >= 3)
             m_Scener.RandomMinigame();
@@ -407,6 +410,7 @@ public class GameManagerPuzzle : MonoBehaviour
 
     public void RepeatPuzzle()
     {
+        repeating = true;
         foreach (GameObject item in m_Images)
         {
             Destroy(item);
@@ -459,9 +463,16 @@ public class GameManagerPuzzle : MonoBehaviour
 
     IEnumerator WaitSeconds(float seconds)
     {
-        print(Time.time);
         yield return new WaitForSeconds(seconds);
-        print(Time.time);
+        if (!repeating)
+        {
+            GameManager.m_CurrentToMinigame[2]++;
+            for (int i = 0; i <= GameManager.m_CurrentToMinigame[2]; i++)
+            {
+                if (i > 0)
+                    m_Points[i - 1].GetComponent<Image>().sprite = m_CompletedPoint;
+            }
+        }
         ActivateButtons();
     }
 
