@@ -87,7 +87,7 @@ public class GameManagerPuzzle : MonoBehaviour
                     m_ImagesPool.Add(p.GetTexture2D(p.image1));
                     break;
             }
-            repeating = false;
+
             m_palabras.Add(p.palabraActual);
             m_audios.Add(p.GetAudioClip(p.audio));
         }
@@ -118,12 +118,15 @@ public class GameManagerPuzzle : MonoBehaviour
             if(i > 0)
                 m_Points[i - 1].GetComponent<Image>().sprite = m_CompletedPoint;
         }
+        repeating = false;
+        m_Completed = false;
 
         InicioPuzzle();
     }
 
     private void Update()
     {
+        print(GameManager.m_CurrentToMinigame[2]);
         if (!m_Completed)
         {
             PuzzleComplete();
@@ -242,7 +245,6 @@ public class GameManagerPuzzle : MonoBehaviour
 
                 while (l_Numbers.Contains(l_Number))
                 {
-                    print(l_Number);
                     l_Number = Random.Range(0, m_NumPieces);
                 }
 
@@ -485,7 +487,7 @@ public class GameManagerPuzzle : MonoBehaviour
         for (int i = 0; i <= GameManager.m_CurrentToMinigame[2]; i++)
         {
             if(i > 0)
-                m_Points[i].GetComponent<Image>().sprite = m_CompletedPoint;
+                m_Points[i - 1].GetComponent<Image>().sprite = m_CompletedPoint;
         }
 
         foreach (GameObject item in m_Images)

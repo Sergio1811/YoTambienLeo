@@ -55,17 +55,19 @@ public class GameManager : MonoBehaviour
             {
                 m_CurrentToMinigame.Add(0);
             }
+            GameObject management = GameObject.FindGameObjectWithTag("BD");
+            if (management != null)
+            {
+                StartCoroutine(management.GetComponent<ManagementBD>().RunDbCode("BaseDeDatosYoTambienLeo.bd"));
+            }
+
         }
         else
         {
             DestroyImmediate(this);
         }
 
-        GameObject management = GameObject.FindGameObjectWithTag("BD");
-        if(management != null)
-        {
-            StartCoroutine(management.GetComponent<ManagementBD>().RunDbCode("BaseDeDatosYoTambienLeo.bd"));
-        }
+
        
     }
 
