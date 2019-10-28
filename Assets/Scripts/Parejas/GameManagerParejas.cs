@@ -49,6 +49,8 @@ public class GameManagerParejas : MonoBehaviour
     public ManagementBD managementBD;
     private List<PalabraBD> conjuntoDePalabrasBD = new List<PalabraBD>();
 
+    private bool completed;
+
 
 
     #region Separador
@@ -74,6 +76,8 @@ public class GameManagerParejas : MonoBehaviour
     private float m_YPos;
 
     private bool m_FirstPair;
+
+    private bool repeating;
 
     #region Asignación de imagenes
     public List<GameObject> horizontal4Arriba = new List<GameObject>();
@@ -108,7 +112,7 @@ public class GameManagerParejas : MonoBehaviour
 
     public GameObject m_Point;
 
-    static int l_NumReps = GameManager.Instance.m_NeededToMinigame - 1;
+    static int l_NumReps = GameManager.Instance.m_NeededToMinigame;
 
     GameObject[] m_Points = new GameObject[l_NumReps];
 
@@ -175,11 +179,13 @@ public class GameManagerParejas : MonoBehaviour
 
         for (int i = 0; i <= GameManager.m_CurrentToMinigame[0]; i++)
         {
-            if(i > 0)
+            if (i > 0)
                 m_Points[i - 1].GetComponent<Image>().sprite = m_CompletedPoint;
 
         }
 
+        completed = false;
+        repeating = false;
 
         InstantiatePairs();
 
@@ -192,18 +198,13 @@ public class GameManagerParejas : MonoBehaviour
     private void Update()
     {
 
-        if (m_CurrentPairs == m_NumPairs)
+        if (completed)
         {
-
-            StartCoroutine(WaitSeconds(3));
-
-            m_CurrentPairs = 0;
+            completed = false;
+            StartCoroutine(WaitSeconds(1.5f));
 
         }
-
-
-
-        if (m_ImageZoom.activeSelf && GameManager.Instance.InputRecieved() && !m_RealCanvas.GetComponent<Animation>().isPlaying)
+        else if (m_ImageZoom.activeSelf && GameManager.Instance.InputRecieved() && !m_RealCanvas.GetComponent<Animation>().isPlaying && m_CurrentPairs != m_NumPairs)
         {
 
             m_ImageZoom.SetActive(false);
@@ -220,10 +221,15 @@ public class GameManagerParejas : MonoBehaviour
 
     public void InstantiatePairs()
     {
+        m_CurrentPairs = 0;
+        completed = false;
+        repeating = false;
+        m_ImageZoom.SetActive(false);
+        planeImageWhenPair.gameObject.SetActive(false);
 
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
 
-        if(GameManager.m_CurrentToMinigame[0] > 0)
+        if (GameManager.m_CurrentToMinigame[0] > 0)
             m_Points[GameManager.m_CurrentToMinigame[0] - 1].GetComponent<Image>().sprite = m_CompletedPoint;
 
         m_CurrentNumRep = 1;
@@ -319,7 +325,7 @@ public class GameManagerParejas : MonoBehaviour
             for (int i = 0; i < 2; i++)
             {
 
-                int k = 1;      
+                int k = 1;
 
                 if (m_FirstPair)
                 {
@@ -381,7 +387,7 @@ public class GameManagerParejas : MonoBehaviour
 
                         l_SecondAudio.RemoveAt(l_RandomPair);
 
-                        k++;                
+                        k++;
                         k++;
                     }
 
@@ -441,7 +447,7 @@ public class GameManagerParejas : MonoBehaviour
                         l_ThirdAudio.Add(l_Audios[l_RandomPair]);
 
                         l_Audios.RemoveAt(l_RandomPair);
-                
+
                         k++;
                         k++;
                     }
@@ -471,7 +477,7 @@ public class GameManagerParejas : MonoBehaviour
                     }
 
                 }
-                m_FirstPair = false;          
+                m_FirstPair = false;
                 m_XPos *= 3f;
 
             }
@@ -489,7 +495,11 @@ public class GameManagerParejas : MonoBehaviour
 
         currentNumOfPairs = 0;
 
-        GameManager.m_CurrentToMinigame[0]++;
+        m_CurrentPairs = 0;
+        completed = false;
+        repeating = false;
+        m_ImageZoom.SetActive(false);
+        planeImageWhenPair.gameObject.SetActive(false);
 
         m_CurrentNumRep = 1;
 
@@ -502,7 +512,7 @@ public class GameManagerParejas : MonoBehaviour
         else
 
         {
-            if(GameManager.m_CurrentToMinigame[0] > 0)
+            if (GameManager.m_CurrentToMinigame[0] > 0)
                 m_Points[GameManager.m_CurrentToMinigame[0] - 1].GetComponent<Image>().sprite = m_CompletedPoint;
 
             List<Sprite> l_Pairs = new List<Sprite>();
@@ -582,7 +592,7 @@ public class GameManagerParejas : MonoBehaviour
 
                 m_XPos = Screen.width / (m_NumPairs * 2.0f);
 
-                m_YPos = Screen.height / 4;         
+                m_YPos = Screen.height / 4;
 
                 for (int i = 0; i < 2; i++)
                 {
@@ -663,7 +673,7 @@ public class GameManagerParejas : MonoBehaviour
 
             }
 
-            else     
+            else
             {
                 m_XPos = Screen.width / 4;
                 m_YPos = Screen.height / (m_NumPairs * 2.0f);
@@ -734,7 +744,7 @@ public class GameManagerParejas : MonoBehaviour
 
                             l_SecondAudio.RemoveAt(l_RandomPair);
 
-                            k++;                   
+                            k++;
                             k++;
                         }
 
@@ -758,6 +768,12 @@ public class GameManagerParejas : MonoBehaviour
         Random.InitState(System.DateTime.Now.Second + System.DateTime.Now.Minute);
 
         m_CurrentNumRep++;
+
+        m_CurrentPairs = 0;
+        completed = false;
+        repeating = true;
+        m_ImageZoom.SetActive(false);
+        planeImageWhenPair.gameObject.SetActive(false);
 
         currentNumOfPairs = 0;
 
@@ -858,7 +874,7 @@ public class GameManagerParejas : MonoBehaviour
                         l_ThirdPalabra.Add(l_Palabras[l_RandomPair]);
 
                         l_Palabras.RemoveAt(l_RandomPair);
-                  
+
 
 
                         l_SecondAudio.Add(l_Audios[l_RandomPair]);
@@ -952,7 +968,7 @@ public class GameManagerParejas : MonoBehaviour
 
                         l_Audios.RemoveAt(l_RandomPair);
 
-                        k++;                  
+                        k++;
                         k++;
                     }
                 }
@@ -1005,6 +1021,12 @@ public class GameManagerParejas : MonoBehaviour
     IEnumerator WaitSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        if (!repeating)
+        {
+            GameManager.m_CurrentToMinigame[0]++;
+            if (GameManager.m_CurrentToMinigame[0] > 0)
+                m_Points[GameManager.m_CurrentToMinigame[0] - 1].GetComponent<Image>().sprite = m_CompletedPoint;
+        }
         ActivateButtons();
     }
 
@@ -1013,8 +1035,9 @@ public class GameManagerParejas : MonoBehaviour
     public void PairDone()
     {
         m_CurrentPairs++;
-        planeImageWhenPair.gameObject.SetActive(true);
         m_Animation.Play();
+        if (m_CurrentPairs == m_NumPairs)
+            completed = true;
     }
 
     private void InstiantatePair(bool _firstTime, bool _horizontal, int l_RandomPair, List<Sprite> l_Pairs, List<Sprite> l_SecondPair, List<Sprite> l_ThirdPair, List<string> l_Palabras, List<string> l_SecondPalabra, List<AudioClip> l_Audios, List<AudioClip> l_SecondAudio, int _numofPairs, int _currentPair, int numJ)

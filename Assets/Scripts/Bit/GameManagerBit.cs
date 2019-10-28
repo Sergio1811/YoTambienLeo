@@ -18,13 +18,14 @@ public class GameManagerBit : MonoBehaviour
     public Transform m_SpawnPar;
     Transform m_CurrentSpawn;
     public GameObject m_Point;
-    static int l_NumReps = 6;//-1 aplicado
+    static int l_NumReps = 7;//-1 aplicado
     GameObject[] m_Points = new GameObject[l_NumReps];
 
     public GameObject m_Siguiente;
     public GameObject m_Repetir;
     public bool repetir = false;
     public int numLastImage = 0;
+    public bool repeating;
 
     public static int m_Alea = 0;
 
@@ -57,7 +58,7 @@ public class GameManagerBit : MonoBehaviour
             if (i > 0)
                 m_Points[i - 1].GetComponent<Image>().sprite = m_CompletedPoint;
         }
-
+        repeating = false;
         InicioBit();
     }
 
@@ -66,7 +67,8 @@ public class GameManagerBit : MonoBehaviour
         if (m_CurrentBit != null && _repetir)
         {
             numLastImage = m_CurrentBit.GetComponent<ImageControl>().l_Number;
-            repetir = true;
+            repetir = _repetir;
+            repeating = true;
         }
         Destroy(m_CurrentBit);
         m_CurrentBit = Instantiate(m_NewBit, m_NewBitPosition);
@@ -76,7 +78,7 @@ public class GameManagerBit : MonoBehaviour
 
     public void NextBit()
     {
-        repetir = false;
+        repeating = false;
         if (m_Alea == 0)
         {
             m_Alea = Random.Range(0, ImageControl.m_Length);
@@ -95,7 +97,6 @@ public class GameManagerBit : MonoBehaviour
                     same = false;
             }
         }
-        GameManager.m_CurrentToMinigame[1]++;
 
         if (GameManager.m_CurrentToMinigame[1] >= 7)
             m_Scener.RandomMinigame();
@@ -108,6 +109,13 @@ public class GameManagerBit : MonoBehaviour
             m_CurrentNumRep = 1;
             RepeatImage(false);
         }
+    }
+
+    public void AddCountMiniGameBit()
+    {
+        GameManager.m_CurrentToMinigame[1]++;
+        if (GameManager.m_CurrentToMinigame[1] > 0)
+            m_Points[GameManager.m_CurrentToMinigame[1] - 1].GetComponent<Image>().sprite = m_CompletedPoint;
     }
 
     public void InicioBit()

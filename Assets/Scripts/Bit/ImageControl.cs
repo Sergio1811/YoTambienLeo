@@ -133,6 +133,8 @@ public class ImageControl : MonoBehaviour
             yield return new WaitForSeconds(seconds);
             //print(Time.time);
             m_GMBit.ActivateButtons();
+            if(!m_GMBit.repeating)
+                m_GMBit.AddCountMiniGameBit();
         }
     }
 

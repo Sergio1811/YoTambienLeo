@@ -24,6 +24,7 @@ public class Pairs : MonoBehaviour
     private bool animIsplaying;
     private Vector3 lastSize;
     private Vector3 lastPosition;
+    private bool lastPair;
 
     private void Start()
     {
@@ -35,9 +36,13 @@ public class Pairs : MonoBehaviour
         lastPosition = gameObject.transform.position;
         lastSize = rectTransform.localScale;
         Random.InitState(Random.seed + 1);
-        maxTimerAnim = Random.Range(2.5f, 4);
+        maxTimerAnim = Random.Range(1.5f, 3f);
         if (numImage == 0)
             maxTimerAnim = 1;
+
+        if (numImage < m_GameManagerParejas.m_NumPairs - 1)
+            lastPair = true;
+        else lastPair = false;
     }
     private void Update()
     {
@@ -58,7 +63,7 @@ public class Pairs : MonoBehaviour
                 {
                     currentTimerAnim = 0;
                     animIsplaying = true;
-                    maxTimerAnim = Random.Range(2.5f, 4);
+                    maxTimerAnim = Random.Range(1.5f, 3);
                 }
 
                 if(animIsplaying && !m_PieceClicked)
@@ -195,6 +200,13 @@ public class Pairs : MonoBehaviour
                 audioSource.Play();
             }
             m_GameManagerParejas.PairDone();
+
+            if(lastPair)
+                m_GameManagerParejas.planeImageWhenPair.gameObject.SetActive(true);
+            else
+                m_GameManagerParejas.planeImageWhenPair.gameObject.SetActive(false);
+
+
             collision.gameObject.SetActive(false);
             gameObject.SetActive(false);
             gameObject.transform.position = lastPosition;

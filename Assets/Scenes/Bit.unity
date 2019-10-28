@@ -567,8 +567,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b87349378a12a8248acbcf5b9d8e55ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagen: {fileID: 0}
-  audioSource: {fileID: 0}
 --- !u!4 &1220389422
 Transform:
   m_ObjectHideFlags: 0
@@ -622,7 +620,7 @@ RectTransform:
   m_GameObject: {fileID: 2122946979}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
   m_Children: []
   m_Father: {fileID: 457152838}
   m_RootOrder: 0
@@ -882,6 +880,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -515
+      objectReference: {fileID: 0}
+    - target: {fileID: 7617506765023279341, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.009374999
+      objectReference: {fileID: 0}
+    - target: {fileID: 7617506765023279341, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 98
+      objectReference: {fileID: 0}
+    - target: {fileID: 7617506765023279341, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.009374999
+      objectReference: {fileID: 0}
+    - target: {fileID: 7617506765023279341, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 7617506765023279341, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 92
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c97aaca75cec1de418a27440bfd0ea07, type: 3}
