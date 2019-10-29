@@ -802,6 +802,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LineaArriba
       objectReference: {fileID: 0}
+    - target: {fileID: 7617506764771967304, guid: c97aaca75cec1de418a27440bfd0ea07,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7617506766499220765, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -906,11 +911,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617506764771967304, guid: c97aaca75cec1de418a27440bfd0ea07,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7617506766310047005, guid: c97aaca75cec1de418a27440bfd0ea07,
         type: 3}
@@ -1182,7 +1182,7 @@ GameObject:
   - component: {fileID: 1130670772}
   m_Layer: 0
   m_Name: BD
-  m_TagString: Untagged
+  m_TagString: BD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
