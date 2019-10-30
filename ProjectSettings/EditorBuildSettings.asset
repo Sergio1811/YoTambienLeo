@@ -23,7 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Minijuego_Burbujas.unity
     guid: e058be4d659e29f46b67a39926946291
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Minijuego_Colores.unity
     guid: 9e10136e44d156e468e54c9b175a8359
   - enabled: 0

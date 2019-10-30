@@ -150,12 +150,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1e6ecf890f0573c4ab6f8a66c97948ec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7ec47097424909947b7e86a532be41b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.04, y: 1.39}
+  m_Size: {x: 4.2, y: 1.39}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Mariposa: {fileID: 2440860440465559401, guid: 3d85439e7a369e248ae53d7aa576b92f,
     type: 3}
-  m_Gusano_01: {fileID: 21300000, guid: 1e6ecf890f0573c4ab6f8a66c97948ec, type: 3}
+  m_Gusano_01: {fileID: 21300000, guid: 7ec47097424909947b7e86a532be41b0, type: 3}
   m_Gusano_02: {fileID: 21300000, guid: e7a6990fed246594e8cff46cae53c6a7, type: 3}
   m_Gusano_03: {fileID: 21300000, guid: 74f486a29df4b6d44b2c88c9efd4aa9a, type: 3}
 --- !u!61 &2438914892766281333
@@ -196,7 +196,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 4.2, y: 1.39}
-    newSize: {x: 2.04, y: 1.39}
+    newSize: {x: 4.2, y: 1.39}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

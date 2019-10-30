@@ -66,14 +66,14 @@ public class Pairs : MonoBehaviour
                     maxTimerAnim = Random.Range(1.5f, 3);
                 }
 
-                if(animIsplaying && !m_PieceClicked)
+                if (animIsplaying && !m_PieceClicked)
                 {
-                    if(currentTimerAnim < 0.5f)
+                    if (currentTimerAnim < 0.5f)
                     {
                         gameObject.transform.position += new Vector3(-0.5f * Time.deltaTime, -0.5f * Time.deltaTime, 0);
                         rectTransform.localScale += new Vector3(0.5f * Time.deltaTime, 0.5f * Time.deltaTime, 0);
                     }
-                    else if(currentTimerAnim < 1f)
+                    else if (currentTimerAnim < 1f)
                     {
                         gameObject.transform.position += new Vector3(0.5f * Time.deltaTime, 0.5f * Time.deltaTime, 0);
                         rectTransform.localScale += new Vector3(-0.5f * Time.deltaTime, -0.5f * Time.deltaTime, 0);
@@ -86,7 +86,7 @@ public class Pairs : MonoBehaviour
                         gameObject.transform.position = lastPosition;
                     }
                 }
-                
+
             }
 
             #endregion
@@ -187,10 +187,10 @@ public class Pairs : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if ((collision.gameObject.name == this.gameObject.name) && ((Input.touchCount>0 && Input.GetTouch(0).phase==TouchPhase.Ended )|| Input.GetMouseButtonUp(0)))
+        if ((collision.gameObject.name == this.gameObject.name) && ((Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended) || Input.GetMouseButtonUp(0)))
         {
             this.transform.position = collision.gameObject.transform.position;
-            m_GameManagerParejas.m_ImageZoomed.sprite= this.gameObject.GetComponent<Image>().sprite;
+            m_GameManagerParejas.m_ImageZoomed.sprite = this.gameObject.GetComponent<Image>().sprite;
             m_GameManagerParejas.m_TextZoomed.text = nombre;
             //m_GameManagerParejas.m_TextZoomed.fontSize = SingletonLenguage.GetInstance().ConvertSizeDependWords(m_GameManagerParejas.m_TextZoomed.text);
             m_GameManagerParejas.m_TextZoomed.GetComponent<ConvertFont>().Convert();
@@ -201,7 +201,7 @@ public class Pairs : MonoBehaviour
             }
             m_GameManagerParejas.PairDone();
 
-            if(lastPair)
+            if (lastPair)
                 m_GameManagerParejas.planeImageWhenPair.gameObject.SetActive(true);
             else
                 m_GameManagerParejas.planeImageWhenPair.gameObject.SetActive(false);

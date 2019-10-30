@@ -84,7 +84,7 @@ public class Burbuja : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "DestroyBurbuja")
+        if (collision.tag == "DestroyBurbuja")
         {
             Destroy(gameObject);
         }
@@ -99,4 +99,3 @@ public class Burbuja : MonoBehaviour
         }
     }
 }
-

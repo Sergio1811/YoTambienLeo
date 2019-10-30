@@ -114,7 +114,7 @@ public class GameManagerBit : MonoBehaviour
     public void AddCountMiniGameBit()
     {
         GameManager.m_CurrentToMinigame[1]++;
-        if (GameManager.m_CurrentToMinigame[1] > 0)
+        if (GameManager.m_CurrentToMinigame[1] > 0 && m_Points.Length > GameManager.m_CurrentToMinigame[1] - 1)
             m_Points[GameManager.m_CurrentToMinigame[1] - 1].GetComponent<Image>().sprite = m_CompletedPoint;
     }
 

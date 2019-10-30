@@ -17,7 +17,6 @@ TagManager:
   - GameManagerPuzzle
   - Gusano
   - GMParejas
-  - BD
   layers:
   - Default
   - TransparentFX
